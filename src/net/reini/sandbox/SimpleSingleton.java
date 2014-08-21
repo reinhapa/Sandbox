@@ -9,6 +9,7 @@ import javax.inject.Inject;
 @Singleton
 @Startup
 public class SimpleSingleton {
+	@SpecialVersion
 	@Inject
 	Event<TestEvent> event;
 
