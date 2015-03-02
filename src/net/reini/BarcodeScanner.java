@@ -7,6 +7,7 @@ import java.util.Hashtable;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.WindowConstants;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamEvent;
@@ -16,7 +17,6 @@ import com.google.zxing.ChecksumException;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.FormatException;
 import com.google.zxing.LuminanceSource;
-import com.google.zxing.MultiFormatReader;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.Reader;
 import com.google.zxing.Result;
@@ -26,15 +26,15 @@ import com.google.zxing.oned.EAN13Reader;
 
 public class BarcodeScanner {
 	public static void main(String[] args) throws Exception {
+		for (Webcam webcam : Webcam.getWebcams()) {
+			System.out.println(webcam.getName());
+		}
+
 		ImageIcon imageIcon = new ImageIcon();
 		JLabel imageLabel = new JLabel(imageIcon);
-		JFrame testFrame = new JFrame("Test");
-		testFrame.add(imageLabel, BorderLayout.CENTER);
-		testFrame.setVisible(true);
-
 		Webcam webcam = Webcam.getDefault();
+		imageLabel.setPreferredSize(webcam.getViewSize());
 		webcam.addWebcamListener(new WebcamListener() {
-
 			@Override
 			public void webcamOpen(WebcamEvent we) {
 			}
@@ -54,7 +54,8 @@ public class BarcodeScanner {
 					Reader reader = new EAN13Reader();
 					Result result = reader.decode(bitmap, hints);
 					System.out.println(result.getText());
-				} catch (NotFoundException | ChecksumException | FormatException e) {
+				} catch (NotFoundException | ChecksumException
+						| FormatException e) {
 				}
 			}
 
@@ -67,5 +68,11 @@ public class BarcodeScanner {
 			}
 		});
 		webcam.open(true);
+
+		JFrame testFrame = new JFrame("Test");
+		testFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		testFrame.add(imageLabel, BorderLayout.CENTER);
+		testFrame.pack();
+		testFrame.setVisible(true);
 	}
 }
