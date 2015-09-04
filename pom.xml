@@ -36,6 +36,11 @@
 	</build>
 	<dependencies>
 		<dependency>
+			<groupId>com.airhacks</groupId>
+			<artifactId>afterburner.fx</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
@@ -44,6 +49,7 @@
 		<dependency>
 			<groupId>easymock</groupId>
 			<artifactId>easymock</artifactId>
+			<version>2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.sarxos</groupId>
@@ -60,16 +66,12 @@
 			<artifactId>javase</artifactId>
 			<version>3.2.0</version>
 		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>2.10.0</version>
+		</dependency>
 	</dependencies>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>easymock</groupId>
-				<artifactId>easymock</artifactId>
-				<version>2.0</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	<parent>
 		<groupId>net.reini</groupId>
 		<artifactId>net.reini</artifactId>
