@@ -15,29 +15,29 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/")
 public class TestServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Inject
-	@SpecialVersion
-	Functions functions;
+  @Inject
+  @SpecialVersion
+  Functions functions;
 
-	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		doOutput(response);
-	}
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    doOutput(response);
+  }
 
-	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		doOutput(response);
-	}
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    doOutput(response);
+  }
 
-	private void doOutput(HttpServletResponse response) throws IOException {
-		try (PrintWriter writer = response.getWriter()) {
-			writer.append("<html><body>");
-			functions.output(writer);
-			writer.println("</body></html>");
-		}
-	}
+  private void doOutput(HttpServletResponse response) throws IOException {
+    try (PrintWriter writer = response.getWriter()) {
+      writer.append("<html><body>");
+      functions.output(writer);
+      writer.println("</body></html>");
+    }
+  }
 }

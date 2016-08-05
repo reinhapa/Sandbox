@@ -8,8 +8,8 @@ import javax.ejb.Stateless;
 @SpecialVersion
 @Stateless
 public class FunctionsImpl2 implements Functions {
-	@Override
-	public void output(Writer writer) throws IOException {
-		writer.append(getClass().getName());
-	}
+  @Override
+  public void output(Writer writer) throws IOException {
+    writer.append(getClass().getName());
+  }
 }

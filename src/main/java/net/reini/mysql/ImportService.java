@@ -20,74 +20,75 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 final class ImportService extends Service<Boolean> {
-	private final StringProperty fileName;
-	private final StringProperty jdbcUrl;
-	private final StringProperty jdbcUser;
-	private final StringProperty jdbcPassword;
+  private final StringProperty fileName;
+  private final StringProperty jdbcUrl;
+  private final StringProperty jdbcUser;
+  private final StringProperty jdbcPassword;
 
-	ImportService() {
-		fileName = new SimpleStringProperty();
-		jdbcUrl = new SimpleStringProperty();
-		jdbcUser = new SimpleStringProperty();
-		jdbcPassword = new SimpleStringProperty();
-	}
+  ImportService() {
+    fileName = new SimpleStringProperty();
+    jdbcUrl = new SimpleStringProperty();
+    jdbcUser = new SimpleStringProperty();
+    jdbcPassword = new SimpleStringProperty();
+  }
 
-	StringProperty fileNameProperty() {
-		return fileName;
-	}
+  StringProperty fileNameProperty() {
+    return fileName;
+  }
 
-	StringProperty jdbcUrlProperty() {
-		return jdbcUrl;
-	}
+  StringProperty jdbcUrlProperty() {
+    return jdbcUrl;
+  }
 
-	StringProperty jdbcUserProperty() {
-		return jdbcUser;
-	}
+  StringProperty jdbcUserProperty() {
+    return jdbcUser;
+  }
 
-	StringProperty jdbcPasswordProperty() {
-		return jdbcPassword;
-	}
+  StringProperty jdbcPasswordProperty() {
+    return jdbcPassword;
+  }
 
-	@Override
-	protected Task<Boolean> createTask() {
-		return new ImportTask();
-	}
+  @Override
+  protected Task<Boolean> createTask() {
+    return new ImportTask();
+  }
 
-	final class ImportTask extends Task<Boolean> {
-		long max;
-		long work;
+  final class ImportTask extends Task<Boolean> {
+    long max;
+    long work;
 
-		@Override
-		protected Boolean call() throws Exception {
-			final Path sqlDumpFile = Paths.get(fileName.get());
-			max = size(sqlDumpFile);
-			try (InputStream in = newInputStream(sqlDumpFile);
-					BufferedReader br = new BufferedReader(new InputStreamReader(
-							new GZIPInputStream(new CountingInputStream(in, this::updateProgress)),
-							StandardCharsets.UTF_8));
-					Connection con = DriverManager.getConnection(jdbcUrl.get(), jdbcUser.get(), jdbcPassword.get());
-					Statement stmt = con.createStatement()) {
-				// set max_allowed_packet=1000000000
-				br.lines().filter(line -> !line.isEmpty() && !line.startsWith("--"))
-						.forEach(new ImportAction(stmt, this::processed));
-			} catch (Exception e) {
-				updateMessage("Import failed: " + e.getMessage());
-				return Boolean.FALSE;
-			}
-			return Boolean.TRUE;
-		}
+    @Override
+    protected Boolean call() throws Exception {
+      final Path sqlDumpFile = Paths.get(fileName.get());
+      max = size(sqlDumpFile);
+      try (InputStream in = newInputStream(sqlDumpFile);
+          BufferedReader br = new BufferedReader(new InputStreamReader(
+              new GZIPInputStream(new CountingInputStream(in, this::updateProgress)),
+              StandardCharsets.UTF_8));
+          Connection con =
+              DriverManager.getConnection(jdbcUrl.get(), jdbcUser.get(), jdbcPassword.get());
+          Statement stmt = con.createStatement()) {
+        // set max_allowed_packet=1000000000
+        br.lines().filter(line -> !line.isEmpty() && !line.startsWith("--"))
+            .forEach(new ImportAction(stmt, this::processed));
+      } catch (Exception e) {
+        updateMessage("Import failed: " + e.getMessage());
+        return Boolean.FALSE;
+      }
+      return Boolean.TRUE;
+    }
 
-		private void updateProgress(int read) {
-			work += read;
-			updateProgress(work, max);
-		}
+    private void updateProgress(int read) {
+      work += read;
+      updateProgress(work, max);
+    }
 
-		private void processed(int stmtNumber, String statement, Exception error) {
-			updateMessage("Processed statements: " + stmtNumber);
-			if (error != null) {
-				System.err.println("Unable to execute:\n" + statement);
-				error.printStackTrace();
-			}
-		}
-	}
+    private void processed(int stmtNumber, String statement, Exception error) {
+      updateMessage("Processed statements: " + stmtNumber);
+      if (error != null) {
+        System.err.println("Unable to execute:\n" + statement);
+        error.printStackTrace();
+      }
+    }
+  }
 }

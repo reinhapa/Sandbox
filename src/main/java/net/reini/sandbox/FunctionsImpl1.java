@@ -9,8 +9,8 @@ import javax.enterprise.inject.Default;
 @Default
 @Stateless
 public class FunctionsImpl1 implements Functions {
-	@Override
-	public void output(Writer writer) throws IOException {
-		writer.append(getClass().getName());
-	}
+  @Override
+  public void output(Writer writer) throws IOException {
+    writer.append(getClass().getName());
+  }
 }

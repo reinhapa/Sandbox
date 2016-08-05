@@ -28,9 +28,11 @@ dependencies {
     compile 'com.github.sarxos:webcam-capture:0.+'
     compile 'com.google.zxing:core:3.+'
     compile 'com.google.zxing:javase:3.+'
-    compile 'net.sf.ehcache:ehcache:2.+'
     compile 'com.zanox.lib.rabbiteasy:rabbiteasy-cdi:1.+'
     compile 'javax:javaee-api:7.0'
+    compile 'javax.cache:cache-api:1.+'
+    compile 'net.sf.ehcache:ehcache:2.+'
+    compile 'org.ehcache:ehcache:3.+'
     compile 'org.eclipse.jgit:org.eclipse.jgit:4.+'
 
     testCompile 'easymock:easymock:2.+'

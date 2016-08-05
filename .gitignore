@@ -2,6 +2,7 @@
 .project
 .classpath
 .gradle
+bin
 build
 target
 .DS_Store

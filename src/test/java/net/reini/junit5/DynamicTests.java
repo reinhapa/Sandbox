@@ -19,13 +19,13 @@ import org.junit.jupiter.api.TestFactory;
  */
 public class DynamicTests {
 
-	@TestFactory
-	List<DynamicTest> dynamicTests() {
-		return Arrays.asList(dynamicTest("dynamicTestOne", DynamicTests::noOp),
-				dynamicTest("dynamicTestTwo", DynamicTests::noOp));
-	}
+  @TestFactory
+  List<DynamicTest> dynamicTests() {
+    return Arrays.asList(dynamicTest("dynamicTestOne", DynamicTests::noOp),
+        dynamicTest("dynamicTestTwo", DynamicTests::noOp));
+  }
 
-	static void noOp() {
-		System.out.println("dynamic test");
-	}
+  static void noOp() {
+    System.out.println("dynamic test");
+  }
 }

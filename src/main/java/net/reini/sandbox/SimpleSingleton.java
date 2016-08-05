@@ -9,12 +9,12 @@ import javax.inject.Inject;
 @Singleton
 @Startup
 public class SimpleSingleton {
-	@SpecialVersion
-	@Inject
-	Event<TestEvent> event;
+  @SpecialVersion
+  @Inject
+  Event<TestEvent> event;
 
-	@Schedule(persistent = false, second = "*/5", minute = "*", hour = "*")
-	public void timer() {
-		event.fire(new TestEvent());
-	}
+  @Schedule(persistent = false, second = "*/5", minute = "*", hour = "*")
+  public void timer() {
+    event.fire(new TestEvent());
+  }
 }

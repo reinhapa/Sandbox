@@ -6,30 +6,30 @@ import java.io.InputStream;
 import java.util.function.IntConsumer;
 
 final class CountingInputStream extends FilterInputStream {
-	private final CalculationFunction readBytesFunction;
+  private final CalculationFunction readBytesFunction;
 
-	protected CountingInputStream(InputStream in, IntConsumer readConsumer) {
-		super(in);
-		readBytesFunction = read -> {
-			if (read > 0) {
-				readConsumer.accept(read);
-			}
-			return read;
-		};
-	}
+  protected CountingInputStream(InputStream in, IntConsumer readConsumer) {
+    super(in);
+    readBytesFunction = read -> {
+      if (read > 0) {
+        readConsumer.accept(read);
+      }
+      return read;
+    };
+  }
 
-	@Override
-	public int read() throws IOException {
-		return readBytesFunction.apply(super.read());
-	}
+  @Override
+  public int read() throws IOException {
+    return readBytesFunction.apply(super.read());
+  }
 
-	@Override
-	public int read(byte[] b, int off, int len) throws IOException {
-		return readBytesFunction.apply(super.read(b, off, len));
-	}
+  @Override
+  public int read(byte[] b, int off, int len) throws IOException {
+    return readBytesFunction.apply(super.read(b, off, len));
+  }
 
-	@FunctionalInterface
-	interface CalculationFunction {
-		int apply(int value);
-	}
+  @FunctionalInterface
+  interface CalculationFunction {
+    int apply(int value);
+  }
 }

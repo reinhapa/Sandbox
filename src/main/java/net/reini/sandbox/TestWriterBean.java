@@ -76,8 +76,7 @@ public class TestWriterBean {
     }
 
     @Override
-    public void beforeCompletion() {
-    }
+    public void beforeCompletion() {}
 
     @Override
     public void afterCompletion(int status) {
@@ -87,8 +86,7 @@ public class TestWriterBean {
     }
 
     @Override
-    public void notifyRemoveAll(Ehcache cache) {
-    }
+    public void notifyRemoveAll(Ehcache cache) {}
 
     @Override
     public void notifyElementUpdated(Ehcache cache, Element element) throws CacheException {
@@ -96,8 +94,7 @@ public class TestWriterBean {
     }
 
     @Override
-    public void notifyElementRemoved(Ehcache cache, Element element) throws CacheException {
-    }
+    public void notifyElementRemoved(Ehcache cache, Element element) throws CacheException {}
 
     @Override
     public void notifyElementPut(Ehcache cache, Element element) throws CacheException {
@@ -116,16 +113,13 @@ public class TestWriterBean {
     }
 
     @Override
-    public void notifyElementExpired(Ehcache cache, Element element) {
-    }
+    public void notifyElementExpired(Ehcache cache, Element element) {}
 
     @Override
-    public void notifyElementEvicted(Ehcache cache, Element element) {
-    }
+    public void notifyElementEvicted(Ehcache cache, Element element) {}
 
     @Override
-    public void dispose() {
-    }
+    public void dispose() {}
 
     @Override
     public Object clone() throws CloneNotSupportedException {
