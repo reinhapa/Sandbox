@@ -1,0 +1,29 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'net.reini'
+version = '0.0.1-SNAPSHOT'
+
+description = "Sandbox project for pure testing purposes"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compile 'com.airhacks:afterburner.fx:1.+'
+    compile 'com.github.sarxos:webcam-capture:0.+'
+    compile 'com.google.zxing:core:3.+'
+    compile 'com.google.zxing:javase:3.+'
+    compile 'net.sf.ehcache:ehcache:2.+'
+    compile 'com.zanox.lib.rabbiteasy:rabbiteasy-cdi:1.+'
+    compile 'javax:javaee-api:7.0'
+    compile 'org.eclipse.jgit:org.eclipse.jgit:4.+'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'easymock:easymock:2.+'
+    testCompile 'org.jmockit:jmockit:1.23'
+}
