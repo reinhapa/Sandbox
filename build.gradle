@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M2'
+    }
+}
+
+apply plugin: 'org.junit.platform.gradle.plugin'
 apply plugin: 'java'
 apply plugin: 'maven'
 
@@ -23,7 +33,12 @@ dependencies {
     compile 'javax:javaee-api:7.0'
     compile 'org.eclipse.jgit:org.eclipse.jgit:4.+'
 
-    testCompile 'junit:junit:4.12'
     testCompile 'easymock:easymock:2.+'
     testCompile 'org.jmockit:jmockit:1.23'
+
+    testCompile 'junit:junit:4.+'
+    testRuntime("org.junit.vintage:junit-vintage-engine:4.+")
+
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.+")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.+")
 }
