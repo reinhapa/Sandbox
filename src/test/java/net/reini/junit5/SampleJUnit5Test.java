@@ -20,6 +20,11 @@ import net.reini.Context;
 public class SampleJUnit5Test {
 
 	@BeforeEach
+	public void setUpWithParam(Context context) throws Exception {
+		System.out.println("before junit 5 test method with parameter:" + context);
+	}
+
+	@BeforeEach
 	public void setUp() throws Exception {
 		System.out.println("before junit 5 test method");
 	}
