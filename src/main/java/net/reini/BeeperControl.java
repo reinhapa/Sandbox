@@ -20,23 +20,17 @@ class BeeperControl {
 	}
 
 	public void beepForAnHour() throws Exception {
-		final Runnable beeper = new Runnable() {
-			@Override
-			public void run() {
-				System.out.println("beep");
-			}
-		};
+		final Runnable beeper = () -> System.out.println("beep");
+
 		final ScheduledFuture<?> beeperHandle = scheduler.scheduleAtFixedRate(beeper, 10, 10, SECONDS);
-		scheduler.schedule(new Runnable() {
-			@Override
-			public void run() {
-				beeperHandle.cancel(true);
-			}
+
+		scheduler.schedule(() -> {
+			beeperHandle.cancel(true);
 		}, 1, HOURS);
 
 		TimeUnit.SECONDS.sleep(30);
-		
-		System.out.println("cancel beeper "+beeperHandle.cancel(true));
+
+		System.out.println("cancel beeper " + beeperHandle.cancel(true));
 		System.out.println("beeper canceled " + beeperHandle.isCancelled());
 		System.out.println("beeper done " + beeperHandle.isDone());
 		TimeUnit.SECONDS.sleep(10);
