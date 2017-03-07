@@ -1,9 +1,9 @@
 buildscript {
     repositories {
-    	jcenter()
+        jcenter()
     }
     dependencies {
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M2'
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.+'
     }
 }
 
@@ -23,6 +23,12 @@ repositories {
     jcenter()
 }
 
+configurations {
+    cucumberRuntime {
+        extendsFrom testRuntime
+    }
+}
+
 dependencies {
     compile 'com.airhacks:afterburner.fx:1.+'
     compile 'com.github.sarxos:webcam-capture:0.+'
@@ -36,6 +42,9 @@ dependencies {
     compile 'org.eclipse.jgit:org.eclipse.jgit:4.+'
     compile 'org.glassfish.jersey.core:jersey-client:2+'
 
+    testCompile 'info.cukes:cucumber-java:1.2.5'
+    testCompile 'info.cukes:cucumber-junit:1.2.5'
+    testCompile 'info.cukes:cucumber-java8:1.2.5'
     testCompile 'easymock:easymock:2.+'
     testCompile 'org.jmockit:jmockit:1.23'
 
@@ -44,4 +53,15 @@ dependencies {
 
     testCompile("org.junit.jupiter:junit-jupiter-api:5.+")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.+")
+}
+
+task cucumber() {
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "cucumber.api.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', 'gradle.cucumber', 'src/test/resources']
+        }
+    }
 }
