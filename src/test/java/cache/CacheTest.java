@@ -1,30 +1,26 @@
 package cache;
 
-import java.util.Arrays;
-import java.util.List;
+import java.net.URI;
 
 import javax.cache.Cache;
 import javax.cache.CacheManager;
 import javax.cache.Caching;
-import javax.cache.configuration.Configuration;
-import javax.cache.configuration.MutableConfiguration;
 import javax.cache.spi.CachingProvider;
 
 import org.junit.Test;
 
 public class CacheTest {
   @Test
-  public void testDummy() {
-    Configuration<String, List<String>> configuration = new MutableConfiguration<>();
+  public void testCache() throws Exception {
+    URI uri = getClass().getResource("CacheTest.xml").toURI();
     try (CachingProvider provider = Caching.getCachingProvider();
-        CacheManager manager = provider.getCacheManager();
-        Cache<String, List<String>> cache = manager.createCache("test", configuration)) {
-
-      System.out.println(cache.get("key"));
-
-      cache.put("key", Arrays.asList("a", "b", "c"));
-
-      System.out.println(cache.get("key"));
+        CacheManager manager = provider.getCacheManager(uri, getClass().getClassLoader());
+        Cache<Long, String> cache = manager.getCache("testcache", Long.class, String.class)) {
+      System.out.println(manager);
+      Long key = Long.valueOf(10);
+      System.out.println(cache.get(key));
+      cache.put(key, "the10");
+      System.out.println(cache.get(key));
     }
   }
 }

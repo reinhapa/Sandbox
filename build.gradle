@@ -34,7 +34,6 @@ dependencies {
     compile 'com.github.sarxos:webcam-capture:0.+'
     compile 'com.google.zxing:core:3.+'
     compile 'com.google.zxing:javase:3.+'
-    compile 'com.zanox.lib.rabbiteasy:rabbiteasy-cdi:1.+'
     compile 'javax:javaee-api:7.0'
     compile 'javax.cache:cache-api:1.+'
     compile 'net.sf.ehcache:ehcache:2.+'
@@ -53,6 +52,8 @@ dependencies {
 
     testCompile("org.junit.jupiter:junit-jupiter-api:5.+")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.+")
+
+    testRuntime('ch.qos.logback:logback-classic:1.+')
 }
 
 task cucumber() {
