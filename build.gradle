@@ -24,12 +24,6 @@ repositories {
     mavenLocal()
 }
 
-configurations {
-    cucumberRuntime {
-        extendsFrom testRuntime
-    }
-}
-
 dependencies {
     compile 'com.airhacks:afterburner.fx:1.+'
     compile 'com.github.sarxos:webcam-capture:0.+'
@@ -48,8 +42,16 @@ dependencies {
     testCompile 'junit:junit:4.+'
     testRuntime("org.junit.vintage:junit-vintage-engine:4.+")
 
+    testCompile("org.junit.platform:junit-platform-runner:1.+")
     testCompile("org.junit.jupiter:junit-jupiter-api:5.+")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.+")
 
     testRuntime('ch.qos.logback:logback-classic:1.+')
+}
+
+
+test {
+    testLogging {
+        events 'started', 'passed'
+    }
 }

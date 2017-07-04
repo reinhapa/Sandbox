@@ -11,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
-import org.junit.jupiter.api.extension.TestExtensionContext;
 
 import net.reini.Context;
 
@@ -19,22 +18,22 @@ public class TestExtension implements ParameterResolver, AfterEachCallback {
   private TestContext testContext;
 
   @Override
-  public boolean supports(ParameterContext parameterContext, ExtensionContext extensionContext)
-      throws ParameterResolutionException {
+  public boolean supportsParameter(ParameterContext parameterContext,
+      ExtensionContext extensionContext) throws ParameterResolutionException {
     return parameterContext.getParameter().getType() == Context.class;
   }
 
   @Override
-  public Object resolve(ParameterContext parameterContext, ExtensionContext extensionContext)
-      throws ParameterResolutionException {
+  public Object resolveParameter(ParameterContext parameterContext,
+      ExtensionContext extensionContext) throws ParameterResolutionException {
     if (testContext == null) {
       testContext = new TestContext();
     }
     return testContext;
   }
-
+  
   @Override
-  public void afterEach(TestExtensionContext context) throws Exception {
+  public void afterEach(ExtensionContext context) throws Exception {
     if (testContext != null) {
       testContext.cleanUp();
       testContext = null;
