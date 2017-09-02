@@ -10,24 +10,24 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.cache.Cache;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.inject.Inject;
 import javax.transaction.Status;
 import javax.transaction.Synchronization;
 import javax.transaction.TransactionSynchronizationRegistry;
 
+import org.slf4j.LoggerFactory;
+
 import net.sf.ehcache.CacheException;
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.event.CacheEventListener;
-
-import org.slf4j.LoggerFactory;
 
 /**
  * TD2:patrick.reinhart Auto-generated comment for class
@@ -39,26 +39,16 @@ import org.slf4j.LoggerFactory;
 public class TestWriterBean {
   private static AtomicInteger counter = new AtomicInteger();
 
-  private Ehcache cache;
+  @Inject
+  private Cache<String,Integer> cache;
 
   @Resource
   TransactionSynchronizationRegistry reg;
 
-  public TestWriterBean() {
-    cache = CacheManager.getInstance().getEhcache("TxTest");
-  }
-
-  @PostConstruct
-  public void init() {
-    cache.getCacheEventNotificationService().registerListener(new Replication(reg));
-  }
-
   @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
   @Schedule(second = "*/5", minute = "*", hour = "*", persistent = false)
   public void test() {
-    Element element = new Element("key", Integer.toString(counter.incrementAndGet()));
-    LoggerFactory.getLogger(getClass()).info("adding value {} to cache", element.getObjectValue());
-    cache.put(element);
+    cache.put("key", Integer.valueOf(counter.incrementAndGet()));
     try {
       Thread.sleep(2000);
     } catch (InterruptedException e) {
