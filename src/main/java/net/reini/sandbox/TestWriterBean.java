@@ -10,13 +10,18 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.cache.Cache;
+import javax.cache.CacheManager;
+import javax.cache.Caching;
+import javax.cache.configuration.MutableConfiguration;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.transaction.Status;
 import javax.transaction.Synchronization;
@@ -30,7 +35,7 @@ import net.sf.ehcache.Element;
 import net.sf.ehcache.event.CacheEventListener;
 
 /**
- * TD2:patrick.reinhart Auto-generated comment for class
+ * My simple test bean
  *
  * @author patrick.reinhart
  */
@@ -39,16 +44,26 @@ import net.sf.ehcache.event.CacheEventListener;
 public class TestWriterBean {
   private static AtomicInteger counter = new AtomicInteger();
 
-  @Inject
   private Cache<String,Integer> cache;
+
+  @Inject
+  Event<ValueEvent> eventSink;
 
   @Resource
   TransactionSynchronizationRegistry reg;
 
+  @PostConstruct
+  public void init() {
+    CacheManager manager = Caching.getCachingProvider().getCacheManager();
+    cache = manager.createCache("test", new MutableConfiguration<>());
+  }
+
   @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
   @Schedule(second = "*/5", minute = "*", hour = "*", persistent = false)
   public void test() {
-    cache.put("key", Integer.valueOf(counter.incrementAndGet()));
+    int counterValue = counter.incrementAndGet();
+    cache.put("key", Integer.valueOf(counterValue));
+    eventSink.fire(ValueEvent.create(String.valueOf(counterValue)));
     try {
       Thread.sleep(2000);
     } catch (InterruptedException e) {
