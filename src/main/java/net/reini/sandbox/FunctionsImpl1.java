@@ -1,3 +1,4 @@
+
 package net.reini.sandbox;
 
 import java.io.IOException;
@@ -17,5 +18,10 @@ public class FunctionsImpl1 implements Functions {
 	@Override
 	public void output(Writer writer) throws IOException {
 		writer.append(getClass().getName());
+	}
+
+	@Deprecated(since = "18.03", forRemoval = true)
+	public void toBeRemoved() {
+		// no action anymore
 	}
 }
