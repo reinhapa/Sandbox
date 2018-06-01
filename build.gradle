@@ -18,8 +18,8 @@ version = '0.0.1-SNAPSHOT'
 
 description = "Sandbox project for pure testing purposes"
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = '9'
+targetCompatibility = '9'
 
 repositories {
     jcenter()
@@ -43,6 +43,8 @@ dependencies {
     runtimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:1.12'
 
     testImplementation 'easymock:easymock:2.+'
+    testImplementation 'org.mockito:mockito-core:2.+'
+    testImplementation 'org.mockito:mockito-junit-jupiter:2.+'
     testImplementation 'org.jmockit:jmockit:1.23'
     testImplementation 'junit:junit:4.+'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.+'
