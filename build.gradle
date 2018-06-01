@@ -18,8 +18,8 @@ version = '0.0.1-SNAPSHOT'
 
 description = "Sandbox project for pure testing purposes"
 
-sourceCompatibility = '9'
-targetCompatibility = '9'
+sourceCompatibility = '10'
+targetCompatibility = '10'
 
 repositories {
     jcenter()
