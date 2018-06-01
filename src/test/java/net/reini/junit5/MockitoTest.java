@@ -7,6 +7,7 @@
 package net.reini.junit5;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
@@ -61,7 +62,7 @@ public class MockitoTest {
     try {
       out.write("gugus".getBytes());
     } catch (IOException e) {
-      e.printStackTrace();
+      fail(e);
     }
     return true;
   }
