@@ -9,9 +9,12 @@ package net.reini.junit4;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
 
 public class SampleJUnit4Test {
+  @Rule
+  public MyRule rule = new MyRule();
 
   @Before
   public void setUp() throws Exception {
