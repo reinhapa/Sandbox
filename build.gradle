@@ -1,17 +1,17 @@
 plugins {
   id 'java-library'
-  id 'maven'
   id 'war'
   id 'eclipse-wtp'
+  id 'com.google.osdetector' version '1.6.0'
 }
 
 group = 'net.reini'
 version = '0.0.1-SNAPSHOT'
-
 description = "Sandbox project for pure testing purposes"
+ext.platform = osdetector.os == 'osx' ? 'mac' : osdetector.os == 'windows' ? 'win' : osdetector.os
 
-sourceCompatibility = '10'
-targetCompatibility = '10'
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 repositories {
     jcenter()
@@ -29,7 +29,13 @@ dependencies {
     implementation 'org.eclipse.jgit:org.eclipse.jgit:4.+'
     implementation 'org.glassfish.jersey.core:jersey-client:2+'
 
-    compileOnly 'javax:javaee-api:7.0'
+    // javaFX
+    compileOnly "org.openjfx:javafx-base:11:$platform"
+    compileOnly "org.openjfx:javafx-graphics:11:$platform"
+    compileOnly "org.openjfx:javafx-fxml:11:$platform"
+    compileOnly "org.openjfx:javafx-controls:11:$platform"
+    
+    compileOnly 'javax:javaee-api:8.0'
     // websocket
     compileOnly 'javax.websocket:javax.websocket-client-api:1.1'
     runtimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:1.12'
@@ -50,6 +56,14 @@ dependencies {
     testRuntimeOnly 'ch.qos.logback:logback-classic:1.+'
 }
 
+compileJava {
+    doFirst {
+        options.compilerArgs = [
+                '--module-path', classpath.asPath,
+                '--add-modules', 'javafx.controls,javafx.fxml'
+        ]
+    }
+}
 
 test {
     useJUnitPlatform()
