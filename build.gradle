@@ -35,10 +35,10 @@ dependencies {
     implementation 'com.sun.xml.bind:jaxb-impl:2.3.1'
 
     // javaFX
-    compileOnly "org.openjfx:javafx-base:11:$platform"
-    compileOnly "org.openjfx:javafx-graphics:11:$platform"
-    compileOnly "org.openjfx:javafx-fxml:11:$platform"
-    compileOnly "org.openjfx:javafx-controls:11:$platform"
+    compileOnly "org.openjfx:javafx-base:11.+:$platform"
+    compileOnly "org.openjfx:javafx-graphics:11.+:$platform"
+    compileOnly "org.openjfx:javafx-fxml:11.+:$platform"
+    compileOnly "org.openjfx:javafx-controls:11.+:$platform"
     
     compileOnly 'javax:javaee-api:8.0'
     // websocket
