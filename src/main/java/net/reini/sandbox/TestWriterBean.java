@@ -6,6 +6,7 @@
 
 package net.reini.sandbox;
 
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -15,7 +16,10 @@ import javax.annotation.Resource;
 import javax.cache.Cache;
 import javax.cache.CacheManager;
 import javax.cache.Caching;
+import javax.cache.configuration.CacheEntryListenerConfiguration;
+import javax.cache.configuration.Factory;
 import javax.cache.configuration.MutableConfiguration;
+import javax.cache.event.*;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -29,10 +33,6 @@ import javax.transaction.TransactionSynchronizationRegistry;
 
 import org.slf4j.LoggerFactory;
 
-import net.sf.ehcache.CacheException;
-import net.sf.ehcache.Ehcache;
-import net.sf.ehcache.Element;
-import net.sf.ehcache.event.CacheEventListener;
 
 /**
  * My simple test bean
@@ -62,6 +62,7 @@ public class TestWriterBean {
   @Schedule(second = "*/5", minute = "*", hour = "*", persistent = false)
   public void test() {
     int counterValue = counter.incrementAndGet();
+    cache.registerCacheEntryListener(new TestCacheEntryListenerConfiguration<>());
     cache.put("key", Integer.valueOf(counterValue));
     eventSink.fire(ValueEvent.create(String.valueOf(counterValue)));
     try {
@@ -72,63 +73,41 @@ public class TestWriterBean {
     LoggerFactory.getLogger(getClass()).info("done");
   }
 
-  static class Replication implements CacheEventListener, Synchronization {
-    private final TransactionSynchronizationRegistry _reg;
-    private Set<Element> values;
+  static class TestCacheEntryListenerConfiguration<K, V>  implements CacheEntryListenerConfiguration<K, V> {
+    private static final EnumSet<EventType> ACTIVE_EVENTS = EnumSet.of(EventType.UPDATED, EventType.REMOVED);
 
-    Replication(TransactionSynchronizationRegistry reg) {
-      _reg = reg;
+    @Override
+    public Factory<CacheEntryEventFilter<? super K, ? super V>> getCacheEntryEventFilterFactory() {
+      return () -> event -> {
+        return ACTIVE_EVENTS.contains(event.getEventType());
+      };
     }
 
     @Override
-    public void beforeCompletion() {}
-
-    @Override
-    public void afterCompletion(int status) {
-      if (status == Status.STATUS_COMMITTED) {
-        LoggerFactory.getLogger(getClass()).info("putting value {} to cache", values);
-      }
+    public Factory<CacheEntryListener<? super K, ? super V>> getCacheEntryListenerFactory() {
+      return null;
     }
 
     @Override
-    public void notifyRemoveAll(Ehcache cache) {}
-
-    @Override
-    public void notifyElementUpdated(Ehcache cache, Element element) throws CacheException {
-      notify(element);
+    public boolean isOldValueRequired() {
+      return false;
     }
 
     @Override
-    public void notifyElementRemoved(Ehcache cache, Element element) throws CacheException {}
-
-    @Override
-    public void notifyElementPut(Ehcache cache, Element element) throws CacheException {
-      notify(element);
+    public boolean isSynchronous() {
+      return false;
     }
+  }
 
-    /**
-     * @param element
-     */
-    protected void notify(Element element) {
-      if (values == null) {
-        values = new HashSet<>();
-        _reg.registerInterposedSynchronization(this);
-      }
-      values.add(element);
+  static class EventListener<K, V> implements CacheEntryRemovedListener<K, V>, CacheEntryUpdatedListener<K, V> {
+    @Override
+    public void onRemoved(Iterable<CacheEntryEvent<? extends K, ? extends V>> cacheEntryEvents) throws CacheEntryListenerException {
+      cacheEntryEvents.forEach(System.out::println);
     }
 
     @Override
-    public void notifyElementExpired(Ehcache cache, Element element) {}
-
-    @Override
-    public void notifyElementEvicted(Ehcache cache, Element element) {}
-
-    @Override
-    public void dispose() {}
-
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-      return super.clone();
+    public void onUpdated(Iterable<CacheEntryEvent<? extends K, ? extends V>> cacheEntryEvents) throws CacheEntryListenerException {
+      cacheEntryEvents.forEach(System.out::println);
     }
   }
 }

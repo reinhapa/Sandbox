@@ -24,10 +24,15 @@ dependencies {
     implementation 'com.google.zxing:core:3.+'
     implementation 'com.google.zxing:javase:3.+'
     implementation 'javax.cache:cache-api:1.+'
-    implementation 'net.sf.ehcache:ehcache:2.+'
     implementation 'org.ehcache:ehcache:3.+'
     implementation 'org.eclipse.jgit:org.eclipse.jgit:4.+'
     implementation 'org.glassfish.jersey.core:jersey-client:2+'
+    implementation 'org.bouncycastle:bcprov-jdk14:1.60'
+
+    implementation "javax.activation:activation:1.1.1"
+    implementation "javax.xml.bind:jaxb-api:2.3.0"
+    implementation "com.sun.xml.bind:jaxb-core:2.3.0.1"
+    implementation "com.sun.xml.bind:jaxb-impl:2.3.0.1"
 
     // javaFX
     compileOnly "org.openjfx:javafx-base:11:$platform"
@@ -43,7 +48,7 @@ dependencies {
     testImplementation 'easymock:easymock:2.+'
     testImplementation 'org.mockito:mockito-core:2.+'
     testImplementation 'org.mockito:mockito-junit-jupiter:2.+'
-    testImplementation 'org.jmockit:jmockit:1.23'
+    testImplementation 'org.jmockit:jmockit:1.43'
     testImplementation 'junit:junit:4.+'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.+'
     testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:5.+'
@@ -68,6 +73,6 @@ compileJava {
 test {
     useJUnitPlatform()
     testLogging {
-        events 'started', 'passed'
+        events 'skipped'
     }
 }
