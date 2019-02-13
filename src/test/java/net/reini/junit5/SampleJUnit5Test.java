@@ -8,12 +8,15 @@ package net.reini.junit5;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.nio.file.Path;
+
 import org.junit.Rule;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.migrationsupport.rules.EnableRuleMigrationSupport;
 
 import net.reini.Context;
@@ -46,8 +49,8 @@ public class SampleJUnit5Test {
   }
 
   @Test
-  public void testTwo() {
-    System.out.println("junit 5 test method two");
+  public void testTwo(@TempDir Path tempDirectory) {
+    System.out.println("junit 5 test method two using a temporary directory " + tempDirectory);
   }
 
   @Test
