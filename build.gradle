@@ -2,7 +2,8 @@ plugins {
   id 'java-library'
   id 'war'
   id 'eclipse-wtp'
-  id 'com.google.osdetector' version '1.6.0'
+  id 'com.google.osdetector' version '1.6.1'
+  id 'org.owasp.dependencycheck' version '4.0.2'
 }
 
 group = 'net.reini'
@@ -40,7 +41,8 @@ dependencies {
     compileOnly "org.openjfx:javafx-fxml:11.+:$platform"
     compileOnly "org.openjfx:javafx-controls:11.+:$platform"
     
-    compileOnly 'javax:javaee-api:8.0'
+    compileOnly 'javax:javaee-api:8.+'
+
     // websocket
     compileOnly 'javax.websocket:javax.websocket-client-api:1.1'
     runtimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:1.12'
