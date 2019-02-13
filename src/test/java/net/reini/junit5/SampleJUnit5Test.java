@@ -7,13 +7,20 @@
 package net.reini.junit5;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.IOException;
 import java.nio.file.Path;
 
 import org.junit.Rule;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
@@ -28,38 +35,63 @@ public class SampleJUnit5Test {
   @Rule
   public MyRule rule = new MyRule();
 
+  @TempDir
+  Path tempFolder;
+
+  @BeforeAll
+  static void setUpForClass() {
+    System.err.println("before class");
+  }
+
   @BeforeEach
-  public void setUpWithParam(Context context) throws Exception {
+  void setUpWithParam(Context context) throws Exception {
     System.out.println("before junit 5 test method with parameter:" + context);
   }
 
   @BeforeEach
-  public void setUp() throws Exception {
+  void setUp() throws Exception {
     System.out.println("before junit 5 test method");
   }
 
   @AfterEach
-  public void tearDown() throws Exception {
+  void tearDown() throws Exception {
     System.out.println("after junit 5 test method");
   }
 
+  @AfterAll
+  static void tearDownClass() {
+    System.out.println("after class");
+  }
+
   @Test
-  public void testOne() {
+  @DisplayName("test(Sting) argument null")
+  void testOne() {
     System.out.println("junit 5 test method one");
   }
 
   @Test
-  public void testTwo(@TempDir Path tempDirectory) {
+  void testTwo(@TempDir Path tempDirectory) {
     System.out.println("junit 5 test method two using a temporary directory " + tempDirectory);
   }
 
   @Test
-  public void testWithParam(Context context) {
+  void testWithParam(Context context) {
     assertNotNull(context);
     System.out.println("junit 5 test method with parameter: " + context);
   }
 
   @Test
   @Disabled("disabled test for demonstration reason")
-  public void ignoredTest() {}
+  void ignoredTest() {}
+
+  @Nested
+  class SubTest {
+    @Test
+    void testForSubmethods() {
+      IOException tested = assertThrows(IOException.class, () -> {
+        throw new IOException("some error");
+      });
+      assertEquals("some error", tested.getMessage());
+    }
+  }
 }

@@ -7,14 +7,24 @@
 package net.reini.junit4;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 public class SampleJUnit4Test {
   @Rule
   public MyRule rule = new MyRule();
+  @Rule
+  public TemporaryFolder tempFolder = new TemporaryFolder();
+
+  @BeforeClass
+  public static void setUpForClass() {
+    System.err.println("before class");
+  }
 
   @Before
   public void setUp() throws Exception {
@@ -24,6 +34,11 @@ public class SampleJUnit4Test {
   @After
   public void tearDown() throws Exception {
     System.out.println("after junit 4 test method");
+  }
+
+  @AfterClass
+  public static void tearDownClass() {
+    System.out.println("after class");
   }
 
   @Test
