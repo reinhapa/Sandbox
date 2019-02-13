@@ -6,7 +6,8 @@
 
 package net.reini.ws;
 
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.net.URI;
@@ -16,7 +17,9 @@ import javax.websocket.DeploymentException;
 import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+
 
 /**
  * Websocket integration test.
@@ -25,21 +28,25 @@ import org.junit.Test;
  */
 public class WebsocketClientTest {
 
+  @DisabledIfEnvironmentVariable(named = "TRAVIS", matches = "true")
   @Test
   public void testNonSSL() throws DeploymentException, IOException {
     WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-    Session session = container.connectToServer(new WebsocketClient(), URI.create("ws://echo.websocket.org/"));
-    assertTrue(session.isOpen());
-    session.getBasicRemote().sendText("hallo");
-    session.close();
+    try (Session session =
+        container.connectToServer(new WebsocketClient(), URI.create("ws://echo.websocket.org/"))) {
+      assertTrue(session.isOpen());
+      session.getBasicRemote().sendText("hallo");
+    }
   }
 
+  @DisabledIfEnvironmentVariable(named = "TRAVIS", matches = "true")
   @Test
   public void testSSLconnect() throws DeploymentException, IOException {
     WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-    Session session = container.connectToServer(new WebsocketClient(), URI.create("wss://echo.websocket.org/"));
-    assertTrue(session.isOpen());
-    session.getBasicRemote().sendText("hallo");
-    session.close();
+    try (Session session =
+        container.connectToServer(new WebsocketClient(), URI.create("wss://echo.websocket.org/"))) {
+      assertTrue(session.isOpen());
+      session.getBasicRemote().sendText("hallo");
+    }
   }
 }
