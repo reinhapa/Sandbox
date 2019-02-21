@@ -1,7 +1,7 @@
-= Contains a set of sandbox classes and tests to try out new stuff
-Patrick Reinhart <https://github.com/reinhapa[@reinhapa]>
 :project-full-path: reinhapa/Sandbox
 :github-branch: master
+= Contains a set of sandbox classes and tests to try out new stuff
+Patrick Reinhart <https://github.com/reinhapa[@reinhapa]>
 
 image:https://img.shields.io/badge/license-MIT-blue.svg["MIT License", link="https://github.com/{project-full-path}/blob/{github-branch}/LICENSE"]
 image:https://img.shields.io/badge/Java-10-blue.svg["Supported Versions", link="https://travis-ci.org/{project-full-path}"]
