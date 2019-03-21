@@ -34,6 +34,7 @@ dependencies {
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
     implementation 'com.sun.xml.bind:jaxb-core:2.3.0.1'
     implementation 'com.sun.xml.bind:jaxb-impl:2.3.1'
+    implementation 'org.jboss.weld.se:weld-se-core:3.1.0.Final'
 
     // javaFX
     compileOnly "org.openjfx:javafx-base:11.+:$platform"
@@ -45,7 +46,10 @@ dependencies {
 
     // websocket
     compileOnly 'javax.websocket:javax.websocket-client-api:1.1'
+
+    runtimeOnly 'org.jboss:jandex:2.1.1.Final'
     runtimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:1.12'
+    runtimeOnly 'net.reini:slf4j-cdi:1.0'
 
     testImplementation 'easymock:easymock:2.+'
     testImplementation 'org.mockito:mockito-core:2.+'
@@ -61,6 +65,7 @@ dependencies {
     testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.+'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.+'
     testRuntimeOnly 'ch.qos.logback:logback-classic:1.+'
+    testRuntimeOnly 'javax:javaee-api:8.+'
 }
 
 compileJava {
