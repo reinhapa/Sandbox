@@ -1,4 +1,4 @@
-package net.reini.cdi.se;
+package net.reini.cdi.se.extended;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -10,5 +10,6 @@ import javax.interceptor.InterceptorBinding;
 @InterceptorBinding
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface EjbTransactional {
+public @interface EjbAsynchronous {
+
 }

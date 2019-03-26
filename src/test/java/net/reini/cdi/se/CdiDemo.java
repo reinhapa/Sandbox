@@ -9,18 +9,20 @@ package net.reini.cdi.se;
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import net.reini.cdi.se.simple.ResourceExtension;
 
 public class CdiDemo {
 
-  @Disabled
+  // @Disabled
   @Test
   void testInjection() {
     SeContainerInitializer initializer = SeContainerInitializer.newInstance();
-    initializer.addExtensions(new EJBExtension());
+    initializer.addExtensions(new ResourceExtension());
+    // initializer.addExtensions(new EjbExtension());
     try (SeContainer container = initializer.initialize()) {
-      System.out.println(container.select(TestApplication.class).get().helloWorld());
+      System.err.println(container.select(TestApplication.class).get().helloWorld());
     }
   }
 

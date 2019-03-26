@@ -1,4 +1,4 @@
-package net.reini.cdi.se;
+package net.reini.cdi.se.extended;
 
 import javax.enterprise.inject.Default;
 import javax.enterprise.util.AnnotationLiteral;

@@ -1,4 +1,4 @@
-package net.reini.cdi.se;
+package net.reini.cdi.se.extended;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

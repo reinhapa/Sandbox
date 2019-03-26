@@ -4,7 +4,7 @@
  * Copyright (c) 2019 BISON Schweiz AG, All Rights Reserved.
  */
 
-package net.reini.cdi.se;
+package net.reini.cdi.se.extended;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -39,7 +39,6 @@ import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.enterprise.inject.spi.InjectionTarget;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
-import javax.enterprise.inject.spi.ProcessBean;
 import javax.enterprise.inject.spi.ProcessInjectionTarget;
 import javax.enterprise.inject.spi.ProcessManagedBean;
 import javax.enterprise.inject.spi.WithAnnotations;
@@ -53,23 +52,17 @@ import javax.persistence.PersistenceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EJBExtension implements Extension {
-  private static final Logger logger = LoggerFactory.getLogger(EJBExtension.class);
+public class EjbExtension implements Extension {
+  private static final Logger logger = LoggerFactory.getLogger(EjbExtension.class);
 
   private final Consumer<Class<?>> entityClasses;
   private final Consumer<Class<?>> timerClasses;
   private final Consumer<Class<?>> startupSingletons;
 
-  public EJBExtension() {
+  public EjbExtension() {
     entityClasses = System.out::println;
     timerClasses = System.out::println;
     startupSingletons = System.out::println;
-  }
-
-  public void observe(@Observes ProcessBean<?> bean) {
-    if (TestApplication.class.equals(bean.getBean().getBeanClass())) {
-      System.out.println(bean.getBean().getInjectionPoints());
-    }
   }
 
   public void processManagedBean(@Observes ProcessManagedBean<?> event) {

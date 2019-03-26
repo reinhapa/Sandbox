@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package net.reini.cdi.se;
+package net.reini.cdi.se.extended;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;

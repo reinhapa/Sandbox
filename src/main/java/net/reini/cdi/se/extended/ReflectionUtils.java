@@ -13,7 +13,7 @@
  * the License.
  */
 
-package net.reini.cdi.se;
+package net.reini.cdi.se.extended;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
