@@ -22,9 +22,11 @@ import javax.transaction.HeuristicRollbackException;
 import javax.transaction.InvalidTransactionException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
+import javax.transaction.Synchronization;
 import javax.transaction.SystemException;
 import javax.transaction.Transaction;
 import javax.transaction.TransactionManager;
+import javax.transaction.TransactionSynchronizationRegistry;
 
 @ApplicationScoped
 public class ResourceProvider {
@@ -141,4 +143,50 @@ public class ResourceProvider {
       }
     };
   }
+
+  @Default
+  @Produces
+  @ResourceQualifier
+  public TransactionSynchronizationRegistry provideTransactionSynchronizationRegistry(
+      InjectionPoint ip) {
+    return new TransactionSynchronizationRegistry() {
+      @Override
+      public void setRollbackOnly() {
+      }
+
+      @Override
+      public void registerInterposedSynchronization(Synchronization sync) {
+      }
+
+      @Override
+      public void putResource(Object key, Object value) {
+      }
+
+      @Override
+      public int getTransactionStatus() {
+        return 0;
+      }
+
+      @Override
+      public Object getTransactionKey() {
+        return null;
+      }
+
+      @Override
+      public boolean getRollbackOnly() {
+        return false;
+      }
+
+      @Override
+      public Object getResource(Object key) {
+        return null;
+      }
+
+      @Override
+      public String toString() {
+        return "MyTestTransactionSynchronizationRegistry";
+      }
+    };
+  }
+
 }

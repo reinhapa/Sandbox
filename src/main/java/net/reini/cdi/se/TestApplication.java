@@ -6,8 +6,10 @@
 
 package net.reini.cdi.se;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 import javax.transaction.TransactionManager;
@@ -15,7 +17,11 @@ import javax.transaction.TransactionManager;
 import org.slf4j.Logger;
 
 // @Stateless
-@Dependent
+// @Singleton
+@ApplicationScoped // geht
+// @Singleton // geht nicht
+// @Dependent // geht
+// @ManagedBean // geht nicht
 public class TestApplication {
   @Inject
   Logger logger;
@@ -28,6 +34,16 @@ public class TestApplication {
   @Resource
   public void setTransactionManager(TransactionManager transactionManager) {
     this.transactionManager = transactionManager;
+  }
+
+  @PostConstruct
+  public void postConstruct() {
+    logger.info("postConstruct()");
+  }
+
+  @PreDestroy
+  public void preDestroy() {
+    logger.info("preDestroy()");
   }
 
   public String helloWorld() {

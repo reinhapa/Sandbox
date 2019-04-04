@@ -6,23 +6,32 @@
 
 package net.reini.cdi.se;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
 
 import org.junit.jupiter.api.Test;
 
 import net.reini.cdi.se.simple.ResourceExtension;
+import net.reini.cdi.se.simple.StartupBean;
 
 public class CdiDemo {
 
-  // @Disabled
   @Test
-  void testInjection() {
+  void testInjection() throws InterruptedException {
     SeContainerInitializer initializer = SeContainerInitializer.newInstance();
-    initializer.addExtensions(new ResourceExtension());
+    List<StartupBean> startupBeans = new ArrayList<>();
+    initializer.addExtensions(new ResourceExtension(startupBeans::add));
     // initializer.addExtensions(new EjbExtension());
     try (SeContainer container = initializer.initialize()) {
+      // provoke initialization for startup beans
+      startupBeans.forEach(startupBean -> startupBean.start(container));
+      // invoke method on main application
       System.err.println(container.select(TestApplication.class).get().helloWorld());
+      TimeUnit.SECONDS.sleep(1);
     }
   }
 

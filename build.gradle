@@ -37,10 +37,10 @@ dependencies {
     implementation 'org.jboss.weld.se:weld-se-core:3.1.0.Final'
 
     // javaFX
-    compileOnly "org.openjfx:javafx-base:11.+:$platform"
-    compileOnly "org.openjfx:javafx-graphics:11.+:$platform"
-    compileOnly "org.openjfx:javafx-fxml:11.+:$platform"
-    compileOnly "org.openjfx:javafx-controls:11.+:$platform"
+    implementation "org.openjfx:javafx-base:11.+:$platform"
+    implementation "org.openjfx:javafx-graphics:11.+:$platform"
+    implementation "org.openjfx:javafx-fxml:11.+:$platform"
+    implementation "org.openjfx:javafx-controls:11.+:$platform"
     
     compileOnly 'javax:javaee-api:8.+'
 

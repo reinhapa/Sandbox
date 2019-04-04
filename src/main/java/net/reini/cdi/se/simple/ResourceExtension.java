@@ -7,13 +7,17 @@
 package net.reini.cdi.se.simple;
 
 import java.lang.annotation.Annotation;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.Bean;
@@ -22,8 +26,10 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
 import javax.enterprise.inject.spi.ProcessBean;
 import javax.enterprise.inject.spi.ProcessManagedBean;
+import javax.enterprise.inject.spi.ProcessSessionBean;
 import javax.enterprise.inject.spi.WithAnnotations;
 import javax.enterprise.inject.spi.configurator.AnnotatedTypeConfigurator;
+import javax.inject.Qualifier;
 import javax.jms.JMSConnectionFactory;
 import javax.persistence.PersistenceContext;
 
@@ -34,6 +40,12 @@ import net.reini.cdi.se.TestApplication;
 
 public class ResourceExtension implements Extension {
   private static final Logger logger = LoggerFactory.getLogger(ResourceExtension.class);
+
+  private final Consumer<StartupBean> startupBeans;
+
+  public ResourceExtension(Consumer<StartupBean> startupBeans) {
+    this.startupBeans = startupBeans;
+  }
 
   public <T> void processAnnotatedType(@Observes @WithAnnotations({Stateless.class, Stateful.class,
       Singleton.class, MessageDriven.class, EJB.class, Resource.class, PersistenceContext.class,
@@ -51,8 +63,22 @@ public class ResourceExtension implements Extension {
               .of(configurator.getAnnotated().getAnnotation(Resource.class)));
         });
 
-    AnnotatedType<T> annotatedType = pat.getAnnotatedType();
-    System.err.println("processAnnotatedType " + annotatedType.getFields());
+
+    AnnotatedType<T> annotated = configureAnnotatedType.getAnnotated();
+    if (annotated.isAnnotationPresent(Singleton.class)) {
+      configureAnnotatedType.add(ApplicationScoped.Literal.INSTANCE);
+    }
+
+    if (annotated.isAnnotationPresent(Startup.class)) {
+      startupBeans.accept(StartupBean.create(pat.getAnnotatedType().getJavaClass(),
+          annotated.getAnnotations().stream()
+              .filter(a -> a.annotationType().isAnnotationPresent(Qualifier.class))
+              .collect(Collectors.toList())));
+    }
+  }
+
+  public void processSessionBean(@Observes ProcessSessionBean<?> event) {
+    System.err.println(event.getEjbName());
   }
 
   public void processManagedBean(@Observes ProcessManagedBean<?> event) {
@@ -70,8 +96,7 @@ public class ResourceExtension implements Extension {
         sb.append(" ");
         sb.append(annotation);
       }
-      System.err.println("processManagedBean " + sb);
-      // logger.trace(sb.toString());
+      logger.trace(sb.toString());
     }
   }
 
