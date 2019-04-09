@@ -8,7 +8,6 @@ package net.reini.cdi.se;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
@@ -21,7 +20,7 @@ import net.reini.cdi.se.simple.StartupBean;
 public class CdiDemo {
 
   @Test
-  void testInjection() throws InterruptedException {
+  void testInjection() {
     SeContainerInitializer initializer = SeContainerInitializer.newInstance();
     List<StartupBean> startupBeans = new ArrayList<>();
     initializer.addExtensions(new ResourceExtension(startupBeans::add));
@@ -31,7 +30,6 @@ public class CdiDemo {
       startupBeans.forEach(startupBean -> startupBean.start(container));
       // invoke method on main application
       System.err.println(container.select(TestApplication.class).get().helloWorld());
-      TimeUnit.SECONDS.sleep(1);
     }
   }
 
