@@ -76,6 +76,7 @@ dependencies {
 compileJava {
     doFirst {
         options.compilerArgs = [
+                '-Xlint:all',
                 '--module-path', classpath.asPath,
                 '--add-modules', 'javafx.controls,javafx.fxml'
         ]

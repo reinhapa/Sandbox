@@ -49,7 +49,7 @@ public class ResourceExtension implements Extension {
 
   public <T> void processAnnotatedType(@Observes @WithAnnotations({Stateless.class, Stateful.class,
       Singleton.class, MessageDriven.class, EJB.class, Resource.class, PersistenceContext.class,
-      JMSConnectionFactory.class,}) ProcessAnnotatedType<T> pat) {
+      JMSConnectionFactory.class}) ProcessAnnotatedType<T> pat) {
 
     AnnotatedTypeConfigurator<T> configureAnnotatedType = pat.configureAnnotatedType();
     configureAnnotatedType.filterFields(f -> f.isAnnotationPresent(Resource.class))
@@ -75,6 +75,11 @@ public class ResourceExtension implements Extension {
               .filter(a -> a.annotationType().isAnnotationPresent(Qualifier.class))
               .collect(Collectors.toList())));
     }
+  }
+
+  public <T> void processEjb(@Observes @WithAnnotations({Stateless.class, Stateful.class,
+    Singleton.class, MessageDriven.class, }) ProcessAnnotatedType<T> pat) {
+    pat.configureAnnotatedType().add(EjbTransactionalAnnotation.INSTANCE);
   }
 
   public void processSessionBean(@Observes ProcessSessionBean<?> event) {

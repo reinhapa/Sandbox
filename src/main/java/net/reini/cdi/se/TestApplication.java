@@ -46,6 +46,7 @@ public class TestApplication {
     logger.info("preDestroy()");
   }
 
+  @EjbTransactional
   public String helloWorld() {
     logger.info("Called helloWorld() - dataSource: {}", dataSource);
     return "Hello, world datasource: " + dataSource + ", transactionManager: " + transactionManager;

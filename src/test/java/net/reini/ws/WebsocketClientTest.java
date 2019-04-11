@@ -17,6 +17,7 @@ import javax.websocket.DeploymentException;
 import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
@@ -28,6 +29,7 @@ import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
  */
 public class WebsocketClientTest {
 
+  @Disabled
   @DisabledIfEnvironmentVariable(named = "TRAVIS", matches = "true")
   @Test
   public void testNonSSL() throws DeploymentException, IOException {
@@ -39,6 +41,7 @@ public class WebsocketClientTest {
     }
   }
 
+  @Disabled
   @DisabledIfEnvironmentVariable(named = "TRAVIS", matches = "true")
   @Test
   public void testSSLconnect() throws DeploymentException, IOException {
