@@ -54,9 +54,9 @@ public class SwissQR {
   private static void drawSwissCross(BufferedImage baseQrCode) {
     Graphics g = baseQrCode.getGraphics();
     g.setColor(Color.WHITE);
-    g.fillRect(549, 549, 166, 166);
+    g.fillRect(550, 550, 164, 164);
     g.setColor(Color.BLACK);
-    g.fillRect(557, 557, 151, 151);
+    g.fillRect(561, 561, 142, 142);
     g.setColor(Color.WHITE);
     g.fillRect(617, 587, 30, 90);
     g.fillRect(587, 617, 90, 30);
