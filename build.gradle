@@ -54,6 +54,7 @@ dependencies {
 
     runtimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:1.16'
     runtimeOnly 'net.reini:slf4j-cdi:1.0'
+    runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
 
     testImplementation 'easymock:easymock:2.0'
     testImplementation 'org.mockito:mockito-core:3.3.3'
@@ -69,7 +70,6 @@ dependencies {
     testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
     testRuntimeOnly 'ch.qos.logback:logback-classic:1.2.3'
-
     testRuntimeOnly 'jakarta.platform:jakarta.jakartaee-api:8.0.0'
     testRuntimeOnly 'net.reini:slf4j-cdi:1.1'
 }
