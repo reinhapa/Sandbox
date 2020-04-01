@@ -12,6 +12,7 @@ import java.util.List;
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import net.reini.cdi.se.simple.ResourceExtension;
@@ -20,6 +21,7 @@ import net.reini.cdi.se.simple.StartupBean;
 public class CdiDemo {
 
   @Test
+  @Disabled
   void testInjection() {
     SeContainerInitializer initializer = SeContainerInitializer.newInstance();
     List<StartupBean> startupBeans = new ArrayList<>();

@@ -43,8 +43,8 @@ class AnnotationBuilder
      */
     AnnotationBuilder()
     {
-        annotationMap = new HashMap<Class<? extends Annotation>, Annotation>();
-        annotationSet = new HashSet<Annotation>();
+        annotationMap = new HashMap<>();
+        annotationSet = new HashSet<>();
     }
 
     /**
@@ -148,6 +148,7 @@ class AnnotationBuilder
     /**
      * Getter.
      */
+    @SuppressWarnings("unchecked")
     public <T extends Annotation> T getAnnotation(Class<T> anType)
     {
         return (T) annotationMap.get(anType);

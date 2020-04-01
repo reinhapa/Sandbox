@@ -7,8 +7,6 @@
 package net.reini.sandbox;
 
 import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.PostConstruct;
@@ -19,7 +17,13 @@ import javax.cache.Caching;
 import javax.cache.configuration.CacheEntryListenerConfiguration;
 import javax.cache.configuration.Factory;
 import javax.cache.configuration.MutableConfiguration;
-import javax.cache.event.*;
+import javax.cache.event.CacheEntryEvent;
+import javax.cache.event.CacheEntryEventFilter;
+import javax.cache.event.CacheEntryListener;
+import javax.cache.event.CacheEntryListenerException;
+import javax.cache.event.CacheEntryRemovedListener;
+import javax.cache.event.CacheEntryUpdatedListener;
+import javax.cache.event.EventType;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -27,8 +31,6 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import javax.transaction.Status;
-import javax.transaction.Synchronization;
 import javax.transaction.TransactionSynchronizationRegistry;
 
 import org.slf4j.LoggerFactory;
@@ -74,6 +76,7 @@ public class TestWriterBean {
   }
 
   static class TestCacheEntryListenerConfiguration<K, V>  implements CacheEntryListenerConfiguration<K, V> {
+    private static final long serialVersionUID = 1L;
     private static final EnumSet<EventType> ACTIVE_EVENTS = EnumSet.of(EventType.UPDATED, EventType.REMOVED);
 
     @Override

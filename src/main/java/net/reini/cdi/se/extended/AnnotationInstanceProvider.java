@@ -52,7 +52,7 @@ import java.util.Map;
 public class AnnotationInstanceProvider implements Annotation, InvocationHandler, Serializable {
   private static final long serialVersionUID = -2345068201195886173L;
   private static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
-  private static final Class[] EMPTY_CLASS_ARRAY = new Class[0];
+  private static final Class<?>[] EMPTY_CLASS_ARRAY = new Class<?>[0];
 
   private final Class<? extends Annotation> annotationClass;
   private final Map<String, ?> memberValues;
@@ -103,7 +103,7 @@ public class AnnotationInstanceProvider implements Annotation, InvocationHandler
   private static synchronized <T extends Annotation> Annotation initAnnotation(String key,
       Class<T> annotationClass, Map<String, ?> values) {
     return (Annotation) Proxy.newProxyInstance(annotationClass.getClassLoader(),
-        new Class[] {annotationClass}, new AnnotationInstanceProvider(annotationClass, values));
+        new Class<?>[] {annotationClass}, new AnnotationInstanceProvider(annotationClass, values));
   }
 
   /**

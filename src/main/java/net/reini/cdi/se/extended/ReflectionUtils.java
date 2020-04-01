@@ -57,7 +57,7 @@ public abstract class ReflectionUtils {
    * @return the set of all declared fields or an empty set if there are none
    */
   public static Set<Field> getAllDeclaredFields(Class<?> clazz) {
-    HashSet<Field> fields = new HashSet<Field>();
+    HashSet<Field> fields = new HashSet<>();
     for (Class<?> c = clazz; c != null && c != Object.class; c = c.getSuperclass()) {
       Collections.addAll(fields, c.getDeclaredFields());
     }
@@ -91,7 +91,7 @@ public abstract class ReflectionUtils {
    * @return the set of all declared methods or an empty set if there are none
    */
   public static Set<Method> getAllDeclaredMethods(Class<?> clazz) {
-    HashSet<Method> methods = new HashSet<Method>();
+    HashSet<Method> methods = new HashSet<>();
     for (Class<?> c = clazz; c != null && c != Object.class; c = c.getSuperclass()) {
       Collections.addAll(methods, c.getDeclaredMethods());
     }
@@ -148,6 +148,7 @@ public abstract class ReflectionUtils {
    * @throws ExceptionInInitializerError if the initialization provoked by this method fails.
    * @see Method#invoke(Object, Object...)
    */
+  @SuppressWarnings("deprecation")
   public static <T> T invokeMethod(Object instance, Method method, Class<T> expectedReturnType,
       boolean setAccessible, Object... args) {
     if (setAccessible && !method.isAccessible()) {
@@ -294,7 +295,7 @@ public abstract class ReflectionUtils {
    */
   public static Type[] getActualTypeArguments(Type type) {
     if (type instanceof Class) {
-      return getActualTypeArguments((Class) type);
+      return getActualTypeArguments((Class<?>) type);
     }
 
     throw new IllegalArgumentException(
@@ -345,7 +346,7 @@ public abstract class ReflectionUtils {
 
   public static int calculateHashCodeOfAnnotation(Annotation annotation,
       boolean skipNonbindingMembers) {
-    Class annotationClass = annotation.annotationType();
+    Class<?> annotationClass = annotation.annotationType();
 
     // the hashCode of an Annotation is calculated solely via the hashCodes
     // of it's members. If there are no members, it is 0.
@@ -411,7 +412,7 @@ public abstract class ReflectionUtils {
   public static int calculateHashCodeOfType(Type type) {
     int typeHash = type.hashCode();
     if (typeHash == 0 && type instanceof Class) {
-      return ((Class) type).getName().hashCode();
+      return ((Class<?>) type).getName().hashCode();
       // the type.toString() is always the same: "java.lang.Class@<hexid>"
       // was: return type.toString().hashCode();
     }

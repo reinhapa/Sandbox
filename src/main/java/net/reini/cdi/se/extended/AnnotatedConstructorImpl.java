@@ -32,6 +32,7 @@ class AnnotatedConstructorImpl<X> extends AnnotatedCallableImpl<X, Constructor<X
   /**
    * Constructor
    */
+  @SuppressWarnings("unchecked")
   AnnotatedConstructorImpl(AnnotatedTypeImpl<X> type, Constructor<?> constructor,
       AnnotationStore annotations, Map<Integer, AnnotationStore> parameterAnnotations,
       Map<Integer, Type> typeOverrides) {
