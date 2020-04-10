@@ -53,7 +53,7 @@ dependencies {
     compileOnly 'jakarta.websocket:jakarta.websocket-client-api:1.1.2'
 
     runtimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:1.16'
-    runtimeOnly 'net.reini:slf4j-cdi:1.0'
+    runtimeOnly 'net.reini:slf4j-cdi:1.1'
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
 
     testImplementation 'easymock:easymock:2.0'
@@ -100,8 +100,8 @@ test {
 dependencyUpdates.resolutionStrategy {
   componentSelection { rules ->
     rules.all { ComponentSelection selection ->
-      boolean rejected = ['alpha', 'beta', 'cr', 'ea', 'm', 'pr', 'preview', 'rc'].any { qualifier ->
-        selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+      boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm', 'preview', 'b', 'pr', 'ea'].any { qualifier ->
+        selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-+]*/
       }
       if (rejected) {
         selection.reject('Release candidate')
