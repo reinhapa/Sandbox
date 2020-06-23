@@ -24,8 +24,18 @@
 
 package net.reini.mqtt;
 
+import static java.nio.file.Files.exists;
+import static java.nio.file.Files.newInputStream;
+
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -38,54 +48,64 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 public class MqttPublishSample {
 
   public static void main(String[] args) {
-    Properties systemProperties = System.getProperties();
-    String topic = "MQTT Examples";
-    String content = "Message from MqttPublishSample";
-    String clientId = "JavaSample";
+    Properties mqttProperties = new Properties(System.getProperties());
+    URL mqttPropertiesUrl =
+        ClassLoader.getSystemClassLoader().getResource("META-INF/mqtt.properties");
+    if (mqttPropertiesUrl == null) {
+      System.err.println("No META-INF/mqtt.properties found in classpath");
+    } else {
+      try (InputStream in = mqttPropertiesUrl.openStream()) {
+        mqttProperties.load(in);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
     int qos = 2;
-    // String broker = "tcp://iot.eclipse.org:1883";
-    String broker = systemProperties.getProperty("mqtt.url", "tcp://127.0.0.1:1883");
-    MemoryPersistence persistence = new MemoryPersistence();
+    String clientId = mqttProperties.getProperty("mqtt.client.id", "JavaSample");
+    String broker = mqttProperties.getProperty("mqtt.url", "tcp://127.0.0.1:1883");
 
-
-    try (MqttClient sampleClient = new MqttClient(broker, clientId, persistence); BufferedInputStream console = new BufferedInputStream(System.in)) {
+    try (MemoryPersistence persistence = new MemoryPersistence();
+        MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
+        BufferedInputStream console = new BufferedInputStream(System.in)) {
       MqttConnectOptions connOpts = new MqttConnectOptions();
       connOpts.setCleanSession(true);
-      Optional.ofNullable(systemProperties.getProperty("mqtt.username"))
+      Optional.ofNullable(mqttProperties.getProperty("mqtt.username"))
           .ifPresent(connOpts::setUserName);
-      Optional.ofNullable(systemProperties.getProperty("mqtt.password"))
+      Optional.ofNullable(mqttProperties.getProperty("mqtt.password"))
           .ifPresent(pw -> connOpts.setPassword(pw.toCharArray()));
 
-      System.out.println("Connecting to broker: " + broker);
+      System.out.println("Connecting to broker: " + broker + " connection options: " + connOpts);
       sampleClient.connect(connOpts);
       System.out.println("Connected");
 
-      System.out.println("Subscribing to OwnTracks events");
-      sampleClient.subscribe("owntracks/#",
-          (t, m) -> System.out.format("OwnTracks: topic: %s, message: %s%n", t,
-              new String(m.getPayload())));
-
-      System.out.println("Subscribing to OctoPrint events");
-      sampleClient.subscribe("octoprint/#",
-          (t, m) -> System.out.format("OctoPrint: topic: %s, message: %s%n", t,
-              new String(m.getPayload())));
-
-      System.out.println("Subscribing to '" + topic + "' events");
-      sampleClient.subscribe(topic,
-          (t, m) -> System.out.format("All Messages: topic: %s, message: %s%n", t,
-              new String(m.getPayload())));
-
-      System.out.println("Publishing message: " + content);
-      MqttMessage message = new MqttMessage(content.getBytes());
-      message.setQos(qos);
-      sampleClient.publish(topic, message);
-      System.out.println("Message published");
+      Path subscriptions = Paths.get(mqttProperties.getProperty("mqtt.subscriptions.file",
+          System.getProperty("user.home") + "/mqttsubscriptions"));
+      if (exists(subscriptions)) {
+        try (InputStream in = newInputStream(subscriptions);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+          reader.lines().filter(line -> !line.isBlank() && !line.startsWith("#"))
+              .forEach(topicFilter -> subscribe(sampleClient, topicFilter));
+        }
+      } else {
+        System.err.println(subscriptions + " does not exist");
+      }
 
       for (;;) {
-        if ('q' == console.read()) {
-          sampleClient.disconnect();
-          System.out.println("Disconnected");
-          System.exit(0);
+        switch (console.read()) {
+          case 'q':
+            sampleClient.disconnect();
+            System.out.println("Disconnected");
+            System.exit(0);
+            break;
+          case 's':
+            System.out.println("Publishing stop message");
+            MqttMessage message = new MqttMessage("stop".getBytes(StandardCharsets.UTF_8));
+            message.setQos(qos);
+            sampleClient.publish("tweetwall/action/tweetwall-3", message);
+            System.out.println("Message published");
+            break;
+          default:
         }
       }
     } catch (MqttException me) {
@@ -96,6 +116,16 @@ public class MqttPublishSample {
       System.out.println("excep " + me);
       me.printStackTrace();
     } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private static void subscribe(MqttClient mqttClient, String topicFilter) {
+    try {
+      System.out.println("Subscribing to " + topicFilter);
+      mqttClient.subscribe(topicFilter,
+          (t, m) -> System.out.format("topic: %s, message: %s%n", t, new String(m.getPayload())));
+    } catch (MqttException e) {
       e.printStackTrace();
     }
   }
