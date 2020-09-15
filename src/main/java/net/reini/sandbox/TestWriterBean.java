@@ -22,12 +22,6 @@
  * THE SOFTWARE.
  */
 
-/**
- * File Name: TestBean.java
- * 
- * Copyright (c) 2015 BISON Schweiz AG, All Rights Reserved.
- */
-
 package net.reini.sandbox;
 
 import java.util.EnumSet;

@@ -22,12 +22,6 @@
  * THE SOFTWARE.
  */
 
-/**
- * File Name: TestBean.java
- * 
- * Copyright (c) 2019 BISON Schweiz AG, All Rights Reserved.
- */
-
 package net.reini.cdi.se;
 
 import javax.annotation.PostConstruct;

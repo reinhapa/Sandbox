@@ -22,12 +22,6 @@
  * THE SOFTWARE.
  */
 
-/**
- * File Name: MockitoTest.java
- * 
- * Copyright (c) 2018 BISON Schweiz AG, All Rights Reserved.
- */
-
 package net.reini.junit5;
 
 import static org.junit.Assert.assertArrayEquals;

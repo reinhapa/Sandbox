@@ -29,11 +29,6 @@ import java.util.Date;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 
-/**
- * File Name: PrinterLookupLoop.java
- * 
- * Copyright (c) 2017 BISON Schweiz AG, All Rights Reserved.
- */
 public class PrinterLookupLoop {
 
   public static void main(String[] args) {

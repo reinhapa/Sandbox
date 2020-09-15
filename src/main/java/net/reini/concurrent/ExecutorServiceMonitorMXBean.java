@@ -22,12 +22,6 @@
  * THE SOFTWARE.
  */
 
-/**
- * File Name: ExecutorServiceMonitorMXBean.java
- * 
- * Copyright (c) 2016 BISON Schweiz AG, All Rights Reserved.
- */
-
 package net.reini.concurrent;
 
 public interface ExecutorServiceMonitorMXBean {

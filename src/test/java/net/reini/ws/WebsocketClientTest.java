@@ -22,12 +22,6 @@
  * THE SOFTWARE.
  */
 
-/**
- * File Name: WebsocketClientTest.java
- * 
- * Copyright (c) 2017 BISON Schweiz AG, All Rights Reserved.
- */
-
 package net.reini.ws;
 
 

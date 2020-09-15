@@ -22,12 +22,6 @@
  * THE SOFTWARE.
  */
 
-/**
- * File Name: SampleJUnit5Test.java
- * 
- * Copyright (c) 2016 BISON Schweiz AG, All Rights Reserved.
- */
-
 package net.reini.junit5;
 
 import static org.junit.Assert.assertNotNull;

@@ -22,12 +22,6 @@
  * THE SOFTWARE.
  */
 
-/**
- * File Name: TestExtension.java
- * 
- * Copyright (c) 2016 BISON Schweiz AG, All Rights Reserved.
- */
-
 package net.reini.junit5;
 
 import org.junit.jupiter.api.extension.AfterEachCallback;

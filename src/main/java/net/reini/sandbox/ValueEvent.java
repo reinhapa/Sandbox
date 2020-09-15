@@ -22,12 +22,6 @@
  * THE SOFTWARE.
  */
 
-/**
- * File Name: TestEvent.java
- * 
- * Copyright (c) 2017 BISON Schweiz AG, All Rights Reserved.
- */
-
 package net.reini.sandbox;
 
 /**
