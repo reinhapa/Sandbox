@@ -64,9 +64,9 @@ public class KryoTest {
     }
   }
 
-  static public class SomeClass {
-    String value;
-    SomeOtherClass otherClass;
+  public static class SomeClass {
+    private String value;
+    private SomeOtherClass otherClass;
 
     @Override
     public int hashCode() {
@@ -83,8 +83,8 @@ public class KryoTest {
     }
   }
 
-  static class SomeOtherClass {
-    String value;
+  public static class SomeOtherClass {
+    private String value;
 
     @Override
     public int hashCode() {
