@@ -6,6 +6,7 @@ plugins {
   id 'com.google.osdetector' version '1.6.2'
   id 'net.minecrell.licenser' version '0.4.1'
   id 'net.nemerosa.versioning' version '2.14.0'
+  id 'org.openapi.generator' version '4.3.1'
   id 'org.owasp.dependencycheck' version '6.0.3'
 }
 
@@ -14,8 +15,10 @@ version = '0.0.1-SNAPSHOT'
 description = "Sandbox project for pure testing purposes"
 ext.platform = osdetector.os == 'osx' ? 'mac' : osdetector.os == 'windows' ? 'win' : osdetector.os
 
-sourceCompatibility = '14'
-targetCompatibility = '14'
+java {
+  sourceCompatibility = JavaVersion.VERSION_14
+  targetCompatibility = JavaVersion.VERSION_14
+}
 
 repositories {
     jcenter()
@@ -23,17 +26,19 @@ repositories {
 }
 
 dependencies {
+    api "org.slf4j:slf4j-api:1.7.30"
+
     implementation 'com.airhacks:afterburner.fx:1.7.0'
     implementation 'com.github.sarxos:webcam-capture:0.3.12'
     implementation 'com.google.zxing:core:3.4.1'
     implementation 'com.google.zxing:javase:3.4.1'
     implementation 'javax.cache:cache-api:1.1.1'
-    implementation 'org.bouncycastle:bcprov-jdk14:1.67'
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.67'
     implementation 'org.eclipse.jgit:org.eclipse.jgit:5.9.0.202009080501-r'
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
     implementation 'org.ehcache:ehcache:3.9.0'
     implementation 'org.glassfish.jersey.core:jersey-client:2.32'
-    implementation 'org.jfree:jfreechart:1.0.19'
+    implementation 'org.jfree:jfreechart:1.5.1'
 
     implementation 'jakarta.activation:jakarta.activation-api:1.2.2'
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
@@ -51,7 +56,11 @@ dependencies {
     implementation "org.openjfx:javafx-controls:15.0.1:$platform"
     implementation "org.openjfx:javafx-fxml:15.0.1:$platform"
     implementation "org.openjfx:javafx-graphics:15.0.1:$platform"
-    
+
+    // ssh
+    implementation "com.jcraft:jsch:0.1.55"
+    implementation 'org.apache.sshd:sshd-cli:2.5.1'
+
     compileOnly 'jakarta.platform:jakarta.jakartaee-api:8.0.0'
 
     // websocket
@@ -60,6 +69,8 @@ dependencies {
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
     runtimeOnly 'net.reini:slf4j-cdi:1.1'
     runtimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:1.17'
+    runtimeOnly "org.slf4j:jcl-over-slf4j:1.7.30"
+    runtimeOnly "org.slf4j:jul-to-slf4j:1.7.30"
 
     testImplementation 'easymock:easymock:2.0'
     testImplementation 'junit:junit:4.13.1'
@@ -69,8 +80,9 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:3.6.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:3.6.0'
 
-    testImplementation 'com.esotericsoftware:kryo:5.0.0'
+    testImplementation 'com.esotericsoftware:kryo:5.0.1'
     testImplementation 'jakarta.websocket:jakarta.websocket-client-api:1.1.2'
+    testImplementation "org.slf4j:jul-to-slf4j:1.7.30"
 
     testRuntimeOnly 'ch.qos.logback:logback-classic:1.2.3'
     testRuntimeOnly 'jakarta.platform:jakarta.jakartaee-api:8.0.0'
@@ -78,6 +90,7 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     testRuntimeOnly 'org.junit.platform:junit-platform-runner:1.7.0'
     testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.7.0'
+    testRuntimeOnly "org.slf4j:jcl-over-slf4j:1.7.30"
 }
 
 compileJava {
@@ -101,6 +114,19 @@ test {
     testLogging {
         events 'skipped'
     }
+}
+
+openApiGenerate {
+  inputSpec = "$rootDir/swagger.yaml"
+  generatorName = "jaxrs-spec"
+  outputDir = "$buildDir/generated"
+  apiPackage = "org.openapi.example.api"
+  invokerPackage = "org.openapi.example.invoker"
+  modelPackage = "org.openapi.example.model"
+}
+
+openApiValidate {
+  inputSpec = "$rootDir/swagger.yaml".toString() 
 }
 
 jar {

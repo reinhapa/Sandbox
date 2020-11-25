@@ -33,6 +33,7 @@
 	</appender>
 
 	<logger name="net.reini.cdi.se" level="DEBUG" />
+    <logger name="net.reini.logging" level="DEBUG" />
 
 	<root level="INFO">
 		<appender-ref ref="STDOUT" />
