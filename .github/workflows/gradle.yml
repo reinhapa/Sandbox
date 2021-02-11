@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Build and Test with ${{ matrix.os }} and OpenJDK ${{ matrix.jdk }}
+    name: ${{ matrix.os }} / OpenJDK ${{ matrix.jdk }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
