@@ -43,8 +43,7 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.RepositoryBuilder;
 
 /**
- * 
- * @author patrick.reinhart {@linkplain https://github.com/centic9/jgit-cookbook}
+ * @author patrick.reinhart
  */
 public class GitTest {
   static final Pattern gitIgnorePattern = Pattern.compile("^.*(/|)\\.gitignore$");

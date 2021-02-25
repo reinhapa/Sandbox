@@ -39,7 +39,7 @@ import javax.ws.rs.core.Response;
 public class JwtLogin {
 
 	/**
-	 * @param args
+	 * @param args program arguments
 	 */
 	public static void main(String[] args) {
 		try {

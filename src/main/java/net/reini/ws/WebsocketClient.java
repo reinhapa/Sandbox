@@ -38,9 +38,11 @@ import org.slf4j.LoggerFactory;
 /**
  * Simple websocket client.
  * 
- * <h4>Dependencies</h4> <pre>
- * compile 'javax.websocket:javax.websocket-client-api:1.1'
- * runtime 'org.glassfish.tyrus.bundles:tyrus-standalone-client-jdk:1.12'
+ * <strong>Dependencies</strong>
+ * 
+ * <pre>
+ * compile 'javax.websocket:javax.websocket-client-api:1.1.2'
+ * runtime 'org.glassfish.tyrus.bundles:tyrus-standalone-client-jdk:2.0.0'
  * </pre>
  */
 @ClientEndpoint
