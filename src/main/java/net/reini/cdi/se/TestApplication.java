@@ -43,6 +43,8 @@ import org.slf4j.Logger;
 public class TestApplication {
   @Inject
   Logger logger;
+  @Inject
+  SimpleBean simpleBean;
 
   @Resource(lookup = "java:global/env/jdbc/CustomerDatasource")
   DataSource dataSource;
@@ -67,6 +69,7 @@ public class TestApplication {
   @EjbTransactional
   public String helloWorld() {
     logger.info("Called helloWorld() - dataSource: {}", dataSource);
+    simpleBean.doSomething();
     return "Hello, world datasource: " + dataSource + ", transactionManager: " + transactionManager;
   }
 }
