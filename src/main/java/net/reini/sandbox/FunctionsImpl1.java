@@ -27,9 +27,9 @@ package net.reini.sandbox;
 import java.io.IOException;
 import java.io.Writer;
 
-import javax.ejb.Stateless;
-import javax.enterprise.inject.Default;
-import javax.inject.Inject;
+import jakarta.ejb.Stateless;
+import jakarta.enterprise.inject.Default;
+import jakarta.inject.Inject;
 
 @Default
 @Stateless

@@ -24,8 +24,8 @@
 
 package net.reini.cdi.se.simple;
 
-import javax.enterprise.util.AnnotationLiteral;
-import javax.inject.Inject;
+import jakarta.enterprise.util.AnnotationLiteral;
+import jakarta.inject.Inject;
 
 public final class InjectionAnnotation extends AnnotationLiteral<Inject> {
   private static final long serialVersionUID = 1L;

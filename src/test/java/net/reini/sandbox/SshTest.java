@@ -21,11 +21,13 @@ import org.bouncycastle.openssl.PEMEncryptedKeyPair;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.bc.BcPEMDecryptorProvider;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class SshTest {
 
   @Test
+  @Disabled
   void simpleSshConnection() {
     try (SshClient client = SshClient.setUpDefaultClient()) {
       KeyPair keyPair = loadKeyPair("/home/someUser/.ssh/id_rsa", "secretKeyPassword");

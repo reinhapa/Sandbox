@@ -24,11 +24,11 @@
 
 package net.reini.sandbox;
 
-import javax.ejb.Schedule;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
+import jakarta.ejb.Schedule;
+import jakarta.ejb.Singleton;
+import jakarta.ejb.Startup;
+import jakarta.enterprise.event.Event;
+import jakarta.inject.Inject;
 
 @Singleton
 @Startup

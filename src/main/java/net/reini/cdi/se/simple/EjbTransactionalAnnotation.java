@@ -24,7 +24,7 @@
 
 package net.reini.cdi.se.simple;
 
-import javax.enterprise.util.AnnotationLiteral;
+import jakarta.enterprise.util.AnnotationLiteral;
 
 import net.reini.cdi.se.EjbTransactional;
 

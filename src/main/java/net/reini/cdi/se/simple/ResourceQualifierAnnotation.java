@@ -24,8 +24,8 @@
 
 package net.reini.cdi.se.simple;
 
-import javax.annotation.Resource;
-import javax.enterprise.util.AnnotationLiteral;
+import jakarta.annotation.Resource;
+import jakarta.enterprise.util.AnnotationLiteral;
 
 class ResourceQualifierAnnotation extends AnnotationLiteral<ResourceQualifier>
     implements ResourceQualifier {

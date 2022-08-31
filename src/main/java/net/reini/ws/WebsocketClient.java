@@ -24,13 +24,13 @@
 
 package net.reini.ws;
 
-import javax.websocket.ClientEndpoint;
-import javax.websocket.CloseReason;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
+import jakarta.websocket.ClientEndpoint;
+import jakarta.websocket.CloseReason;
+import jakarta.websocket.OnClose;
+import jakarta.websocket.OnError;
+import jakarta.websocket.OnMessage;
+import jakarta.websocket.OnOpen;
+import jakarta.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
  * <strong>Dependencies</strong>
  * 
  * <pre>
- * compile 'javax.websocket:javax.websocket-client-api:1.1.2'
+ * compile 'jakarta.websocket:jakarta.websocket-client-api:1.1.2'
  * runtime 'org.glassfish.tyrus.bundles:tyrus-standalone-client-jdk:2.0.0'
  * </pre>
  */
