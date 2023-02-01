@@ -1,3 +1,27 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2022-2023 Patrick Reinhart
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 package net.reini.mqtt;
 
 import static java.lang.String.format;
@@ -6,6 +30,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Random;
@@ -18,21 +43,23 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SensorEmulator {
+  private static final Logger LOGGER = LoggerFactory.getLogger(SensorEmulator.class);
   private static final String T_TEMPLATE =
       "{\"Env_Filamente\":{\"Device\":\"0xAFFE\",\"Name\":\"Env_Test\",\"Temperature\":%.2f,\"BatteryPercentage\":42,\"Endpoint\":1,\"LinkQuality\":92}}";
   private static final String H_TEMPLATE =
       "{\"Env_Filamente\":{\"Device\":\"0xAFFE\",\"Name\":\"Env_Test\",\"Humidity\":%.2f,\"BatteryPercentage\":42,\"Endpoint\":1,\"LinkQuality\":92}}";
 
   private final Random random;
+
   private double temperature;
   private double humidity;
-  private ExecutorService executorService;
 
   public SensorEmulator(ExecutorService executorService) {
     random = new Random(System.currentTimeMillis());
-    this.executorService = executorService;
     nextHumidity();
     nextTemparature();
   }
@@ -48,7 +75,7 @@ public class SensorEmulator {
           executorService.shutdownNow();
         }
       } catch (InterruptedException e) {
-        e.printStackTrace();
+        LOGGER.error("Interrupted while await termination", e);
       }
     }
   }
@@ -63,7 +90,7 @@ public class SensorEmulator {
       try (InputStream in = mqttPropertiesUrl.openStream()) {
         mqttProperties.load(in);
       } catch (IOException e) {
-        e.printStackTrace();
+        LOGGER.error("Failed to read mqtt.properties", e);
       }
     }
 
@@ -103,7 +130,7 @@ public class SensorEmulator {
       logFailure(me);
       return 1;
     } catch (IOException e) {
-      e.printStackTrace();
+      LOGGER.error("Failed to read from console", e);
       return 2;
     }
   }

@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016-2021 Patrick Reinhart
+ * Copyright (c) 2016-2023 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,6 @@ package net.reini.json;
 import java.util.Map;
 
 import jakarta.json.bind.annotation.JsonbTypeDeserializer;
-
 import net.reini.json.MapDeserializer.FloatMapDeserializer;
 import net.reini.json.MapDeserializer.IntegerMapDeserializer;
 
@@ -61,8 +60,8 @@ public class JsonDataObject {
     return integerValues;
   }
 
-  public final void setIntegerValues(Map<Integer, String> integervalues) {
-    this.integerValues = integervalues;
+  public final void setIntegerValues(Map<Integer, String> integerValues) {
+    this.integerValues = integerValues;
   }
 
   public final Map<Float, SubDataObject> getFloatValues() {
