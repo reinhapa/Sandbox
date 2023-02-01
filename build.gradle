@@ -2,11 +2,11 @@ plugins {
   id 'java-library'
   id 'war'
   id 'eclipse-wtp'
-  id 'com.github.ben-manes.versions' version '0.42.0'
-  id 'com.google.osdetector' version '1.7.1'
+  id 'com.github.ben-manes.versions' version '0.45.0'
+  id 'com.google.osdetector' version '1.7.2'
   id 'net.nemerosa.versioning' version '3.0.0'
-  id 'org.openapi.generator' version '6.2.0'
-  id 'org.owasp.dependencycheck' version '7.2.1'
+  id 'org.openapi.generator' version '6.2.1'
+  id 'org.owasp.dependencycheck' version '8.0.2'
 }
 
 group = 'net.reini'
@@ -25,75 +25,77 @@ repositories {
 }
 
 dependencies {
-    api 'org.slf4j:slf4j-api:2.0.3'
+    api 'org.slf4j:slf4j-api:2.0.6'
 
     implementation 'com.airhacks:afterburner.fx:1.7.0'
     implementation 'com.github.sarxos:webcam-capture:0.3.12'
-    implementation 'com.google.zxing:core:3.5.0'
-    implementation 'com.google.zxing:javase:3.5.0'
+    implementation 'com.google.zxing:core:3.5.1'
+    implementation 'com.google.zxing:javase:3.5.1'
     implementation 'javax.cache:cache-api:1.1.1'
     implementation 'org.apache.commons:commons-pool2:2.11.1'
     implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
     implementation 'org.bouncycastle:bcpkix-jdk15on:1.70'
-    implementation 'org.eclipse.jgit:org.eclipse.jgit:6.3.0.202209071007-r'
+    implementation 'org.eclipse.jgit:org.eclipse.jgit:6.4.0.202211300538-r'
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
-    implementation 'org.ehcache:ehcache:3.10.2:jakarta'
-    implementation 'org.glassfish.jersey.core:jersey-client:3.0.8'
-    implementation 'org.jfree:jfreechart:1.5.3'
+    implementation 'org.ehcache:ehcache:3.10.8:jakarta'
+    implementation 'org.glassfish.jersey.core:jersey-client:3.1.1'
+    implementation 'org.jfree:jfreechart:1.5.4'
 
-    implementation 'jakarta.activation:jakarta.activation-api:2.1.0'
+    implementation 'jakarta.activation:jakarta.activation-api:2.1.1'
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
     implementation 'jakarta.jms:jakarta.jms-api:3.1.0'
     implementation 'jakarta.json.bind:jakarta.json.bind-api:3.0.0'
     implementation "jakarta.json:jakarta.json-api:2.1.1"
+    implementation 'org.eclipse.microprofile.config:microprofile-config-api:3.0.2'
+    implementation 'org.eclipse.microprofile.metrics:microprofile-metrics-api:5.0.0'
     implementation 'org.eclipse:yasson:3.0.2'
-
-    implementation 'org.apache.activemq:artemis-jakarta-client:2.26.0'
+    implementation 'io.smallrye.config:smallrye-config:3.1.2'
+    implementation 'io.smallrye:smallrye-metrics:4.0.0'
+    
+    implementation 'org.apache.activemq:artemis-jakarta-client:2.27.1'
     implementation 'org.apache.activemq.rest:artemis-rest:2.25.0'
 
     implementation 'org.jboss.weld.se:weld-se-core:5.1.0.Final'
-    implementation 'org.jboss:jandex:2.4.3.Final'
+    implementation 'org.jboss:jandex:3.0.5'
 
     // javaFX
-    implementation "org.openjfx:javafx-base:19:$platform"
-    implementation "org.openjfx:javafx-controls:19:$platform"
-    implementation "org.openjfx:javafx-fxml:19:$platform"
-    implementation "org.openjfx:javafx-graphics:19:$platform"
+    implementation "org.openjfx:javafx-base:19.0.2.1:$platform"
+    implementation "org.openjfx:javafx-controls:19.0.2.1:$platform"
+    implementation "org.openjfx:javafx-fxml:19.0.2.1:$platform"
+    implementation "org.openjfx:javafx-graphics:19.0.2.1:$platform"
 
     // ssh
-    implementation 'org.apache.sshd:sshd-cli:2.9.1'
+    implementation 'org.apache.sshd:sshd-cli:2.9.2'
 
     compileOnly 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
 
     // websocket
     compileOnly 'jakarta.websocket:jakarta.websocket-client-api:2.1.0'
 
-    runtimeOnly 'ch.qos.logback:logback-classic:1.4.4'
-//    runtimeOnly 'net.reini:slf4j-cdi:1.1'
+    runtimeOnly 'ch.qos.logback:logback-classic:1.4.5'
     runtimeOnly 'org.glassfish.jaxb:jaxb-runtime:4.0.1'
-    runtimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:2.1.1'
-    runtimeOnly "org.slf4j:jcl-over-slf4j:2.0.3"
-    runtimeOnly "org.slf4j:jul-to-slf4j:2.0.3"
+    runtimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:2.1.2'
+    runtimeOnly "org.slf4j:jcl-over-slf4j:2.0.6"
+    runtimeOnly "org.slf4j:jul-to-slf4j:2.0.6"
 
-    testImplementation 'com.esotericsoftware:kryo:5.3.0'
-    testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.0.0'
+    testImplementation 'com.esotericsoftware:kryo:5.4.0'
+    testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.0.1'
     testImplementation 'easymock:easymock:2.0'
     testImplementation 'org.jmockit:jmockit:1.49'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:5.9.1'
-    testImplementation 'org.mockito:mockito-junit-jupiter:4.8.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:5.9.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.1.1'
 
     testImplementation 'jakarta.websocket:jakarta.websocket-client-api:2.1.0'
 
     testRuntimeOnly 'ch.qos.logback:logback-classic:1.2.11'
-    testRuntimeOnly 'com.tngtech.archunit:archunit-junit5:1.0.0'
+    testRuntimeOnly 'com.tngtech.archunit:archunit-junit5:1.0.1'
     testRuntimeOnly 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
-//    testRuntimeOnly 'net.reini:slf4j-cdi:1.1'
     testRuntimeOnly 'org.glassfish.jaxb:jaxb-runtime:4.0.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
-    testRuntimeOnly 'org.junit.platform:junit-platform-runner:1.9.1', { exclude group: "junit", module: "junit" }
-    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.9.1'
-    testRuntimeOnly "org.slf4j:jcl-over-slf4j:2.0.3"
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-runner:1.9.2', { exclude group: "junit", module: "junit" }
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.9.2'
+    testRuntimeOnly "org.slf4j:jcl-over-slf4j:2.0.6"
 }
 
 compileJava {
