@@ -141,7 +141,7 @@ public class SensorEmulator {
   private void sendSensorMessage(MqttClient client, String template, Double value) {
     try {
       MqttMessage message = new MqttMessage();
-      message.setPayload(format(template, value).getBytes());
+      message.setPayload(format(template, value).getBytes(Charset.defaultCharset()));
       message.setQos(2);
       client.publish("tele/tasmota_04D7D4/SENSOR", message);
       System.out.println("Message published");
