@@ -27,9 +27,9 @@ package net.reini.sandbox;
 import java.io.IOException;
 import java.io.Writer;
 
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.enterprise.event.Observes;
+import jakarta.ejb.Singleton;
+import jakarta.ejb.Startup;
+import jakarta.enterprise.event.Observes;
 
 @Singleton
 @Startup

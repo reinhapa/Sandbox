@@ -24,10 +24,7 @@
 
 package net.reini.artemis;
 
-import javax.jms.Connection;
-import javax.jms.Destination;
-import javax.jms.MessageConsumer;
-import javax.jms.Session;
+import jakarta.jms.*;
 
 import org.apache.activemq.artemis.jms.client.ActiveMQDestination;
 import org.apache.activemq.artemis.jms.client.ActiveMQJMSConnectionFactory;
@@ -35,9 +32,11 @@ import org.apache.activemq.artemis.rest.Jms;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.IllegalStateException;
+
 public class JmsReceive {
+private static final  Logger logger = LoggerFactory.getLogger(JmsReceive.class);
   public static void main(String[] args) throws Exception {
-    Logger logger = LoggerFactory.getLogger(JmsReceive.class);
     logger.info("Receive Setup...");
     Destination destination = ActiveMQDestination.fromPrefixedName("queue://TestQueue");
     try (
@@ -46,13 +45,18 @@ public class JmsReceive {
         Connection conn = factory.createConnection()) {
       Session session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
       MessageConsumer consumer = session.createConsumer(destination);
-      consumer.setMessageListener(message -> {
-        logger.info("Received Message: ");
-        Order order = Jms.getEntity(message, Order.class);
-        logger.info("Received {}", order);
-      });
+      consumer.setMessageListener(JmsReceive::onMessage);
       conn.start();
       Thread.sleep(1000000);
+    }
+  }
+  private static void onMessage( Message message){
+    logger.info("Received Message: ");
+    try {
+      Order order = message.getBody(Order.class);
+      logger.info("Received {}", order);
+    } catch (JMSException e) {
+      throw new IllegalStateException(e);
     }
   }
 }

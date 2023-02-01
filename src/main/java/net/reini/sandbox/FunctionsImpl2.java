@@ -27,7 +27,7 @@ package net.reini.sandbox;
 import java.io.IOException;
 import java.io.Writer;
 
-import javax.ejb.Stateless;
+import jakarta.ejb.Stateless;
 
 @SpecialVersion
 @Stateless

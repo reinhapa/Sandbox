@@ -27,8 +27,8 @@ package net.reini.cdi.se;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.inject.se.SeContainer;
-import javax.enterprise.inject.se.SeContainerInitializer;
+import jakarta.enterprise.inject.se.SeContainer;
+import jakarta.enterprise.inject.se.SeContainerInitializer;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

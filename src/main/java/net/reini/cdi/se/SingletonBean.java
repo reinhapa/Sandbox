@@ -24,12 +24,12 @@
 
 package net.reini.cdi.se;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.enterprise.inject.Default;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.ejb.Singleton;
+import jakarta.ejb.Startup;
+import jakarta.enterprise.inject.Default;
+import jakarta.inject.Inject;
 
 import org.slf4j.Logger;
 

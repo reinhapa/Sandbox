@@ -24,13 +24,13 @@
 
 package net.reini.cdi.se;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.annotation.Resource;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import javax.sql.DataSource;
-import javax.transaction.TransactionManager;
+import jakarta.transaction.TransactionManager;
 
 import org.slf4j.Logger;
 

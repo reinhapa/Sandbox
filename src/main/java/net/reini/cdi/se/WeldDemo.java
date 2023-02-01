@@ -36,23 +36,23 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
-import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.se.SeContainer;
-import javax.enterprise.inject.se.SeContainerInitializer;
-import javax.enterprise.inject.spi.AnnotatedType;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.enterprise.inject.spi.BeforeShutdown;
-import javax.enterprise.inject.spi.CDI;
-import javax.enterprise.inject.spi.Extension;
-import javax.enterprise.inject.spi.InjectionPoint;
-import javax.enterprise.inject.spi.InjectionTarget;
-import javax.enterprise.inject.spi.InterceptionFactory;
-import javax.enterprise.inject.spi.ProcessInjectionTarget;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import jakarta.enterprise.context.spi.CreationalContext;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.Instance;
+import jakarta.enterprise.inject.se.SeContainer;
+import jakarta.enterprise.inject.se.SeContainerInitializer;
+import jakarta.enterprise.inject.spi.AnnotatedType;
+import jakarta.enterprise.inject.spi.BeanManager;
+import jakarta.enterprise.inject.spi.BeforeShutdown;
+import jakarta.enterprise.inject.spi.CDI;
+import jakarta.enterprise.inject.spi.Extension;
+import jakarta.enterprise.inject.spi.InjectionPoint;
+import jakarta.enterprise.inject.spi.InjectionTarget;
+import jakarta.enterprise.inject.spi.InterceptionFactory;
+import jakarta.enterprise.inject.spi.ProcessInjectionTarget;
 
 public class WeldDemo {
   private static Logger logger = LoggerFactory.getLogger(WeldDemo.class);
@@ -61,8 +61,8 @@ public class WeldDemo {
     SeContainerInitializer initialzer = SeContainerInitializer.newInstance();
     initialzer.addExtensions(new WeldExtension());
     try (SeContainer container = initialzer.initialize()) {
-//      System.out.println(container.select(TestApplication.class).get().helloWorld());
-
+      String helloWorld = container.select(TestApplication.class).get().helloWorld();
+      logger.info("helloWorld() -> {}", helloWorld);
       container.select(SimpleBean.class).get().doSomething();
       container.select(SimpleBean.class).get().doSomething();
     }

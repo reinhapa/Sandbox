@@ -2,7 +2,7 @@ package net.reini.cdi.se;
 
 import java.util.UUID;
 
-import javax.enterprise.inject.Vetoed;
+import jakarta.enterprise.inject.Vetoed;
 
 @Vetoed
 public class TestData {

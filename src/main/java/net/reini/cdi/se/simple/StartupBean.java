@@ -27,7 +27,7 @@ package net.reini.cdi.se.simple;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
-import javax.enterprise.inject.Instance;
+import jakarta.enterprise.inject.Instance;
 
 public final class StartupBean {
   private final Class<?> javaClass;
