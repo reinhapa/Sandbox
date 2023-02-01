@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Random;
@@ -59,7 +60,7 @@ public class SensorEmulator {
   private double humidity;
 
   public SensorEmulator(ExecutorService executorService) {
-    random = new Random(System.currentTimeMillis());
+    random = new SecureRandom();
     nextHumidity();
     nextTemparature();
   }
