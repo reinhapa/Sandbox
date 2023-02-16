@@ -30,12 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.net.URI;
 
-import jakarta.websocket.ContainerProvider;
-import jakarta.websocket.DeploymentException;
-import jakarta.websocket.Session;
-import jakarta.websocket.WebSocketContainer;
+import jakarta.websocket.*;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
@@ -45,29 +41,22 @@ import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
  *
  * @author Patrick Reinhart
  */
-public class WebsocketClientTest {
+@DisabledIfEnvironmentVariable(named = "GITHUB_ACTION", matches = ".+")
+@DisabledIfEnvironmentVariable(named = "TRAVIS", matches = "true")
+class WebsocketClientTest {
 
-  @Disabled
-  @DisabledIfEnvironmentVariable(named = "TRAVIS", matches = "true")
+  /**
+   * Basic tests for Mastodon event queue...
+   * https://docs.joinmastodon.org/methods/streaming/#websocket
+   */
   @Test
-  public void testNonSSL() throws DeploymentException, IOException {
+  void testMastodonStream() throws DeploymentException, IOException {
     WebSocketContainer container = ContainerProvider.getWebSocketContainer();
     try (Session session =
-        container.connectToServer(new WebsocketClient(), URI.create("ws://echo.websocket.org/"))) {
+                 container.connectToServer(new WebsocketClient(), URI.create("wss://mastodon.social/api/v1/streaming/"))) {
       assertTrue(session.isOpen());
-      session.getBasicRemote().sendText("hallo");
-    }
-  }
 
-  @Disabled
-  @DisabledIfEnvironmentVariable(named = "TRAVIS", matches = "true")
-  @Test
-  public void testSSLconnect() throws DeploymentException, IOException {
-    WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-    try (Session session =
-        container.connectToServer(new WebsocketClient(), URI.create("wss://echo.websocket.org/"))) {
-      assertTrue(session.isOpen());
-      session.getBasicRemote().sendText("hallo");
+//      session.getBasicRemote().sendText("hallo");
     }
   }
 }
