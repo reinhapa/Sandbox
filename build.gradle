@@ -42,15 +42,16 @@ dependencies {
     implementation 'org.jfree:jfreechart:1.5.4'
 
     implementation 'jakarta.activation:jakarta.activation-api:2.1.1'
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
     implementation 'jakarta.jms:jakarta.jms-api:3.1.0'
     implementation 'jakarta.json.bind:jakarta.json.bind-api:3.0.0'
     implementation "jakarta.json:jakarta.json-api:2.1.1"
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
     implementation 'org.eclipse.microprofile.config:microprofile-config-api:3.0.2'
     implementation 'org.eclipse.microprofile.metrics:microprofile-metrics-api:4.0'
+
     runtimeOnly 'io.smallrye.config:smallrye-config:3.1.2'
     runtimeOnly 'io.smallrye:smallrye-metrics:4.0.0'
-    implementation 'org.eclipse:yasson:3.0.2'
+    runtimeOnly 'org.eclipse:yasson:3.0.2'
 
     implementation 'org.apache.activemq:artemis-jakarta-client:2.28.0'
     implementation 'org.apache.activemq.rest:artemis-rest:2.25.0'
@@ -68,13 +69,15 @@ dependencies {
     implementation 'org.apache.sshd:sshd-cli:2.9.2'
 
     compileOnly 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
-
-    // websocket
+    compileOnly 'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0'
     compileOnly 'jakarta.websocket:jakarta.websocket-client-api:2.1.0'
 
     runtimeOnly 'ch.qos.logback:logback-classic:1.4.5'
     runtimeOnly 'org.glassfish.jaxb:jaxb-runtime:4.0.2'
+    runtimeOnly 'org.glassfish.jersey.core:jersey-client:3.1.1'
+    runtimeOnly 'org.glassfish.jersey.media:jersey-media-json-binding:3.1.1'
     runtimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:2.1.2'
+    runtimeOnly 'org.glassfish.jersey.inject:jersey-hk2:3.1.1'
     runtimeOnly "org.slf4j:jcl-over-slf4j:2.0.6"
     runtimeOnly "org.slf4j:jul-to-slf4j:2.0.6"
 
@@ -92,10 +95,14 @@ dependencies {
     testRuntimeOnly 'com.tngtech.archunit:archunit-junit5:1.0.1'
     testRuntimeOnly 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
     testRuntimeOnly 'org.glassfish.jaxb:jaxb-runtime:4.0.1'
+    testRuntimeOnly 'org.glassfish.jersey.core:jersey-client:3.1.1'
+    testRuntimeOnly 'org.glassfish.jersey.media:jersey-media-json-binding:3.1.1'
+    testRuntimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:2.1.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
     testRuntimeOnly 'org.junit.platform:junit-platform-runner:1.9.2', { exclude group: "junit", module: "junit" }
     testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.9.2'
     testRuntimeOnly "org.slf4j:jcl-over-slf4j:2.0.6"
+    testRuntimeOnly 'org.eclipse:yasson:3.0.2'
 }
 
 compileJava {
@@ -103,7 +110,8 @@ compileJava {
         options.compilerArgs = [
                 '-Xlint:all',
                 '--module-path', classpath.asPath,
-                '--add-modules', 'javafx.controls,javafx.fxml'
+                '--add-modules', 'javafx.controls,javafx.fxml',
+                '--add-exports', 'jdk.httpserver/com.sun.net.httpserver=UNNAMED'
         ]
     }
 }
@@ -116,7 +124,7 @@ tasks.withType(Test) {
     }
 }
 
-task smokeTest(type: Test) {
+tasks.register('testSmoke', Test) {
     group 'verification'
     description 'Runs the smoke tests'
     useJUnitPlatform {
@@ -124,7 +132,7 @@ task smokeTest(type: Test) {
     }
 }
 
-task specialTest(type: Test) {
+tasks.register('testSpecial', Test) {
     group 'verification'
     description 'Runs the special tests'
     useJUnitPlatform {
