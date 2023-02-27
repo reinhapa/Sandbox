@@ -91,7 +91,7 @@ dependencies {
 
     testImplementation 'jakarta.websocket:jakarta.websocket-client-api:2.1.0'
 
-    testRuntimeOnly 'ch.qos.logback:logback-classic:1.2.11'
+    testRuntimeOnly 'ch.qos.logback:logback-classic:1.4.5'
     testRuntimeOnly 'com.tngtech.archunit:archunit-junit5:1.0.1'
     testRuntimeOnly 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
     testRuntimeOnly 'org.glassfish.jaxb:jaxb-runtime:4.0.2'
