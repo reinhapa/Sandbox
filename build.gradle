@@ -6,7 +6,7 @@ plugins {
   id 'com.google.osdetector' version '1.7.3'
   id 'net.nemerosa.versioning' version '3.0.0'
   id 'org.openapi.generator' version '6.4.0'
-  id 'org.owasp.dependencycheck' version '8.1.2'
+  id 'org.owasp.dependencycheck' version '8.2.0'
 }
 
 group = 'net.reini'
