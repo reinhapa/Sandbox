@@ -46,7 +46,7 @@ dependencies {
     implementation 'jakarta.json.bind:jakarta.json.bind-api:3.0.0'
     implementation "jakarta.json:jakarta.json-api:2.1.1"
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
-    implementation 'org.eclipse.microprofile.config:microprofile-config-api:3.0.2'
+    implementation 'org.eclipse.microprofile.config:microprofile-config-api:3.0.3'
     implementation 'org.eclipse.microprofile.metrics:microprofile-metrics-api:5.0.0'
 
     runtimeOnly 'io.smallrye.config:smallrye-config:3.2.1'
