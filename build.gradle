@@ -83,7 +83,7 @@ dependencies {
 
     testImplementation 'org.assertj:assertj-core:3.24.2'
     testImplementation 'com.esotericsoftware:kryo:5.5.0'
-    testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.0.1'
+    testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.1.0'
     testImplementation 'easymock:easymock:2.0'
     testImplementation 'org.jmockit:jmockit:1.49'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
@@ -93,7 +93,7 @@ dependencies {
     testImplementation 'jakarta.websocket:jakarta.websocket-client-api:2.1.1'
 
     testRuntimeOnly 'ch.qos.logback:logback-classic:1.4.9'
-    testRuntimeOnly 'com.tngtech.archunit:archunit-junit5:1.0.1'
+    testRuntimeOnly 'com.tngtech.archunit:archunit-junit5:1.1.0'
     testRuntimeOnly 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
     testRuntimeOnly 'org.glassfish.jaxb:jaxb-runtime:4.0.3'
     testRuntimeOnly 'org.glassfish.jersey.core:jersey-client:3.1.3'
