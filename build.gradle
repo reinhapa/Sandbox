@@ -83,7 +83,7 @@ dependencies {
 
     testImplementation 'org.assertj:assertj-core:3.24.2'
     testImplementation 'com.esotericsoftware:kryo:5.5.0'
-    testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.0.1'
+    testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.1.0'
     testImplementation 'easymock:easymock:2.0'
     testImplementation 'org.jmockit:jmockit:1.49'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
