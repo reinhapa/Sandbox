@@ -29,9 +29,13 @@ import jakarta.inject.Inject;
 @Dependent
 public class HelloApplication {
   @Inject
+  DemoContext demoContext;
+  @Inject
   ScopedBean scopedBean;
 
   public void helloWorld(Consumer<String> action) {
+    demoContext.activate();
     action.accept("helloWorld: " + scopedBean);
+    demoContext.deactivate();
   }
 }

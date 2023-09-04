@@ -41,11 +41,16 @@ public class ScopeDemo {
     SeContainerInitializer initialzer = SeContainerInitializer.newInstance();
     initialzer.addExtensions(new ScopeExtension());
     try (SeContainer container = initialzer.initialize()) {
+      DemoContext context = container.select(DemoContext.class).get();
+      context.activate();
+
       final Instance<HelloApplication> select = container.select(HelloApplication.class);
 
       handle(select.get());
 
       handle(select.get());
+
+      context.deactivate();
     }
   }
 

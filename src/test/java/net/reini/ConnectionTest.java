@@ -21,14 +21,19 @@
 
 package net.reini;
 
+import static java.net.http.HttpClient.Redirect.NORMAL;
+import static java.net.http.HttpClient.Version.HTTP_1_1;
+import static java.net.http.HttpResponse.BodyHandlers.ofString;
+
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.ProxySelector;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,19 +66,17 @@ class ConnectionTest {
   }
 
   @Test
-  void testConnection() throws IOException {
-    URL testUrl = new URL("https://rtc.to");
-    HttpURLConnection connection = (HttpURLConnection) testUrl.openConnection();
-    connection.setRequestMethod("HEAD");
-    connection.setDoOutput(true);
-    connection.setDoInput(true);
-    connection.setRequestProperty("Method-Name", "");
-    try (OutputStream out = connection.getOutputStream();
-        ObjectOutputStream objOut = new ObjectOutputStream(out)) {
-      objOut.writeObject(new Object[0]);
-    }
-    try (InputStream in = connection.getInputStream()) {
-      in.transferTo(System.out);
-    }
+  void testConnection() throws IOException, InterruptedException {
+    HttpClient client = HttpClient.newBuilder().version(HTTP_1_1).followRedirects(NORMAL)
+        .connectTimeout(Duration.ofSeconds(5)) //
+        .proxy(ProxySelector.getDefault()) //
+        // .proxy(ProxySelector.of(new InetSocketAddress("localhost", 3128)))
+        // .authenticator(Authenticator.getDefault())
+        .build();
+    HttpRequest request = HttpRequest.newBuilder().uri(URI.create("https://rtc.to")).GET().build();
+
+    final HttpResponse<String> response = client.send(request, ofString());
+    System.out.println(response.statusCode());
+    System.out.println(response.body());
   }
 }

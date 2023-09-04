@@ -22,18 +22,23 @@
     THE SOFTWARE.
 -->
 
-<config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns='http://www.ehcache.org/v3' xsi:schemaLocation="
-        http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd">
-    <persistence directory="${user.home}/javacache" />
-    <cache alias="testcache">
-        <key-type>java.lang.Long</key-type>
-        <value-type>java.lang.String</value-type>
-        <expiry>
-            <ttl unit="days">30</ttl>
-        </expiry>
-        <resources>
-            <heap>10</heap>
-            <disk unit="MB" persistent="true">50</disk>
-        </resources>
-    </cache>
+<config xmlns='http://www.ehcache.org/v3' xmlns:jsr107='http://www.ehcache.org/v3/jsr107'>
+  <service>
+    <jsr107:defaults enable-management="true" enable-statistics="true" />
+  </service>
+  
+  <persistence directory="${user.home}/javacache" />
+  <cache alias="testcache">
+    <key-type>java.lang.Long</key-type>
+    <value-type>java.lang.String</value-type>
+    <expiry>
+      <ttl unit="seconds">15</ttl>
+    </expiry>
+    <resources>
+      <heap unit="entries">10</heap>
+<!--
+      <disk unit="MB" persistent="true">50</disk>
+-->
+    </resources>
+  </cache>
 </config>

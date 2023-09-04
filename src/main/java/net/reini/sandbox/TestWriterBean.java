@@ -3,23 +3,20 @@
  *
  * Copyright (c) 2016-2020 Patrick Reinhart
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 package net.reini.sandbox;
@@ -27,8 +24,6 @@ package net.reini.sandbox;
 import java.util.EnumSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.Resource;
 import javax.cache.Cache;
 import javax.cache.CacheManager;
 import javax.cache.Caching;
@@ -42,6 +37,11 @@ import javax.cache.event.CacheEntryListenerException;
 import javax.cache.event.CacheEntryRemovedListener;
 import javax.cache.event.CacheEntryUpdatedListener;
 import javax.cache.event.EventType;
+
+import org.slf4j.LoggerFactory;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 import jakarta.ejb.Schedule;
 import jakarta.ejb.Singleton;
 import jakarta.ejb.Startup;
@@ -50,8 +50,6 @@ import jakarta.ejb.TransactionAttributeType;
 import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
 import jakarta.transaction.TransactionSynchronizationRegistry;
-
-import org.slf4j.LoggerFactory;
 
 
 /**
@@ -64,7 +62,7 @@ import org.slf4j.LoggerFactory;
 public class TestWriterBean {
   private static AtomicInteger counter = new AtomicInteger();
 
-  private Cache<String,Integer> cache;
+  private Cache<String, Integer> cache;
 
   @Inject
   Event<ValueEvent> eventSink;
@@ -93,15 +91,15 @@ public class TestWriterBean {
     LoggerFactory.getLogger(getClass()).info("done");
   }
 
-  static class TestCacheEntryListenerConfiguration<K, V>  implements CacheEntryListenerConfiguration<K, V> {
+  static class TestCacheEntryListenerConfiguration<K, V>
+      implements CacheEntryListenerConfiguration<K, V> {
     private static final long serialVersionUID = 1L;
-    private static final EnumSet<EventType> ACTIVE_EVENTS = EnumSet.of(EventType.UPDATED, EventType.REMOVED);
+    private static final EnumSet<EventType> ACTIVE_EVENTS =
+        EnumSet.of(EventType.UPDATED, EventType.REMOVED);
 
     @Override
     public Factory<CacheEntryEventFilter<? super K, ? super V>> getCacheEntryEventFilterFactory() {
-      return () -> event -> {
-        return ACTIVE_EVENTS.contains(event.getEventType());
-      };
+      return () -> event -> ACTIVE_EVENTS.contains(event.getEventType());
     }
 
     @Override
@@ -120,14 +118,17 @@ public class TestWriterBean {
     }
   }
 
-  static class EventListener<K, V> implements CacheEntryRemovedListener<K, V>, CacheEntryUpdatedListener<K, V> {
+  static class EventListener<K, V>
+      implements CacheEntryRemovedListener<K, V>, CacheEntryUpdatedListener<K, V> {
     @Override
-    public void onRemoved(Iterable<CacheEntryEvent<? extends K, ? extends V>> cacheEntryEvents) throws CacheEntryListenerException {
+    public void onRemoved(Iterable<CacheEntryEvent<? extends K, ? extends V>> cacheEntryEvents)
+        throws CacheEntryListenerException {
       cacheEntryEvents.forEach(System.out::println);
     }
 
     @Override
-    public void onUpdated(Iterable<CacheEntryEvent<? extends K, ? extends V>> cacheEntryEvents) throws CacheEntryListenerException {
+    public void onUpdated(Iterable<CacheEntryEvent<? extends K, ? extends V>> cacheEntryEvents)
+        throws CacheEntryListenerException {
       cacheEntryEvents.forEach(System.out::println);
     }
   }
