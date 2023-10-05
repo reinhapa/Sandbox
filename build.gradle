@@ -81,10 +81,11 @@ dependencies {
     runtimeOnly 'org.slf4j:jcl-over-slf4j:2.0.9'
     runtimeOnly "org.slf4j:jul-to-slf4j:2.0.9"
 
-    testImplementation 'org.assertj:assertj-core:3.24.2'
     testImplementation 'com.esotericsoftware:kryo:5.5.0'
     testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.1.0'
     testImplementation 'easymock:easymock:2.0'
+    testImplementation 'net.jqwik:jqwik:1.8.0'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
     testImplementation 'org.jmockit:jmockit:1.49'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:5.10.0'
@@ -150,6 +151,11 @@ openApiGenerate {
   apiPackage = "org.openapi.example.api"
   invokerPackage = "org.openapi.example.invoker"
   modelPackage = "org.openapi.example.model"
+  configOptions = [
+          'useJakartaEe' : 'true',
+          'useSwaggerAnnotations' : 'false',
+          'useMicroProfileOpenAPIAnnotations' : 'true'
+  ]
 }
 
 openApiValidate {
