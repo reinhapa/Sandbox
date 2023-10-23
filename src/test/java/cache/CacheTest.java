@@ -78,8 +78,6 @@ public class CacheTest {
 
       cache.registerCacheEntryListener(new MutableCacheEntryListenerConfiguration<>(
           new MyListenerFactory<>(), null, false, true));
-      cache.registerCacheEntryListener(new MutableCacheEntryListenerConfiguration<>(
-          new MyListenerFactory<>(), null, false, true));
 
       System.out.println(manager);
 
