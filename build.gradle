@@ -66,7 +66,7 @@ dependencies {
     implementation "org.openjfx:javafx-graphics:19.0.2.1:$platform"
 
     // ssh
-    implementation 'org.apache.sshd:sshd-cli:2.10.0'
+    implementation 'org.apache.sshd:sshd-cli:2.11.0'
 
     compileOnly 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
     compileOnly 'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0'
