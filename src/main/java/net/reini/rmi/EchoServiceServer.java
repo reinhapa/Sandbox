@@ -32,8 +32,18 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.UUID;
 
+/**
+ * Implements a simple RMI echo service server.
+ */
 public class EchoServiceServer {
+  private  EchoServiceServer() {
+  }
 
+    /**
+     * Invokes the echo server using the given arguments.
+     *
+     * @param args the command line arguments
+     */
   public static void main(String[] args) {
     try (ServerSocket serverSocket = new ServerSocket(0)){
       System.out.println(serverSocket.getLocalPort());

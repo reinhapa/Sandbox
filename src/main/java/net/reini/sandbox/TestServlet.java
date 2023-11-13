@@ -26,6 +26,7 @@ package net.reini.sandbox;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serial;
 
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
@@ -39,11 +40,12 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @WebServlet("/")
 public class TestServlet extends HttpServlet {
+  @Serial
   private static final long serialVersionUID = 1L;
 
   @Inject
   @SpecialVersion
-  Functions functions;
+  transient Functions functions;
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)

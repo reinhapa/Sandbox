@@ -25,6 +25,8 @@
 package net.reini.ws.rs.mastodon;
 
 /**
+ * Describes a mastodon access token.
+ *
  * @param access_token the access token value
  * @param token_type the token type
  * @param scope the access scope

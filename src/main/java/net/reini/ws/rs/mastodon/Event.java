@@ -27,6 +27,8 @@ package net.reini.ws.rs.mastodon;
 import java.util.List;
 
 /**
+ * Describes a mastodon event.
+ *
  * @param stream the list of stream names
  * @param event the event type
  * @param payload the optional event payload

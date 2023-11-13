@@ -27,6 +27,15 @@ package net.reini.sandbox;
 import java.io.IOException;
 import java.io.Writer;
 
+/**
+ * Defines a simple functions interface.
+ */
 public interface Functions {
+  /**
+   * Called with the given writer as output.
+   *
+   * @param writer the target writer object
+   * @throws IOException if a error during output occurs
+   */
   void output(Writer writer) throws IOException;
 }

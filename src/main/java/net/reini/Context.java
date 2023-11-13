@@ -24,6 +24,8 @@
 
 package net.reini;
 
+/**
+ * Simple context definition.
+ */
 public interface Context {
-
 }
