@@ -25,6 +25,8 @@
 package net.reini.ws.rs.mastodon;
 
 /**
+ * Describes a mastodon error state.
+ *
  * @param error the error code
  * @param error_description the error description
  */

@@ -13,6 +13,9 @@ import jakarta.interceptor.InvocationContext;
 
 import org.slf4j.Logger;
 
+/**
+ * Implements the interceptor for the check annotation.
+ */
 @Check(user = "")
 @Interceptor
 @Priority(Interceptor.Priority.APPLICATION + 200)
@@ -24,6 +27,9 @@ public class CheckHandler {
   @Inject
   TestDataProducer testDataProducer;
 
+  /**
+   * Constructs the interceptor.
+   */
   public CheckHandler() {
     uuids = new ConcurrentHashMap<>();
   }

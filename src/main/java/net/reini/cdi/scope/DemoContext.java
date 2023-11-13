@@ -23,6 +23,9 @@ package net.reini.cdi.scope;
 
 import jakarta.enterprise.context.spi.AlterableContext;
 
+/**
+ * Defines a demo alterable context.
+ */
 public interface DemoContext extends AlterableContext {
   /**
    * Activate the context.

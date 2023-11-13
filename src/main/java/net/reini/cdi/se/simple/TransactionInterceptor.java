@@ -38,6 +38,8 @@ import org.slf4j.Logger;
 import net.reini.cdi.se.EjbTransactional;
 
 /**
+ * Implements transaction handling using the interceptor pattern.
+ *
  * @author Patrick Reinhart
  */
 @Interceptor

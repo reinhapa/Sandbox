@@ -26,8 +26,17 @@ package net.reini.concurrent;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Implements the {@link ExecutorServiceMonitorMXBean}.
+ */
 public class ExecutorServiceMonitor implements ExecutorServiceMonitorMXBean {
 	InstrumentedThreadPoolExecutor threadPool;
+
+	/**
+	 * Default constructor
+ 	 */
+	public ExecutorServiceMonitor() {
+	}
 
 	long fromNanoToSeconds(long nanos) {
 		return TimeUnit.NANOSECONDS.toSeconds(nanos);

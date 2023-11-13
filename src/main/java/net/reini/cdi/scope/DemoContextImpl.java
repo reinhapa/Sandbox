@@ -32,6 +32,9 @@ import jakarta.enterprise.context.ContextNotActiveException;
 import jakarta.enterprise.context.spi.Contextual;
 import jakarta.enterprise.context.spi.CreationalContext;
 
+/**
+ * Simple demo context implementaton.
+ */
 public class DemoContextImpl implements DemoContext {
   private static final Logger LOGGER = LoggerFactory.getLogger(DemoContextImpl.class);
 
@@ -39,6 +42,9 @@ public class DemoContextImpl implements DemoContext {
   // thread
   private final ThreadLocal<Map<Contextual<?>, ContextualInstance<?>>> currentContext;
 
+  /**
+   * Initializes the context instance.
+   */
   public DemoContextImpl() {
     currentContext = new ThreadLocal<>();
   }

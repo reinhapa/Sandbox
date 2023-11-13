@@ -24,18 +24,56 @@
 
 package net.reini.concurrent;
 
+/**
+ * Defines all properties and methods to access using JMX.
+ */
 public interface ExecutorServiceMonitorMXBean {
+	/**
+	 * Returns the request rate per second retirement rate.
+	 *
+	 * @return the value
+	 */
 	public double getRequestPerSecondRetirementRate();
 
+	/**
+	 * Returns the average service time.
+	 *
+	 * @return the value
+	 */
 	public double getAverageServiceTime();
 
+	/**
+	 * Returns the average waiting time in the pool.
+	 *
+	 * @return the value
+	 */
 	public double getAverageTimeWaitingInPool();
 
+	/**
+	 * Returns the average response time.
+	 *
+	 * @return the value
+	 */
 	public double getAverageResponseTime();
 
+	/**
+	 * Returns the estimated average number of active requests.
+	 *
+	 * @return the value
+	 */
 	public double getEstimatedAverageNumberOfActiveRequests();
 
+	/**
+	 * Returns the dead time/responsive time ratio.
+	 *
+	 * @return the value
+	 */
 	public double getRatioOfDeadTimeToResponseTime();
 
+	/**
+	 * Returns the value.
+	 *
+	 * @return the value
+	 */
 	public double v();
 }
