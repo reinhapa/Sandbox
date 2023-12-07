@@ -26,6 +26,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+import java.io.Serial;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
@@ -36,19 +37,38 @@ import jakarta.enterprise.context.Initialized;
 import jakarta.enterprise.context.NormalScope;
 import jakarta.enterprise.util.AnnotationLiteral;
 
+/**
+ * Marks e demo context scoped class.
+ */
 @Target({TYPE, METHOD, FIELD})
 @Retention(RUNTIME)
 @Documented
 @NormalScope
 @Inherited
 public @interface DemoScoped {
-  @SuppressWarnings("all")
+  /**
+   * Simple literal implementation.
+   */
   public static final class Literal extends AnnotationLiteral<DemoScoped> implements DemoScoped {
+    @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Constant literal for selecting destroyed scope.
+     */
     public static final Destroyed.Literal DISTROYED = Destroyed.Literal.of(DemoScoped.class);
+
+    /**
+     * Constant literal for selecting initialized scope.
+     */
     public static final Initialized.Literal INITIALIZED = Initialized.Literal.of(DemoScoped.class);
 
+    /**
+     * Constant literal for instance.
+     */
     public static final Literal INSTANCE = new Literal();
+
+    private Literal() {
+    }
   }
 }

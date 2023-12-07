@@ -24,9 +24,19 @@
 
 package net.reini.rmi;
 
-@FunctionalInterface
-public interface EchoService {
+import java.io.Serializable;
 
+/**
+ * Defines a simple echo service.
+ */
+@FunctionalInterface
+public interface EchoService extends Serializable {
+
+  /**
+   * Echos the given input string.
+   * @param input input string to be echoed
+   * @return the input string as echo
+   */
   String echo(String input);
 
 }

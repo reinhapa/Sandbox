@@ -25,6 +25,8 @@
 package net.reini.ws.rs.mastodon;
 
 /**
+ * Describes a mastodon client application.
+ *
  * @param id the client id
  * @param name the client name
  * @param website the client web site

@@ -25,6 +25,8 @@
 package net.reini.ws.rs.mastodon;
 
 /**
+ * Describes a mastodon subscription.
+ *
  * @param access_token the access token
  * @param type the subscription type
  * @param stream the stream name
