@@ -86,7 +86,7 @@ dependencies {
     testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.2.1'
     testImplementation 'easymock:easymock:2.0'
     testImplementation 'net.jqwik:jqwik:1.8.2'
-    testImplementation 'org.assertj:assertj-core:3.25.1'
+    testImplementation 'org.assertj:assertj-core:3.25.2'
     testImplementation 'org.jmockit:jmockit:1.49'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:5.10.1'
