@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    api 'org.slf4j:slf4j-api:2.0.12'
+    api 'org.slf4j:slf4j-api:2.0.13'
 
     implementation 'com.airhacks:afterburner.fx:1.7.0'
     implementation 'com.github.sarxos:webcam-capture:0.3.12'
