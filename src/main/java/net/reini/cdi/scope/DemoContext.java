@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016-2020 Patrick Reinhart
+ * Copyright (c) 2016, 2024 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -26,15 +26,15 @@ import jakarta.enterprise.context.spi.AlterableContext;
 public interface DemoContext extends AlterableContext {
   /**
    * Activate the context.
-   * <p>
-   * No-op if the context is already active.
+   *
+   * <p>No-op if the context is already active.
    */
   void activate();
 
   /**
    * Deactive the context and destroy all contextual instances.
-   * <p>
-   * No-op if the context not activated by this bean.
+   *
+   * <p>No-op if the context not activated by this bean.
    */
   void deactivate();
 }

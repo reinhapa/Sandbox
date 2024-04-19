@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016-2020 Patrick Reinhart
+ * Copyright (c) 2016, 2024 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -21,11 +21,15 @@
 
 package cache;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.lang.management.ManagementFactory;
 import java.net.URI;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.Hashtable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.cache.Cache;
 import javax.cache.CacheManager;
@@ -67,18 +71,21 @@ public class CacheTest {
       System.out.println(configuration.getKeyType());
       System.out.println(configuration.getValueType());
 
+      CacheConfiguration<String, String> cacheConfiguration =
+          CacheConfigurationBuilder.newCacheConfigurationBuilder(
+                  String.class, String.class, ResourcePoolsBuilder.heap(20))
+              .withExpiry(
+                  ExpiryPolicyBuilder.timeToIdleExpiration(Duration.of(5, ChronoUnit.SECONDS)))
+              .build();
 
-      CacheConfiguration<String, String> cacheConfiguration = CacheConfigurationBuilder
-          .newCacheConfigurationBuilder(String.class, String.class, ResourcePoolsBuilder.heap(20))
-          .withExpiry(ExpiryPolicyBuilder.timeToIdleExpiration(Duration.of(5, ChronoUnit.SECONDS)))
-          .build();
+      manager.createCache(
+          "myCache", Eh107Configuration.fromEhcacheCacheConfiguration(cacheConfiguration));
 
-      manager.createCache("myCache",
-          Eh107Configuration.fromEhcacheCacheConfiguration(cacheConfiguration));
+      cache.registerCacheEntryListener(
+          new MutableCacheEntryListenerConfiguration<>(
+              new MyListenerFactory<>(), null, false, true));
 
-      cache.registerCacheEntryListener(new MutableCacheEntryListenerConfiguration<>(
-          new MyListenerFactory<>(), null, false, true));
-
+      assertThat(manager).isNotNull();
       System.out.println(manager);
 
       for (int count = 0; count < 20; count++) {
@@ -104,8 +111,6 @@ public class CacheTest {
       // System.out.println(count + " -> " + value);
       // }
 
-
-
       // cache.removeAll();
 
       var table = new Hashtable<String, String>();
@@ -119,14 +124,14 @@ public class CacheTest {
             JMX.newMXBeanProxy(mbeanServer, objectName, CacheStatisticsMXBean.class);
         System.out.println(statisticsMXBean.getCacheGets());
       }
-
     }
   }
 
   interface SelectiveCacheEventListener<K, V>
-      extends CacheEntryCreatedListener<K, V>, CacheEntryUpdatedListener<K, V>,
-      CacheEntryExpiredListener<K, V>, CacheEntryRemovedListener<K, V> {
-  }
+      extends CacheEntryCreatedListener<K, V>,
+          CacheEntryUpdatedListener<K, V>,
+          CacheEntryExpiredListener<K, V>,
+          CacheEntryRemovedListener<K, V> {}
 
   static class MyListenerFactory<K, V> implements Factory<MyListener<K, V>> {
     private static final long serialVersionUID = 1L;
@@ -148,42 +153,70 @@ public class CacheTest {
   }
 
   static class MyListener<K, V> implements SelectiveCacheEventListener<K, V> {
+    private static final ExecutorService VIRTUAL_THREAD_EXECUTOR =
+        Executors.newVirtualThreadPerTaskExecutor();
+
     @Override
     public void onCreated(Iterable<CacheEntryEvent<? extends K, ? extends V>> events)
         throws CacheEntryListenerException {
-      events.forEach(event -> {
-        System.out.println(
-            "onCreated: " + event.getKey() + " " + event.getValue() + " " + event.getOldValue());
-      });
+      events.forEach(
+          event -> {
+            System.out.println(
+                "onCreated: "
+                    + event.getKey()
+                    + " "
+                    + event.getValue()
+                    + " "
+                    + event.getOldValue());
+          });
     }
 
     @Override
     public void onUpdated(Iterable<CacheEntryEvent<? extends K, ? extends V>> events)
         throws CacheEntryListenerException {
-      events.forEach(event -> {
-        System.out.println(
-            "onUpdated: " + event.getKey() + " " + event.getValue() + " " + event.getOldValue());
-      });
+      events.forEach(
+          event -> {
+            System.out.println(
+                "onUpdated: "
+                    + event.getKey()
+                    + " "
+                    + event.getValue()
+                    + " "
+                    + event.getOldValue());
+          });
     }
 
     @Override
     public void onExpired(Iterable<CacheEntryEvent<? extends K, ? extends V>> events)
         throws CacheEntryListenerException {
-      events.forEach(event -> {
-        System.out.println(
-            "onExpired: " + event.getKey() + " " + event.getValue() + " " + event.getOldValue());
-        Thread thread = new Thread(() -> event.getSource().put(event.getKey(), event.getValue()));
-        thread.start();
-      });
+      events.forEach(
+          event -> {
+            System.out.println(
+                "onExpired: "
+                    + event.getKey()
+                    + " "
+                    + event.getValue()
+                    + " "
+                    + event.getOldValue());
+            @SuppressWarnings("unchecked")
+            Cache<Object, Object> sourceCache = event.getSource();
+            VIRTUAL_THREAD_EXECUTOR.submit(() -> sourceCache.put(event.getKey(), event.getValue()));
+          });
     }
 
     @Override
     public void onRemoved(Iterable<CacheEntryEvent<? extends K, ? extends V>> events)
         throws CacheEntryListenerException {
-      events.forEach(event -> {
-        System.out.println(
-            "onRemoved: " + event.getKey() + " " + event.getValue() + " " + event.getOldValue());
-      });
+      events.forEach(
+          event -> {
+            System.out.println(
+                "onRemoved: "
+                    + event.getKey()
+                    + " "
+                    + event.getValue()
+                    + " "
+                    + event.getOldValue());
+          });
     }
   }
 }

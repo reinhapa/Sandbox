@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016-2020 Patrick Reinhart
+ * Copyright (c) 2016, 2024 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -25,12 +25,12 @@ import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import jakarta.enterprise.context.ContextNotActiveException;
 import jakarta.enterprise.context.spi.Contextual;
 import jakarta.enterprise.context.spi.CreationalContext;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DemoContextImpl implements DemoContext {
   private static final Logger LOGGER = LoggerFactory.getLogger(DemoContextImpl.class);
@@ -108,8 +108,11 @@ public class DemoContextImpl implements DemoContext {
         try {
           contextualInstance.destroy();
         } catch (Exception e) {
-          LOGGER.warn("Unable to destroy instance {} for bean: {}", contextualInstance.instance(),
-              contextualInstance.contextual(), e);
+          LOGGER.warn(
+              "Unable to destroy instance {} for bean: {}",
+              contextualInstance.instance(),
+              contextualInstance.contextual(),
+              e);
         }
       }
       ctx.clear();

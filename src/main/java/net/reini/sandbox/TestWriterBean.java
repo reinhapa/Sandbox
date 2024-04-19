@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016-2020 Patrick Reinhart
+ * Copyright (c) 2016, 2024 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -38,8 +38,6 @@ import javax.cache.event.CacheEntryRemovedListener;
 import javax.cache.event.CacheEntryUpdatedListener;
 import javax.cache.event.EventType;
 
-import org.slf4j.LoggerFactory;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import jakarta.ejb.Schedule;
@@ -51,6 +49,8 @@ import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
 import jakarta.transaction.TransactionSynchronizationRegistry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * My simple test bean
@@ -60,15 +60,14 @@ import jakarta.transaction.TransactionSynchronizationRegistry;
 @Startup
 @Singleton
 public class TestWriterBean {
-  private static AtomicInteger counter = new AtomicInteger();
+  private static final Logger LOGGER = LoggerFactory.getLogger(TestWriterBean.class);
+  private static final AtomicInteger COUNTER = new AtomicInteger();
 
   private Cache<String, Integer> cache;
 
-  @Inject
-  Event<ValueEvent> eventSink;
+  @Inject Event<ValueEvent> eventSink;
 
-  @Resource
-  TransactionSynchronizationRegistry reg;
+  @Resource TransactionSynchronizationRegistry reg;
 
   @PostConstruct
   public void init() {
@@ -79,13 +78,14 @@ public class TestWriterBean {
   @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
   @Schedule(second = "*/5", minute = "*", hour = "*", persistent = false)
   public void test() {
-    int counterValue = counter.incrementAndGet();
+    int counterValue = COUNTER.incrementAndGet();
     cache.registerCacheEntryListener(new TestCacheEntryListenerConfiguration<>());
     cache.put("key", Integer.valueOf(counterValue));
     eventSink.fire(ValueEvent.create(String.valueOf(counterValue)));
     try {
       Thread.sleep(2000);
     } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
       e.printStackTrace();
     }
     LoggerFactory.getLogger(getClass()).info("done");
@@ -123,13 +123,13 @@ public class TestWriterBean {
     @Override
     public void onRemoved(Iterable<CacheEntryEvent<? extends K, ? extends V>> cacheEntryEvents)
         throws CacheEntryListenerException {
-      cacheEntryEvents.forEach(System.out::println);
+      cacheEntryEvents.forEach(event -> LOGGER.info("onRemoved({})", event));
     }
 
     @Override
     public void onUpdated(Iterable<CacheEntryEvent<? extends K, ? extends V>> cacheEntryEvents)
         throws CacheEntryListenerException {
-      cacheEntryEvents.forEach(System.out::println);
+      cacheEntryEvents.forEach(event -> LOGGER.info("onUpdated({})", event));
     }
   }
 }

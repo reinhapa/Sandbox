@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2022-2023 Patrick Reinhart
+ * Copyright (c) 2016, 2024 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -133,8 +133,8 @@ class EncryptionTest {
     SecretKeySpec secretKeySpec =
         new SecretKeySpec(keyAgreement.generateSecret(), keySpecAlgorithm);
     Cipher decryptCipher = Cipher.getInstance(cipherAlgorithm);
-    decryptCipher.init(Cipher.DECRYPT_MODE, secretKeySpec,
-        new IvParameterSpec(HEX_FORMAT.parseHex(initVector)));
+    decryptCipher.init(
+        Cipher.DECRYPT_MODE, secretKeySpec, new IvParameterSpec(HEX_FORMAT.parseHex(initVector)));
 
     byte[] decryptedData = decryptCipher.doFinal(HEX_FORMAT.parseHex(encryptedData));
 

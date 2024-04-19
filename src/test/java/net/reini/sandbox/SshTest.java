@@ -1,3 +1,24 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2016, 2024 Patrick Reinhart
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package net.reini.sandbox;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -32,8 +53,11 @@ class SshTest {
     try (SshClient client = SshClient.setUpDefaultClient()) {
       KeyPair keyPair = loadKeyPair("/home/someUser/.ssh/id_rsa", "secretKeyPassword");
       client.start();
-      try (ClientSession session = client.connect("hostUser", "somehost.somedomain", 22)
-          .verify(1, TimeUnit.SECONDS).getSession()) {
+      try (ClientSession session =
+          client
+              .connect("hostUser", "somehost.somedomain", 22)
+              .verify(1, TimeUnit.SECONDS)
+              .getSession()) {
         session.addPublicKeyIdentity(keyPair);
         session.auth().verify(1, TimeUnit.SECONDS);
         try (ChannelExec execChannel = session.createExecChannel("ls -l")) {
@@ -63,8 +87,8 @@ class SshTest {
     Security.addProvider(new BouncyCastleProvider());
     try (PEMParser pemParser = new PEMParser(new FileReader(keyFile))) {
       JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider("BC");
-      PEMEncryptedKeyPair encryptedKeyPair = (PEMEncryptedKeyPair)pemParser.readObject();
-      PEMDecryptorProvider keyDecryptorProvider= new BcPEMDecryptorProvider(keyPass.toCharArray());
+      PEMEncryptedKeyPair encryptedKeyPair = (PEMEncryptedKeyPair) pemParser.readObject();
+      PEMDecryptorProvider keyDecryptorProvider = new BcPEMDecryptorProvider(keyPass.toCharArray());
       return converter.getKeyPair(encryptedKeyPair.decryptKeyPair(keyDecryptorProvider));
     } catch (Exception e) {
       throw new RuntimeException("Could not load key pair", e);
