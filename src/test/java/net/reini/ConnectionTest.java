@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2022-2023 Patrick Reinhart
+ * Copyright (c) 2016, 2024 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -46,33 +46,39 @@ class ConnectionTest {
   public static void main(String[] args) {
     Toolkit toolKit = Toolkit.getDefaultToolkit();
     List<Image> icons = new ArrayList<>();
-    for (String iconFile : List.of("/home/pr/bison_jdbc.jpg"
-    // "/opt/sublime_text/Icon/16x16/sublime-text.png",
-    // "/opt/sublime_text/Icon/32x32/sublime-text.png",
-    // "/opt/sublime_text/Icon/48x48/sublime-text.png",
-    // "/opt/sublime_text/Icon/128x128/sublime-text.png",
-    // "/opt/sublime_text/Icon/256x256/sublime-text.png"
-    )) {
+    for (String iconFile :
+        List.of(
+            "/home/pr/bison_jdbc.jpg"
+            // "/opt/sublime_text/Icon/16x16/sublime-text.png",
+            // "/opt/sublime_text/Icon/32x32/sublime-text.png",
+            // "/opt/sublime_text/Icon/48x48/sublime-text.png",
+            // "/opt/sublime_text/Icon/128x128/sublime-text.png",
+            // "/opt/sublime_text/Icon/256x256/sublime-text.png"
+            )) {
       icons.add(toolKit.createImage(iconFile));
     }
-    SwingUtilities.invokeLater(() -> {
-      JFrame frame = new JFrame("test");
-      frame.setSize(500, 400);
-      frame.setVisible(true);
-      frame.setIconImages(icons);
-    });
+    SwingUtilities.invokeLater(
+        () -> {
+          JFrame frame = new JFrame("test");
+          frame.setSize(500, 400);
+          frame.setVisible(true);
+          frame.setIconImages(icons);
+        });
     System.setProperty("program.name", "Bison JDBC Query Editor");
     System.out.println();
   }
 
   @Test
   void testConnection() throws IOException, InterruptedException {
-    HttpClient client = HttpClient.newBuilder().version(HTTP_1_1).followRedirects(NORMAL)
-        .connectTimeout(Duration.ofSeconds(5)) //
-        .proxy(ProxySelector.getDefault()) //
-        // .proxy(ProxySelector.of(new InetSocketAddress("localhost", 3128)))
-        // .authenticator(Authenticator.getDefault())
-        .build();
+    HttpClient client =
+        HttpClient.newBuilder()
+            .version(HTTP_1_1)
+            .followRedirects(NORMAL)
+            .connectTimeout(Duration.ofSeconds(5)) //
+            .proxy(ProxySelector.getDefault()) //
+            // .proxy(ProxySelector.of(new InetSocketAddress("localhost", 3128)))
+            // .authenticator(Authenticator.getDefault())
+            .build();
     HttpRequest request = HttpRequest.newBuilder().uri(URI.create("https://rtc.to")).GET().build();
 
     final HttpResponse<String> response = client.send(request, ofString());

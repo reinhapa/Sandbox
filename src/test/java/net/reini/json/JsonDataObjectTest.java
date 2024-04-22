@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016-2023 Patrick Reinhart
+ * Copyright (c) 2016, 2024 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -25,11 +25,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Map;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 class JsonDataObjectTest {
 
@@ -38,11 +38,12 @@ class JsonDataObjectTest {
   void test() throws Exception {
     try (Jsonb jsonb = JsonbBuilder.create()) {
       MapLikeObject expected = new MapLikeObject();
-      expected.put("key1", new SubDataObject("a","b"));
-      expected.put("key2", new SubDataObject("c","d"));
+      expected.put("key1", new SubDataObject("a", "b"));
+      expected.put("key2", new SubDataObject("c", "d"));
 
       String json = jsonb.toJson(expected);
-      String expectedJson = "{\"key1\":{\"value1\":\"a\",\"value2\":\"b\"},\"key2\":{\"value1\":\"c\",\"value2\":\"d\"}}";
+      String expectedJson =
+          "{\"key1\":{\"value1\":\"a\",\"value2\":\"b\"},\"key2\":{\"value1\":\"c\",\"value2\":\"d\"}}";
       assertEquals(expectedJson, json);
     }
   }
@@ -54,7 +55,7 @@ class JsonDataObjectTest {
       expected.setByteValues(Map.of());
       expected.setDoubleValues(Map.of());
       expected.setIntegerValues(Map.of(Integer.valueOf(1), "keyOne"));
-      expected.setFloatValues(Map.of(1.0f, new SubDataObject()));
+      expected.setFloatValues(Map.of(Float.valueOf(1.0f), new SubDataObject()));
       expected.setLongValues(Map.of());
       expected.setShortValues(Map.of());
 
@@ -67,5 +68,4 @@ class JsonDataObjectTest {
       assertEquals(expected.getIntegerValues(), tested.getIntegerValues());
     }
   }
-
 }

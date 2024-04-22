@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016-2020 Patrick Reinhart
+ * Copyright (c) 2016, 2024 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -26,9 +26,7 @@ import java.util.function.Consumer;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 
-/**
- * Simple hello application.
- */
+/** Simple hello application. */
 @Dependent
 public class HelloApplication {
   private final DemoContext demoContext;
@@ -39,7 +37,6 @@ public class HelloApplication {
     this.demoContext = demoContext;
     this.scopedBean = scopedBean;
   }
-
 
   /**
    * Sends a hello world to the given action.

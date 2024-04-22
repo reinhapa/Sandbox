@@ -1,25 +1,22 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016-2020 Patrick Reinhart
+ * Copyright (c) 2016, 2024 Patrick Reinhart
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 package net.reini.cdi.se.simple;
@@ -30,11 +27,12 @@ import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
 
+import javax.sql.DataSource;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Produces;
 import jakarta.enterprise.inject.spi.InjectionPoint;
-import javax.sql.DataSource;
 import jakarta.transaction.HeuristicMixedException;
 import jakarta.transaction.HeuristicRollbackException;
 import jakarta.transaction.InvalidTransactionException;
@@ -74,12 +72,10 @@ public class ResourceProvider {
       }
 
       @Override
-      public void setLoginTimeout(int seconds) throws SQLException {
-      }
+      public void setLoginTimeout(int seconds) throws SQLException {}
 
       @Override
-      public void setLogWriter(PrintWriter out) throws SQLException {
-      }
+      public void setLogWriter(PrintWriter out) throws SQLException {}
 
       @Override
       public int getLoginTimeout() throws SQLException {
@@ -120,21 +116,17 @@ public class ResourceProvider {
       }
 
       @Override
-      public void setTransactionTimeout(int seconds) throws SystemException {
-      }
+      public void setTransactionTimeout(int seconds) throws SystemException {}
 
       @Override
-      public void setRollbackOnly() throws IllegalStateException, SystemException {
-      }
+      public void setRollbackOnly() throws IllegalStateException, SystemException {}
 
       @Override
-      public void rollback() throws IllegalStateException, SecurityException, SystemException {
-      }
+      public void rollback() throws IllegalStateException, SecurityException, SystemException {}
 
       @Override
       public void resume(Transaction tobj)
-          throws InvalidTransactionException, IllegalStateException, SystemException {
-      }
+          throws InvalidTransactionException, IllegalStateException, SystemException {}
 
       @Override
       public Transaction getTransaction() throws SystemException {
@@ -147,13 +139,16 @@ public class ResourceProvider {
       }
 
       @Override
-      public void commit() throws RollbackException, HeuristicMixedException,
-          HeuristicRollbackException, SecurityException, IllegalStateException, SystemException {
-      }
+      public void commit()
+          throws RollbackException,
+              HeuristicMixedException,
+              HeuristicRollbackException,
+              SecurityException,
+              IllegalStateException,
+              SystemException {}
 
       @Override
-      public void begin() throws NotSupportedException, SystemException {
-      }
+      public void begin() throws NotSupportedException, SystemException {}
 
       @Override
       public String toString() {
@@ -169,16 +164,13 @@ public class ResourceProvider {
       InjectionPoint ip) {
     return new TransactionSynchronizationRegistry() {
       @Override
-      public void setRollbackOnly() {
-      }
+      public void setRollbackOnly() {}
 
       @Override
-      public void registerInterposedSynchronization(Synchronization sync) {
-      }
+      public void registerInterposedSynchronization(Synchronization sync) {}
 
       @Override
-      public void putResource(Object key, Object value) {
-      }
+      public void putResource(Object key, Object value) {}
 
       @Override
       public int getTransactionStatus() {
@@ -206,5 +198,4 @@ public class ResourceProvider {
       }
     };
   }
-
 }

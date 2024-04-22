@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016-2020 Patrick Reinhart
+ * Copyright (c) 2016, 2024 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -36,9 +36,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import jakarta.enterprise.context.spi.CreationalContext;
 import jakarta.enterprise.event.Observes;
 import jakarta.enterprise.inject.Instance;
@@ -53,6 +50,9 @@ import jakarta.enterprise.inject.spi.InjectionPoint;
 import jakarta.enterprise.inject.spi.InjectionTarget;
 import jakarta.enterprise.inject.spi.InterceptionFactory;
 import jakarta.enterprise.inject.spi.ProcessInjectionTarget;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WeldDemo {
   private static Logger logger = LoggerFactory.getLogger(WeldDemo.class);
@@ -72,18 +72,19 @@ public class WeldDemo {
     int threads = 5;
     ExecutorService service = Executors.newFixedThreadPool(threads);
     CountDownLatch countDown = new CountDownLatch(1);
-    Callable<Set<String>> test = () -> {
-      Set<String> ids = new HashSet<>();
-      Instance<Numerator> instance = CDI.current().select(Numerator.class);
-      countDown.await();
-      for (int i = 0; i < 10; i++) {
-        Numerator numerator = instance.get();
-        String id = numerator.nextValue();
-        reportId(ids, id);
-        instance.destroy(numerator);
-      }
-      return ids;
-    };
+    Callable<Set<String>> test =
+        () -> {
+          Set<String> ids = new HashSet<>();
+          Instance<Numerator> instance = CDI.current().select(Numerator.class);
+          countDown.await();
+          for (int i = 0; i < 10; i++) {
+            Numerator numerator = instance.get();
+            String id = numerator.nextValue();
+            reportId(ids, id);
+            instance.destroy(numerator);
+          }
+          return ids;
+        };
     List<Future<Set<String>>> tasks = new ArrayList<>();
     for (int i = 0; i < threads; i++) {
       tasks.add(service.submit(test));
@@ -106,7 +107,6 @@ public class WeldDemo {
     }
   }
 
-
   static class WeldExtension implements Extension {
     private final List<PooledInjectionTarget<?>> pooledTargets;
 
@@ -114,13 +114,14 @@ public class WeldDemo {
       pooledTargets = new ArrayList<>();
     }
 
-    <X> void processInjectionTarget(@Observes ProcessInjectionTarget<X> pit,
-        BeanManager beanManager) {
+    <X> void processInjectionTarget(
+        @Observes ProcessInjectionTarget<X> pit, BeanManager beanManager) {
       AnnotatedType<X> at = pit.getAnnotatedType();
       if (Numerator.class.isAssignableFrom(at.getJavaClass())) {
         logger.info("processInjectionTarget({}, {})", at, beanManager);
         PooledInjectionTarget<X> injectionTarget =
-            new PooledInjectionTarget<>(pit.getInjectionTarget(),
+            new PooledInjectionTarget<>(
+                pit.getInjectionTarget(),
                 ctx -> beanManager.createInterceptionFactory(ctx, at.getJavaClass()));
         pooledTargets.add(injectionTarget);
         pit.setInjectionTarget(injectionTarget);
@@ -138,7 +139,8 @@ public class WeldDemo {
     private Deque<X> available;
     private Deque<X> inUse;
 
-    PooledInjectionTarget(InjectionTarget<X> delegate,
+    PooledInjectionTarget(
+        InjectionTarget<X> delegate,
         Function<CreationalContext<X>, InterceptionFactory<X>> interceptorFunction) {
       this.delegate = delegate;
       this.interceptorFunction = interceptorFunction;
