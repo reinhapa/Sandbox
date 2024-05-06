@@ -73,7 +73,7 @@ dependencies {
     implementation 'org.apache.sshd:sshd-cli:2.12.1'
 
     compileOnly 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
-    compileOnly 'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0'
+    compileOnly 'jakarta.ws.rs:jakarta.ws.rs-api:4.0.0'
     compileOnly 'jakarta.websocket:jakarta.websocket-client-api:2.1.1'
 
     runtimeOnly 'ch.qos.logback:logback-classic:1.5.6'
