@@ -22,8 +22,9 @@
 package net.reini.sandbox;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.Writer;
 
-public interface Functions {
+public interface Functions extends Serializable {
   void output(Writer writer) throws IOException;
 }

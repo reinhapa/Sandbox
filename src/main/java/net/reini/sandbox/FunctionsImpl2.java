@@ -22,6 +22,7 @@
 package net.reini.sandbox;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.io.Writer;
 
 import jakarta.ejb.Stateless;
@@ -29,6 +30,8 @@ import jakarta.ejb.Stateless;
 @SpecialVersion
 @Stateless
 public class FunctionsImpl2 implements Functions {
+  @Serial private static final long serialVersionUID = 1L;
+
   @Override
   public void output(Writer writer) throws IOException {
     writer.append(getClass().getName());

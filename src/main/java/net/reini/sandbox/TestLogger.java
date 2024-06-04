@@ -22,6 +22,7 @@
 package net.reini.sandbox;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.io.Writer;
 
 import jakarta.ejb.Singleton;
@@ -31,6 +32,8 @@ import jakarta.enterprise.event.Observes;
 @Singleton
 @Startup
 public class TestLogger implements Functions, EventListener {
+  @Serial private static final long serialVersionUID = 1L;
+
   @Override
   public void onMessage(@Observes @SpecialVersion TestEvent event) {
     System.out.println(event);

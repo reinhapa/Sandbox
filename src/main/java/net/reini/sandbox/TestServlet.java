@@ -23,6 +23,7 @@ package net.reini.sandbox;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serial;
 
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
@@ -34,7 +35,7 @@ import jakarta.servlet.http.HttpServletResponse;
 /** Servlet implementation class TestServlet */
 @WebServlet("/")
 public class TestServlet extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   @Inject @SpecialVersion Functions functions;
 

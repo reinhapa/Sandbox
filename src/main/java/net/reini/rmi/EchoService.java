@@ -21,8 +21,10 @@
 
 package net.reini.rmi;
 
+import java.io.Serializable;
+
 @FunctionalInterface
-public interface EchoService {
+public interface EchoService extends Serializable {
 
   String echo(String input);
 }

@@ -22,6 +22,7 @@
 package net.reini.sandbox;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.io.Writer;
 
 import jakarta.ejb.Stateless;
@@ -31,6 +32,8 @@ import jakarta.inject.Inject;
 @Default
 @Stateless
 public class FunctionsImpl1 implements Functions {
+  @Serial private static final long serialVersionUID = 1L;
+
   @Inject
   @SystemProperty(name = "user.dir")
   String userDir;
