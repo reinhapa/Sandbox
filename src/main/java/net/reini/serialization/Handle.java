@@ -21,13 +21,24 @@
 
 package net.reini.serialization;
 
+/** Simple handle definition. */
 public class Handle {
   private final String id;
 
+  /**
+   * Constructs a handle using the given id.
+   *
+   * @param id the handle id
+   */
   public Handle(String id) {
     this.id = id;
   }
 
+  /**
+   * Returns the id of the current handle.
+   *
+   * @return the handle id
+   */
   public String getId() {
     return id;
   }

@@ -33,6 +33,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 
+/** Implements the controller for the JavaFX application. */
 public class Controller implements Initializable {
   final ImportService importService;
 
@@ -46,6 +47,7 @@ public class Controller implements Initializable {
   @FXML Button cancelBtn;
   @FXML Label statusMessage;
 
+  /** Default constructor initializing the controller. */
   public Controller() {
     importService = new ImportService();
   }
@@ -71,11 +73,13 @@ public class Controller implements Initializable {
     jdbcPassword.setText("mirexal");
   }
 
+  /** Starts the import process. */
   @FXML
   public void startImport() {
     importService.restart();
   }
 
+  /** Cancels the import process. */
   @FXML
   public void cancelImport() {
     importService.cancel();

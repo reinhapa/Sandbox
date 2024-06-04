@@ -45,7 +45,17 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.oned.EAN13Reader;
 
-public class BarcodeScanner {
+/** Implements a simple barcode scanner. */
+public final class BarcodeScanner {
+
+  private BarcodeScanner() {}
+
+  /**
+   * Starts ths barcode scanner
+   *
+   * @param args the command line arguments
+   * @throws Exception if any error occurs
+   */
   public static void main(String[] args) throws Exception {
     for (Webcam webcam : Webcam.getWebcams()) {
       System.out.println(webcam.getName());

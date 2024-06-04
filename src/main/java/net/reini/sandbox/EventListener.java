@@ -21,6 +21,12 @@
 
 package net.reini.sandbox;
 
+/** Defines a simple event listener. */
 public interface EventListener {
+  /**
+   * Notifies on a given test event.
+   *
+   * @param event the event that is being notified
+   */
   public void onMessage(TestEvent event);
 }

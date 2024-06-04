@@ -29,6 +29,7 @@ import java.lang.annotation.Target;
 
 import jakarta.interceptor.InterceptorBinding;
 
+/** Marks EJB style transaction handling. */
 @Inherited
 @InterceptorBinding
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.CONSTRUCTOR})

@@ -26,11 +26,23 @@ import java.util.function.Consumer;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 
+/** Simple hello application. */
 @Dependent
 public class HelloApplication {
-  @Inject DemoContext demoContext;
-  @Inject ScopedBean scopedBean;
+  private final DemoContext demoContext;
+  private final ScopedBean scopedBean;
 
+  @Inject
+  public HelloApplication(DemoContext demoContext, ScopedBean scopedBean) {
+    this.demoContext = demoContext;
+    this.scopedBean = scopedBean;
+  }
+
+  /**
+   * Sends a hello world to the given action.
+   *
+   * @param action the action to send hello world to
+   */
   public void helloWorld(Consumer<String> action) {
     demoContext.activate();
     action.accept("helloWorld: " + scopedBean);

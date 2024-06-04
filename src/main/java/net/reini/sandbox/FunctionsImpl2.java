@@ -26,9 +26,13 @@ import java.io.Writer;
 
 import jakarta.ejb.Stateless;
 
+/** Default implementation of the {@link Functions} interface. */
 @SpecialVersion
 @Stateless
 public class FunctionsImpl2 implements Functions {
+  /** Default constructor. */
+  public FunctionsImpl2() {}
+
   @Override
   public void output(Writer writer) throws IOException {
     writer.append(getClass().getName());

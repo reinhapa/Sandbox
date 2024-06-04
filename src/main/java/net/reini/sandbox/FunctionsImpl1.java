@@ -28,18 +28,30 @@ import jakarta.ejb.Stateless;
 import jakarta.enterprise.inject.Default;
 import jakarta.inject.Inject;
 
+/** Default implementation of the {@link Functions} interface. */
 @Default
 @Stateless
 public class FunctionsImpl1 implements Functions {
+  private final String userDir;
+
+  /**
+   * Constructor using the given user directory.
+   *
+   * @param userDir the user directory
+   */
   @Inject
-  @SystemProperty(name = "user.dir")
-  String userDir;
+  public FunctionsImpl1(@SystemProperty(name = "user.dir") String userDir) {
+    this.userDir = userDir;
+  }
 
   @Override
   public void output(Writer writer) throws IOException {
     writer.append(getClass().getName());
   }
 
+  /**
+   * @deprecated demonstration method marked for removal
+   */
   @Deprecated(since = "18.03", forRemoval = true)
   public void toBeRemoved() {
     // no action anymore

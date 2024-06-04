@@ -32,6 +32,7 @@ import jakarta.enterprise.context.spi.CreationalContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/** Simple demo context implementaton. */
 public class DemoContextImpl implements DemoContext {
   private static final Logger LOGGER = LoggerFactory.getLogger(DemoContextImpl.class);
 
@@ -39,6 +40,7 @@ public class DemoContextImpl implements DemoContext {
   // thread
   private final ThreadLocal<Map<Contextual<?>, ContextualInstance<?>>> currentContext;
 
+  /** Initializes the context instance. */
   public DemoContextImpl() {
     currentContext = new ThreadLocal<>();
   }

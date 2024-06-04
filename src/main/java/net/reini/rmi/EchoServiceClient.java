@@ -26,8 +26,15 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+/** Implements a simple RMI echo client. */
 public class EchoServiceClient {
+  private EchoServiceClient() {}
 
+  /**
+   * Invokes the echo client using the given arguments.
+   *
+   * @param args the command line arguments
+   */
   public static void main(String[] args) {
     try {
       RemoteEchoService echo =

@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+/** Extended thread pool executor supporting additional statistics. */
 public class InstrumentedThreadPoolExecutor extends ThreadPoolExecutor {
   // Keep track of all of the request times
   private final ConcurrentHashMap<Runnable, Long> timeOfRequest = new ConcurrentHashMap<>();
@@ -43,6 +44,8 @@ public class InstrumentedThreadPoolExecutor extends ThreadPoolExecutor {
   private final AtomicLong aggregateInterRequestArrivalTime = new AtomicLong();
 
   /**
+   * Creates a new instance using the given arguments.
+   *
    * @param corePoolSize the number of threads to keep in the pool, even if they are idle, unless
    *     {@code allowCoreThreadTimeOut} is set
    * @param maximumPoolSize the maximum number of threads to allow in the pool
@@ -106,6 +109,8 @@ public class InstrumentedThreadPoolExecutor extends ThreadPoolExecutor {
   }
 
   /**
+   * Returns the aggregated inter request arrival time.
+   *
    * @return the aggregateInterRequestArrivalTime
    */
   public long getAggregateInterRequestArrivalTime() {
@@ -113,6 +118,8 @@ public class InstrumentedThreadPoolExecutor extends ThreadPoolExecutor {
   }
 
   /**
+   * Returns the total pool time.
+   *
    * @return the totalPoolTime
    */
   public long getTotalPoolTime() {
@@ -120,6 +127,8 @@ public class InstrumentedThreadPoolExecutor extends ThreadPoolExecutor {
   }
 
   /**
+   * Returns the total service time.
+   *
    * @return the totalServiceTime
    */
   public long getTotalServiceTime() {
@@ -127,6 +136,8 @@ public class InstrumentedThreadPoolExecutor extends ThreadPoolExecutor {
   }
 
   /**
+   * Returns the number of requests.
+   *
    * @return the numberOfRequests
    */
   public int getNumberOfRequests() {
@@ -134,6 +145,8 @@ public class InstrumentedThreadPoolExecutor extends ThreadPoolExecutor {
   }
 
   /**
+   * Returns the request rate per second retirement rate.
+   *
    * @return the numberOfRequestsRetired
    */
   public int getNumberOfRequestsRetired() {

@@ -21,9 +21,17 @@
 
 package net.reini.autoclose;
 
-public class Closer {
+/** Implements a simple helper class to handle {@link AutoCloseable} instances. */
+public final class Closer {
+  private Closer() {}
 
-  @SuppressWarnings("unchecked")
+  /**
+   * Closes the given closable objects.
+   *
+   * @param <X> the type of exception being thrown on error
+   * @param closeables the closable objects
+   * @throws X if the close did not succeed
+   */
   public static <X extends Throwable> void close(AutoCloseable... closeables) throws X {
     Exception rootException = null;
     for (AutoCloseable closeable : closeables) {
