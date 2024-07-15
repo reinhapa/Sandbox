@@ -90,7 +90,7 @@ dependencies {
     testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.3.0'
     testImplementation 'easymock:easymock:2.0'
     testImplementation 'net.jqwik:jqwik:1.9.0'
-    testImplementation 'org.assertj:assertj-core:3.26.0'
+    testImplementation 'org.assertj:assertj-core:3.26.3'
     testImplementation 'org.jmockit:jmockit:1.49'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.3'
     testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:5.10.3'
