@@ -110,7 +110,7 @@ dependencies {
     testRuntimeOnly 'org.glassfish.jersey.core:jersey-client:3.1.9'
     testRuntimeOnly 'org.glassfish.jersey.media:jersey-media-json-binding:3.1.9'
     testRuntimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:2.2.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.11.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.11.4'
     testRuntimeOnly 'org.junit.platform:junit-platform-jfr:1.11.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-runner:1.11.3', { exclude group: "junit", module: "junit" }
     testRuntimeOnly 'org.junit.platform:junit-platform-console:1.11.3'
