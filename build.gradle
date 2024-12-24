@@ -96,7 +96,7 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.27.0'
     testImplementation 'org.jmockit:jmockit:1.49'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.11.3'
-    testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:5.11.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:5.11.4'
     testImplementation 'org.mockito:mockito-junit-jupiter:5.14.2'
     testImplementation 'org.shredzone.acme4j:acme4j-client:3.4.0'
 
