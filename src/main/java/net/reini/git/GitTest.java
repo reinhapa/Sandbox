@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -27,7 +27,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import org.eclipse.jgit.api.AddCommand;
@@ -104,12 +103,7 @@ public class GitTest {
 
       // execute commit if something has changed
       if (!toAdd.isEmpty() || !toRemove.isEmpty()) {
-        PersonIdent ident =
-            new PersonIdent(
-                "Robocop",
-                "john.doe@somewhere.com",
-                System.currentTimeMillis(),
-                (int) TimeUnit.HOURS.toMillis(1));
+        PersonIdent ident = new PersonIdent("Robocop", "john.doe@somewhere.com");
         git.commit().setMessage("auto commit").setAuthor(ident).setCommitter(ident).call();
       }
     }
