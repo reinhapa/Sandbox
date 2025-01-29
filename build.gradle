@@ -24,7 +24,7 @@ java {
 repositories {
   mavenCentral()
   maven {
-    url 'https://oss.sonatype.org/content/repositories/snapshots'
+    url = 'https://oss.sonatype.org/content/repositories/snapshots'
   }
 }
 
@@ -142,8 +142,7 @@ compileJava {
     options.compilerArgs = [
             '-Xlint:all',
             '--module-path', classpath.asPath,
-            '--add-modules', 'javafx.controls,javafx.fxml',
-            '--add-exports', 'jdk.httpserver/com.sun.net.httpserver=UNNAMED'
+            '--add-modules', 'javafx.controls,javafx.fxml'
     ]
   }
 }
