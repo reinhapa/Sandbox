@@ -46,7 +46,7 @@ dependencies {
   implementation 'com.google.zxing:core:3.5.3'
   implementation 'com.google.zxing:javase:3.5.3'
   implementation 'javax.cache:cache-api:1.1.1'
-  implementation 'org.apache.commons:commons-pool2:2.12.0'
+  implementation 'org.apache.commons:commons-pool2:2.12.1'
   implementation 'org.bouncycastle:bcprov-jdk18on:1.80'
   implementation 'org.bouncycastle:bcpkix-jdk18on:1.80'
   implementation 'org.eclipse.jgit:org.eclipse.jgit:7.1.0.202411261347-r'
