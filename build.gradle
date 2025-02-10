@@ -37,8 +37,9 @@ dependencies {
   api 'org.slf4j:slf4j-api:2.0.16'
 
   jdbcDrivers 'com.h2database:h2:2.3.232'
+  jdbcDrivers 'com.oracle.database.jdbc:ojdbc10:19.25.0.0'
   jdbcDrivers 'com.oracle.database.jdbc:ojdbc11:21.16.0.0'
-  jdbcDrivers 'com.oracle.database.jdbc:ojdbc17:23.6.0.24.10'
+  jdbcDrivers 'com.oracle.database.jdbc:ojdbc17:23.7.0.25.01'
   jdbcDrivers 'org.postgresql:postgresql:42.7.5'
 
   implementation 'com.airhacks:afterburner.fx:1.7.0'
@@ -63,7 +64,7 @@ dependencies {
   implementation 'org.eclipse.microprofile.config:microprofile-config-api:3.1'
   implementation 'org.eclipse.microprofile.metrics:microprofile-metrics-api:5.1.2'
 
-  runtimeOnly 'io.smallrye.config:smallrye-config:3.11.1'
+  runtimeOnly 'io.smallrye.config:smallrye-config:3.11.2'
   runtimeOnly 'io.smallrye:smallrye-metrics:5.1.0'
   runtimeOnly 'org.eclipse:yasson:3.0.4'
 
@@ -77,10 +78,10 @@ dependencies {
   implementation 'org.jboss:jandex:3.2.3'
 
   // javaFX
-  implementation "org.openjfx:javafx-base:23.0.1:$platform"
-  implementation "org.openjfx:javafx-controls:23.0.1:$platform"
-  implementation "org.openjfx:javafx-fxml:23.0.1:$platform"
-  implementation "org.openjfx:javafx-graphics:23.0.1:$platform"
+  implementation "org.openjfx:javafx-base:23.0.2:$platform"
+  implementation "org.openjfx:javafx-controls:23.0.2:$platform"
+  implementation "org.openjfx:javafx-fxml:23.0.2:$platform"
+  implementation "org.openjfx:javafx-graphics:23.0.2:$platform"
 
   // ssh
   implementation 'org.apache.sshd:sshd-cli:2.14.0'
