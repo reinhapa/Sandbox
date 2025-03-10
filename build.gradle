@@ -34,7 +34,7 @@ configurations {
 }
 
 dependencies {
-  api 'org.slf4j:slf4j-api:2.0.16'
+  api 'org.slf4j:slf4j-api:2.0.17'
 
   jdbcDrivers 'com.h2database:h2:2.3.232'
   jdbcDrivers 'com.oracle.database.jdbc:ojdbc10:19.25.0.0'
