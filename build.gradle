@@ -111,7 +111,7 @@ dependencies {
   testImplementation 'org.shredzone.acme4j:acme4j-client:3.5.1'
 
   testImplementation 'jakarta.websocket:jakarta.websocket-client-api:2.2.0'
-  testImplementation 'org.codehaus.izpack:izpack-installer:5.2.4-SNAPSHOT'
+  testImplementation 'org.codehaus.izpack:izpack-installer:6.0.0-SNAPSHOT'
 
   testRuntimeOnly 'ch.qos.logback:logback-classic:1.5.17'
   testRuntimeOnly 'com.tngtech.archunit:archunit-junit5:1.4.0'
