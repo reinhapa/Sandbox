@@ -71,7 +71,7 @@ dependencies {
   implementation 'org.graalvm.polyglot:polyglot:24.2.0'
   implementation 'org.graalvm.polyglot:python:24.2.0'
 
-  implementation 'org.apache.activemq:artemis-jakarta-client:2.39.0'
+  implementation 'org.apache.activemq:artemis-jakarta-client:2.40.0'
   implementation 'org.apache.activemq.rest:artemis-rest:2.25.0'
 
   implementation 'org.jboss.weld.se:weld-se-core:6.0.1.Final'
