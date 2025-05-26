@@ -75,7 +75,7 @@ dependencies {
   implementation 'org.apache.activemq.rest:artemis-rest:2.25.0'
 
   implementation 'org.jboss.weld.se:weld-se-core:6.0.2.Final'
-  implementation 'org.jboss:jandex:3.3.0'
+  implementation 'org.jboss:jandex:3.3.1'
 
   // javaFX
   implementation "org.openjfx:javafx-base:23.0.2:$platform"
