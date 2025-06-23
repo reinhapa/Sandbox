@@ -104,7 +104,7 @@ dependencies {
   testImplementation 'easymock:easymock:2.0'
   testImplementation 'net.jqwik:jqwik:1.9.3'
   testImplementation 'org.assertj:assertj-core:3.27.3'
-  testImplementation 'org.jmockit:jmockit:1.49'
+  testImplementation 'org.jmockit:jmockit:1.50'
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.13.1'
   testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:5.13.1'
   testImplementation 'org.mockito:mockito-junit-jupiter:5.18.0'
