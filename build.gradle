@@ -103,7 +103,7 @@ dependencies {
   testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.4.1'
   testImplementation 'easymock:easymock:2.0'
   testImplementation 'net.jqwik:jqwik:1.9.3'
-  testImplementation 'org.assertj:assertj-core:3.27.3'
+  testImplementation 'org.assertj:assertj-core:3.27.4'
   testImplementation 'org.jmockit:jmockit:1.50'
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.13.4'
   testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:5.13.4'
