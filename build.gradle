@@ -138,7 +138,7 @@ spotless {
   java {
     ratchetFrom('origin/master')
     licenseHeaderFile('gradle/LICENSE_HEADER').yearSeparator(', ').skipLinesMatching('.+File Name: .+')
-    googleJavaFormat()
+    eclipse().configFile('gradle/spotless-style.xml')
     importOrder('java', 'javax', 'jakarta', 'org', 'com')
     removeUnusedImports()
     targetExclude('**/generate-resources/main/src/gen/java/**')
@@ -206,14 +206,13 @@ openApiGenerate {
   invokerPackage = "org.openapi.example.invoker"
   modelPackage = "org.openapi.example.model"
   configOptions = [
-        dateLibrary                       : 'java8',
-        interfaceOnly                     : 'true',
-        openApiNullable                   : 'false',
-        serializableModel                 : 'true',
-        useJakartaEe                      : 'true',
-        useMicroProfileOpenAPIAnnotations : 'true',
-        useOptional                       : 'true',
-        useSwaggerAnnotations             : 'false'
+        'dateLibrary'                       : 'java8',
+        'openApiNullable'                   : 'false',
+        'serializableModel'                 : 'true',
+        'useJakartaEe'                      : 'true',
+        'useMicroProfileOpenAPIAnnotations' : 'true',
+        'useOptional'                       : 'true',
+        'useSwaggerAnnotations'             : 'false'
   ]
 }
 
