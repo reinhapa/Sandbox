@@ -21,6 +21,10 @@ java {
   withSourcesJar()
 }
 
+javadoc {
+  exclude 'org/openapi/example/api/**'
+}
+
 repositories {
   mavenCentral()
   maven {
@@ -52,7 +56,7 @@ dependencies {
   implementation 'org.bouncycastle:bcpkix-jdk18on:1.81'
   implementation 'org.eclipse.jgit:org.eclipse.jgit:7.3.0.202506031305-r'
   implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
-  implementation 'org.ehcache:ehcache:3.10.8:jakarta'
+  implementation 'org.ehcache:ehcache:3.11.0:jakarta'
   implementation 'org.glassfish.jersey.core:jersey-client:3.1.11'
   implementation 'org.jfree:jfreechart:1.5.6'
 
@@ -63,6 +67,7 @@ dependencies {
   implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
   implementation 'org.eclipse.microprofile.config:microprofile-config-api:3.1'
   implementation 'org.eclipse.microprofile.metrics:microprofile-metrics-api:5.1.2'
+  implementation 'org.eclipse.microprofile.openapi:microprofile-openapi-api:4.1'
 
   runtimeOnly 'io.smallrye.config:smallrye-config:3.13.4'
   runtimeOnly 'io.smallrye:smallrye-metrics:5.1.0'
@@ -84,7 +89,7 @@ dependencies {
   implementation "org.openjfx:javafx-graphics:23.0.2:$platform"
 
   // ssh
-  implementation 'org.apache.sshd:sshd-cli:2.15.0'
+  implementation 'org.apache.sshd:sshd-cli:2.16.0'
 
   compileOnly 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
   compileOnly 'jakarta.ws.rs:jakarta.ws.rs-api:4.0.0'
@@ -136,9 +141,16 @@ spotless {
     googleJavaFormat()
     importOrder('java', 'javax', 'jakarta', 'org', 'com')
     removeUnusedImports()
+    targetExclude('**/generate-resources/main/src/gen/java/**')
   }
 }
+
+sourceSets {
+  main.java.srcDirs("build/generate-resources/main/src/gen/java")
+}
+
 compileJava {
+  dependsOn 'openApiGenerate'
   doFirst {
     options.compilerArgs = [
             '-Xlint:all',
@@ -148,6 +160,10 @@ compileJava {
   }
 }
 
+tasks.named('sourcesJar') {
+  dependsOn 'openApiGenerate'
+}
+
 tasks.withType(JavaCompile).each {
   it.options.compilerArgs.add('--enable-preview')
 }
@@ -155,7 +171,7 @@ tasks.withType(JavaCompile).each {
 tasks.withType(Test).each {
   it.useJUnitPlatform()
   it.systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
-  it.jvmArgs += "-XX:StartFlightRecording:filename=$buildDir/reports/${name}.jfr"
+  it.jvmArgs += "-XX:StartFlightRecording:filename=${layout.buildDirectory.get().asFile}/reports/${name}.jfr"
   it.testLogging {
     events 'failed', 'skipped', 'passed'
   }
@@ -186,14 +202,18 @@ tasks.register('jdbcDrivers', Sync) {
 openApiGenerate {
   inputSpec = "$rootDir/swagger.yaml"
   generatorName = "jaxrs-spec"
-  outputDir = "$buildDir/generated"
   apiPackage = "org.openapi.example.api"
   invokerPackage = "org.openapi.example.invoker"
   modelPackage = "org.openapi.example.model"
   configOptions = [
-          'useJakartaEe' : 'true',
-          'useSwaggerAnnotations' : 'false',
-          'useMicroProfileOpenAPIAnnotations' : 'true'
+        dateLibrary                       : 'java8',
+        interfaceOnly                     : 'true',
+        openApiNullable                   : 'false',
+        serializableModel                 : 'true',
+        useJakartaEe                      : 'true',
+        useMicroProfileOpenAPIAnnotations : 'true',
+        useOptional                       : 'true',
+        useSwaggerAnnotations             : 'false'
   ]
 }
 
