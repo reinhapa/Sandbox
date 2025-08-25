@@ -39,6 +39,8 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.RepositoryBuilder;
 
 /**
+ * Does a couple of git related tests.
+ *
  * @author patrick.reinhart
  */
 public class GitTest {

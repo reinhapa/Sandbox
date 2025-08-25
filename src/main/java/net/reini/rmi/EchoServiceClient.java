@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -26,8 +26,15 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+/** Implements a simple RMI echo client. */
 public class EchoServiceClient {
+  private EchoServiceClient() {}
 
+  /**
+   * Invokes the echo client using the given arguments.
+   *
+   * @param args the command line arguments
+   */
   public static void main(String[] args) {
     try {
       RemoteEchoService echo =

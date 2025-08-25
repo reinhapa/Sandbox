@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -25,6 +25,13 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
 
+/** Defines a simple functions interface. */
 public interface Functions extends Serializable {
+  /**
+   * Called with the given writer as output.
+   *
+   * @param writer the target writer object
+   * @throws IOException if a error during output occurs
+   */
   void output(Writer writer) throws IOException;
 }
