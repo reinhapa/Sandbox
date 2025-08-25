@@ -138,7 +138,7 @@ spotless {
   java {
     ratchetFrom('origin/master')
     licenseHeaderFile('gradle/LICENSE_HEADER').yearSeparator(', ').skipLinesMatching('.+File Name: .+')
-    googleJavaFormat()
+    eclipse().configFile('gradle/spotless-style.xml')
     importOrder('java', 'javax', 'jakarta', 'org', 'com')
     removeUnusedImports()
     targetExclude('**/generate-resources/main/src/gen/java/**')
