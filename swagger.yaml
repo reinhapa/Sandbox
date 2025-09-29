@@ -148,6 +148,9 @@ definitions:
         description: id of the taks
         example: e1cb23d0-6cbe-4a29-b586-bfa424bc93fd
         type: string
+      binary-data:
+        type: string
+        format: byte
     required:
       - description
   Error:

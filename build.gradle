@@ -28,7 +28,7 @@ javadoc {
 repositories {
   mavenCentral()
   maven {
-    url = 'https://oss.sonatype.org/content/repositories/snapshots'
+    url = 'https://central.sonatype.com/repository/maven-snapshots/'
   }
 }
 
@@ -218,7 +218,7 @@ openApiGenerate {
 }
 
 openApiValidate {
-  inputSpec = "$rootDir/swagger.yaml".toString()
+  inputSpec = "$rootDir/swagger.yaml"
 }
 
 jar {
