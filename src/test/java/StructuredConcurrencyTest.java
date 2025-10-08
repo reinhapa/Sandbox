@@ -58,6 +58,12 @@ class StructuredConcurrencyTest {
   }
 
   void childTask3() {
-    System.out.println(NAME.orElse("unkown"));
+    IO.println(NAME.orElse("unkown"));
+    ScopedValue.where(NAME, "johndoe").run(this::subTask);
+    IO.println(NAME.orElse("unkown"));
+  }
+
+  void subTask() {
+    IO.println(NAME.orElse("unkown"));
   }
 }
