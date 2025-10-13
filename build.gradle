@@ -129,7 +129,7 @@ dependencies {
   testRuntimeOnly 'org.junit.platform:junit-platform-jfr:1.14.0'
   testRuntimeOnly 'org.junit.platform:junit-platform-runner:1.14.0', { exclude group: "junit", module: "junit" }
   testRuntimeOnly 'org.junit.platform:junit-platform-console:1.14.0'
-  testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.13.4'
+  testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:6.0.0'
   testRuntimeOnly "org.slf4j:jcl-over-slf4j:2.0.17"
   testRuntimeOnly 'org.eclipse:yasson:3.0.4'
 }
