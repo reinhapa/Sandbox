@@ -35,9 +35,9 @@ class StructuredConcurrencyTest {
               try (var scope = StructuredTaskScope.open()) {
                 IO.println(NAME.orElse("unkown"));
 
-                scope.fork(() -> childTask1());
-                scope.fork(() -> childTask2());
-                scope.fork(() -> childTask3());
+                scope.fork(this::childTask1);
+                scope.fork(this::childTask2);
+                scope.fork(this::childTask3);
 
                 scope.join();
 
