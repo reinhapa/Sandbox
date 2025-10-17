@@ -2,12 +2,12 @@ plugins {
   id 'java-library'
   id 'war'
   id 'eclipse-wtp'
-  id 'com.github.ben-manes.versions' version '0.52.0'
+  id 'com.github.ben-manes.versions' version '0.53.0'
   id 'com.google.osdetector' version '1.7.3'
   id 'com.diffplug.spotless' version '8.0.0'
   id 'net.nemerosa.versioning' version '3.1.0'
-  id 'org.openapi.generator' version '7.15.0'
-  id 'org.owasp.dependencycheck' version '12.1.6'
+  id 'org.openapi.generator' version '7.16.0'
+  id 'org.owasp.dependencycheck' version '12.1.8'
 }
 
 group = 'net.reini'
@@ -40,9 +40,9 @@ configurations {
 dependencies {
   api 'org.slf4j:slf4j-api:2.0.17'
 
-  jdbcDrivers 'com.h2database:h2:2.3.232'
+  jdbcDrivers 'com.h2database:h2:2.4.240'
   jdbcDrivers 'com.oracle.database.jdbc:ojdbc10:19.28.0.0'
-  jdbcDrivers 'com.oracle.database.jdbc:ojdbc11:21.16.0.0'
+  jdbcDrivers 'com.oracle.database.jdbc:ojdbc11:23.9.0.25.07'
   jdbcDrivers 'com.oracle.database.jdbc:ojdbc17:23.9.0.25.07'
   jdbcDrivers 'org.postgresql:postgresql:42.7.8'
 
@@ -54,9 +54,9 @@ dependencies {
   implementation 'org.apache.commons:commons-pool2:2.12.1'
   implementation 'org.bouncycastle:bcprov-jdk18on:1.82'
   implementation 'org.bouncycastle:bcpkix-jdk18on:1.82'
-  implementation 'org.eclipse.jgit:org.eclipse.jgit:7.3.0.202506031305-r'
+  implementation 'org.eclipse.jgit:org.eclipse.jgit:7.4.0.202509020913-r'
   implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
-  implementation 'org.ehcache:ehcache:3.11.0:jakarta'
+  implementation 'org.ehcache:ehcache:3.11.1:jakarta'
   implementation 'org.glassfish.jersey.core:jersey-client:3.1.11'
   implementation 'org.jfree:jfreechart:1.5.6'
 
@@ -69,14 +69,14 @@ dependencies {
   implementation 'org.eclipse.microprofile.metrics:microprofile-metrics-api:5.1.2'
   implementation 'org.eclipse.microprofile.openapi:microprofile-openapi-api:4.1'
 
-  runtimeOnly 'io.smallrye.config:smallrye-config:3.13.4'
+  runtimeOnly 'io.smallrye.config:smallrye-config:3.14.1'
   runtimeOnly 'io.smallrye:smallrye-metrics:5.1.0'
   runtimeOnly 'org.eclipse:yasson:3.0.4'
 
   implementation 'org.graalvm.polyglot:polyglot:25.0.0'
   implementation 'org.graalvm.polyglot:python:25.0.0'
 
-  implementation 'org.apache.activemq:artemis-jakarta-client:2.42.0'
+  implementation 'org.apache.activemq:artemis-jakarta-client:2.43.0'
   implementation 'org.apache.activemq.rest:artemis-rest:2.25.0'
 
   implementation 'org.jboss.weld.se:weld-se-core:6.0.3.Final'
@@ -91,11 +91,11 @@ dependencies {
   // ssh
   implementation 'org.apache.sshd:sshd-cli:2.16.0'
 
-  compileOnly 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
+  compileOnly 'jakarta.platform:jakarta.jakartaee-api:11.0.0'
   compileOnly 'jakarta.ws.rs:jakarta.ws.rs-api:4.0.0'
   compileOnly 'jakarta.websocket:jakarta.websocket-client-api:2.2.0'
 
-  runtimeOnly 'ch.qos.logback:logback-classic:1.5.18'
+  runtimeOnly 'ch.qos.logback:logback-classic:1.5.19'
   runtimeOnly 'org.glassfish.jaxb:jaxb-runtime:4.0.6'
   runtimeOnly 'org.glassfish.jersey.core:jersey-client:3.1.11'
   runtimeOnly 'org.glassfish.jersey.media:jersey-media-json-binding:3.1.11'
@@ -118,9 +118,9 @@ dependencies {
   testImplementation 'jakarta.websocket:jakarta.websocket-client-api:2.2.0'
   testImplementation 'org.codehaus.izpack:izpack-installer:6.0.0-SNAPSHOT'
 
-  testRuntimeOnly 'ch.qos.logback:logback-classic:1.5.18'
+  testRuntimeOnly 'ch.qos.logback:logback-classic:1.5.19'
   testRuntimeOnly 'com.tngtech.archunit:archunit-junit5:1.4.1'
-  testRuntimeOnly 'jakarta.platform:jakarta.jakartaee-api:10.0.0'
+  testRuntimeOnly 'jakarta.platform:jakarta.jakartaee-api:11.0.0'
   testRuntimeOnly 'org.glassfish.jaxb:jaxb-runtime:4.0.6'
   testRuntimeOnly 'org.glassfish.jersey.core:jersey-client:3.1.11'
   testRuntimeOnly 'org.glassfish.jersey.media:jersey-media-json-binding:3.1.11'
@@ -128,7 +128,7 @@ dependencies {
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:6.0.0'
   testRuntimeOnly 'org.junit.platform:junit-platform-jfr:1.14.0'
   testRuntimeOnly 'org.junit.platform:junit-platform-runner:1.14.0', { exclude group: "junit", module: "junit" }
-  testRuntimeOnly 'org.junit.platform:junit-platform-console:1.14.0'
+  testRuntimeOnly 'org.junit.platform:junit-platform-console:6.0.0'
   testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:6.0.0'
   testRuntimeOnly "org.slf4j:jcl-over-slf4j:2.0.17"
   testRuntimeOnly 'org.eclipse:yasson:3.0.4'
