@@ -171,7 +171,7 @@ tasks.withType(JavaCompile).each {
 tasks.withType(Test).each {
   it.useJUnitPlatform()
   it.systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
-  it.jvmArgs += "-XX:StartFlightRecording:filename=${layout.buildDirectory.get().asFile}/reports/${name}.jfr"
+  it.jvmArgs += "-XX:StartFlightRecording:dumponexit=true,filename=${layout.buildDirectory.get().asFile}/reports/${name}.jfr"
   it.jvmArgs += '--enable-preview'
   it.testLogging {
     events 'failed', 'skipped', 'passed'
