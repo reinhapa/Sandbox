@@ -1,172 +1,540 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
-  version: 1.0.0
-  title: A TODO-Task list application
-  description: A simple application to handle tasks.
-host: 'localhost:8080'
-basePath: /todoapp
-schemes:
-  - http
-consumes:
-  - application/json
-produces:
-  - application/json
-paths:
-  /task:
-    get:
-      description: Get the list of all tasks
-      summary: Get the list of all tasks
-      tags:
-        - task
-      operationId: TaskGet
-      produces:
-        - application/json
-      parameters: []
-      responses:
-        '200':
-          description: List of all tasks
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Task'
-        default:
-          description: Generic error response
-          schema:
-            $ref: '#/definitions/Error'
-    post:
-      description: Create a new task
-      summary: Create a new task
-      tags:
-        - task
-      operationId: TaskPost
-      produces:
-        - application/json
-      parameters:
-        - name: body
-          in: body
-          required: false
-          description: ''
-          schema:
-            $ref: '#/definitions/Task'
-      responses:
-        '200':
-          description: The created task
-          schema:
-            $ref: '#/definitions/Task'
-        default:
-          description: Generic error response
-          schema:
-            $ref: '#/definitions/Error'
-  '/task/{taskId}':
-    get:
-      description: Get a single task based on its id
-      summary: Get a single task based on its id
-      tags:
-        - task
-      operationId: TaskByTaskIdGet
-      produces:
-        - application/json
-      parameters:
-        - name: taskId
-          in: path
-          required: true
-          type: string
-          description: The id of the task
-      responses:
-        '200':
-          description: Ok
-          schema:
-            $ref: '#/definitions/Task'
-        default:
-          description: Generic error response
-          schema:
-            $ref: '#/definitions/Error'
-    put:
-      description: Update an existing task
-      summary: Update an existing task
-      tags:
-        - task
-      operationId: TaskByTaskIdPut
-      produces:
-        - application/json
-      parameters:
-        - name: taskId
-          in: path
-          required: true
-          type: string
-          description: The id of the task
-        - name: body
-          in: body
-          required: false
-          description: ''
-          schema:
-            $ref: '#/definitions/Task'
-      responses:
-        '200':
-          description: The updated task
-          schema:
-            $ref: '#/definitions/Task'
-        default:
-          description: Generic error response
-          schema:
-            $ref: '#/definitions/Error'
-    delete:
-      description: Delete an existing task
-      summary: Delete an existing task
-      tags:
-        - task
-      operationId: TaskByTaskIdDelete
-      produces:
-        - application/json
-      parameters:
-        - name: taskId
-          in: path
-          required: true
-          type: string
-          description: The id of the task
-      responses:
-        '204':
-          description: Task deleted response
-        default:
-          description: Generic error response
-          schema:
-            $ref: '#/definitions/Error'
-definitions:
-  Task:
-    title: Task
-    description: Object representing a Task
-    type: object
-    properties:
-      completed:
-        description: indicates if a taks is completed or not
-        type: boolean
-      description:
-        description: description of the task
-        example: My important task
-        type: string
-      id:
-        description: id of the taks
-        example: e1cb23d0-6cbe-4a29-b586-bfa424bc93fd
-        type: string
-      binary-data:
-        type: string
-        format: byte
-    required:
-      - description
-  Error:
-    title: Error
-    description: Object representing an error
-    type: object
-    properties:
-      code:
-        description: Error code that identify of the error
-        example: 1000
-        type: integer
-        format: int32
-      message:
-        description: Short description of the error
-        example: Could not perform the task
-        type: string
+  version: 'v2'
+  title: OMS API
+  description: This document describes the interface to the OMS Application.
+servers:
+  - url: /rest/v2
 tags:
-  - name: task
-    description: Task management
+  - name: OMS Output Management System
+    description: "Endpoint(s) for submitting output jobs"
+paths:
+  /omsjob/submitJob:
+    post:
+      tags:
+        - SubmitJob
+      operationId: submitJob
+      summary: submits an job
+      description: Submits an output job, consisting of processing step(s).
+      parameters:
+        - name: language
+          in: query
+          description: the locale language for bytes rendering
+          required: false
+          schema:
+            type: string
+        - name: priority
+          in: query
+          description: the job priority
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 10
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OmsJobInput'
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OmsJobOutput'
+        204:
+          description: The request was processed successfully
+        400:
+          $ref: '#/components/responses/NotValid'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+  /omstemplate/store/{templateId}:
+    post:
+      tags:
+        - Template
+      operationId: storeTemplate
+      summary: store a template
+      description: store an existing template. Either a new version of an existing, or a new template.
+      parameters:
+        - name: templateId
+          in: path
+          description: uuid of the template
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 73eaf474-338d-4684-b8f7-ee45617a13a3
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OmsTemplateInput'
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OmsTemplateOutput'
+        400:
+          $ref: '#/components/responses/NotValid'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: User is not authorized to use the Endpoint
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralError'
+    NotValid:
+      description: The request is not valid. Please double-check your request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralError'
+    NotFound:
+      description: The requested resource can't be found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralError'
+  schemas:
+    GeneralError:
+      type: object
+      required:
+        - correlationId
+        - message
+      properties:
+        correlationId:
+          type: string
+          format: UUID
+          example: 73eaf474-338d-4684-b8f7-ee45617a13a3
+        message:
+          type: string
+          example: An unexpected error occurred. Please contact support.
+        stackTrace:
+          type: string
+        jdbcUrl:
+          type: string
+        omsHost:
+          type: string
+    InputFile:
+      type: object
+      required:
+        - fileData
+        - documentId
+        - fileFormat
+      properties:
+        fileData:
+          description: File Data
+          type: string
+          format: byte
+          example: PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLSBDcmVhdGVkIHdpdGggSmFzcGVyc2
+          nullable: false
+        documentId:
+          $ref: '#/components/schemas/DocumentId'
+        fileFormat:
+          description: format of the fileData
+          type: string
+          default: PDF
+          enum:
+            - PDF
+            - TXT
+          nullable: false
+    DocumentId:
+      description: id of the document corresponding the file
+      type: string
+      minLength: 1
+      example: "a"
+      nullable: false
+    OmsJobOutput:
+      type: object
+      required:
+        - documents
+      properties:
+        documents:
+          type: array
+          items:
+            required:
+              - id
+              - content
+              - contentFormat
+            properties:
+              id:
+                type: string
+                description: corresponds to a document id of the request input
+              content:
+                type: string
+                format: byte
+                description: base64 encoding of the content to be rendered
+              contentFormat:
+                type: string
+                description: format of the content
+                default: PDF
+                enum:
+                  - PDF
+                  - HTML
+                  - PNG
+                  - TXT
+    Dimensions:
+      type: object
+      description: Contains information about where and how the image should overlay the document
+      properties:
+        coordX:
+          type: integer
+          description: image starting anchor X-coordinate in pixels
+          nullable: true
+          default: 0
+        coordY:
+          type: integer
+          description: image starting anchor Y-coordinate in pixels
+          nullable: true
+          default: 0
+        maxWidth:
+          type: integer
+          description: set the maximum pixel-width and preserve aspect ratio of the image
+        maxHeight:
+          type: integer
+          description: set the maximum pixel-height and preserve aspect ratio of the image
+    Images:
+      type: object
+      required:
+        - uri
+      properties:
+        uri:
+          type: URI
+          description: url-string of the image
+        pages:
+          type: array
+          items:
+            type: string
+          description: pages included in pdf layering
+        dimensions:
+          $ref: '#/components/schemas/Dimensions'
+    OmsJobInput:
+      type: object
+      required:
+        - steps
+      properties:
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobStep'
+          minItems: 1
+          description: an array containing the work-steps
+        outputDocuments:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentId'
+          description: an array containing the documents to return
+          nullable: true
+    JobStep:
+      description: One (and only one) of properties should be defined per JobStep object
+      properties:
+        documentInput:
+          $ref: '#/components/schemas/DocumentInput'
+        pdfMerging:
+          $ref: '#/components/schemas/PDFMerging'
+        convertFromPdf:
+          $ref: '#/components/schemas/ConvertPDF'
+        pdfLayering:
+          $ref: '#/components/schemas/PDFLayering'
+        pdfWatermarking:
+          $ref: '#/components/schemas/PDFWatermarking'
+        emailing:
+          $ref: '#/components/schemas/Emailing'
+        jasperRendering:
+          $ref: '#/components/schemas/JasperRendering'
+        crystalRendering:
+          $ref: '#/components/schemas/CrystalRendering'
+        deviceOutput:
+          $ref: '#/components/schemas/DeviceOutput'
+    DocumentInput:
+      required:
+        - inputFiles
+      properties:
+        inputFiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputFile'
+          minItems: 1
+          description: an array containing the input files
+    PDFMerging:
+      required:
+        - inputDocumentIds
+        - outputDocumentId
+      properties:
+        inputDocumentIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentId'
+          minItems: 2
+          example: [ "a","b" ]
+        outputDocumentId:
+          $ref: '#/components/schemas/DocumentId'
+    ConvertPDF:
+      required:
+        - inputDocumentIds
+        - outputFormat
+      properties:
+        inputDocumentIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentId'
+          minItems: 1
+          example: [ "a","b" ]
+        outputFormat:
+          description: the format of the rendered artifact
+          type: string
+          enum:
+            - HTML
+            - PNG
+    PDFLayering:
+      required:
+        - inputDocumentIds
+        - images
+        - outputDocumentIds
+      properties:
+        inputDocumentIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentId'
+          minItems: 1
+          example: [ "inputA","inputB" ]
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Images'
+          description: Containing the URI, included pages and image dimensions.
+          minItems: 1
+        outputDocumentIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentId'
+          minItems: 1
+          example: [ "outputA","outputB" ]
+    PDFWatermarking:
+      required:
+        - watermarkText
+        - documentIds
+      properties:
+        watermarkText:
+          description: Text to be used as a watermark
+          type: string
+        documentIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentId'
+          example: [ "a","b" ]
+    Emailing:
+      required:
+        - inputDocumentIds
+        - recipients
+      properties:
+        bodyText:
+          description: Text for the mail body. If omitted, the fist inputDocument will be used as body.
+          type: string
+        inputDocumentIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentId'
+          example: [ "a","b" ]
+        subject:
+          description: Text for the mail subject.
+          type: string
+          example: "Vielen Dank für Ihre Bestellanfrage"
+        sender:
+          description: Text for the mail subject.
+          type: string
+          example: "no-reply@fenaco.com"
+        recipients:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          example: [ "gustaf.hansen@bison-group.com", "kristoffer.scheyer@bison-group.com" ]
+    JasperTemplateData:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          description: Byte data in the form of an xml or json file with base64 encoding.
+          type: string
+          format: byte    # base64-encoded file contents
+          maxLength: 5000000
+          example: PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLSBDcmVhdGVkIHdpdGggSmFzcGVyc2
+        contentType:
+          description: The content type of the byte data. Will be treated as XML if empty.
+          type: string
+          enum: [ XML, JSON, BINARY ]
+          example: XML
+    JasperRendering:
+      type: object
+      required:
+        - templateData
+        - templateId
+      properties:
+        templateData:
+          type: array
+          items:
+            $ref: '#/components/schemas/JasperTemplateData'
+          minItems: 1
+          description: an array of bytes data items.
+        templateId:
+          description: The Jasper bytes ID to be used to render the report.
+          type: string
+          format: UUID
+          example: a8302d03-c5ab-4ead-8d32-282432aa6f11
+        outputFormat:
+          description: the format of the rendered artifact
+          type: string
+          default: PDF
+          enum:
+            - PDF
+            - HTML
+            - PNG
+        reportProperties:
+          type: object
+          additionalProperties:
+            type: string
+        outputDocumentIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentId'
+          example: [ "a","b" ]
+    CrystalRendering:
+      type: object
+      required:
+        - parameters
+      description: parameters for Crytal rendering. Either template data has to be delivered or templateId
+      properties:
+        parameters:
+          type: object
+          additionalProperties:
+            type: string
+        templateId:
+          description: The Crystal bytes ID to be used to render the report.
+          type: string
+          format: UUID
+          example: a8302d03-c5ab-4ead-8d32-282432aa6f11
+        mandant:
+          description: mandant
+          type: string
+          maxLength: 100
+          nullable: false
+          example: LANDI
+        version:
+          type: string
+          maxLength: 100
+          example: 2
+        templateData:
+          description: Byte data with base64 encoding.
+          type: string
+          format: byte    # base64-encoded file contents
+          maxLength: 5000000
+          example: PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLSBDcmVhdGVkIHdpdGggSmFzcGVyc2
+        outputDocumentId:
+          description: The id of the generated document
+          type: string
+          example: "id_1"
+    DeviceOutput:
+      type: object
+      required:
+        - documentIds
+        - device
+      description: use this step to get a device (typically a printer) processing documents
+      properties:
+        documentIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentId'
+          minItems: 1
+          example: [ "a","b" ]
+        device:
+          description: name of the device
+          type: string
+          maxLength: 1000
+          nullable: false
+          example: main-printer
+    OmsTemplateInput:
+      type: object
+      required:
+        - mandant
+        - reportName
+        - templateData
+      properties:
+        mandant:
+          description: mandant
+          type: string
+          maxLength: 100
+          nullable: false
+          example: LANDI
+        reportName:
+          type: string
+          maxLength: 100
+          example: Test_FormReport_DB_FLD
+        templateData:
+          description: Byte data with base64 encoding.
+          type: string
+          format: byte    # base64-encoded file contents
+          maxLength: 5000000
+          example: PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLSBDcmVhdGVkIHdpdGggSmFzcGVyc2
+        engine:
+          description: the engine of the template
+          type: string
+          default: Jasper
+          enum:
+            - Jasper
+            - Crystal
+        reportNumber:
+          type: string
+          maxLength: 100
+          example: 17196
+        userName:
+          description: endUserName associated with the template version
+          type: string
+          maxLength: 50
+          example: ZISW
+        typeName:
+          description: template type
+          type: string
+          default: Form
+          enum:
+            - Form
+            - Selection
+    OmsTemplateOutput:
+      type: object
+      required:
+        - uuid
+        - hashValue
+        - version
+      properties:
+        uuid:
+          description: uuid of the template
+          type: string
+          format: uuid
+          example: 73eaf474-338d-4684-b8f7-ee45617a13a3
+        hashValue:
+          type: string
+          maxLength: 1000
+          example: 74a5dcb013206e4cdd2723fd016431cc
+        version:
+          type: string
+          maxLength: 100
+          example: 2
+        reportName:
+          type: string
+          maxLength: 100
+          example: Test_FormReport_DB_FLD
+        mandant:
+          description: mandant
+          type: string
+          maxLength: 100
+          nullable: false
+          example: LANDI
