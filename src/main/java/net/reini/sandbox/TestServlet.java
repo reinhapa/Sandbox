@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -37,7 +37,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class TestServlet extends HttpServlet {
   @Serial private static final long serialVersionUID = 1L;
 
-  @Inject @SpecialVersion Functions functions;
+  @Inject @SpecialVersion transient Functions functions;
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)

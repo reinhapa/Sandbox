@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -23,8 +23,12 @@ package net.reini.concurrent;
 
 import java.util.concurrent.TimeUnit;
 
+/** Implements the {@link ExecutorServiceMonitorMXBean}. */
 public class ExecutorServiceMonitor implements ExecutorServiceMonitorMXBean {
   InstrumentedThreadPoolExecutor threadPool;
+
+  /** Default constructor */
+  public ExecutorServiceMonitor() {}
 
   long fromNanoToSeconds(long nanos) {
     return TimeUnit.NANOSECONDS.toSeconds(nanos);
@@ -61,12 +65,13 @@ public class ExecutorServiceMonitor implements ExecutorServiceMonitorMXBean {
 
   @Override
   public double getRatioOfDeadTimeToResponseTime() {
-    double poolTime = this.threadPool.getTotalPoolTime();
-    return poolTime / (poolTime + threadPool.getTotalServiceTime());
+    double poolTime = (double) this.threadPool.getTotalPoolTime();
+    return poolTime / (poolTime + (double) threadPool.getTotalServiceTime());
   }
 
   @Override
   public double v() {
-    return getEstimatedAverageNumberOfActiveRequests() / Runtime.getRuntime().availableProcessors();
+    return getEstimatedAverageNumberOfActiveRequests()
+        / (double) Runtime.getRuntime().availableProcessors();
   }
 }

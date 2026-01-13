@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -33,6 +33,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 
+/** Implements the controller for the JavaFX application. */
 public class Controller implements Initializable {
   final ImportService importService;
 
@@ -46,6 +47,7 @@ public class Controller implements Initializable {
   @FXML Button cancelBtn;
   @FXML Label statusMessage;
 
+  /** Default constructor initializing the controller. */
   public Controller() {
     importService = new ImportService();
   }
@@ -71,11 +73,13 @@ public class Controller implements Initializable {
     jdbcPassword.setText("mirexal");
   }
 
+  /** Starts the import process. */
   @FXML
   public void startImport() {
     importService.restart();
   }
 
+  /** Cancels the import process. */
   @FXML
   public void cancelImport() {
     importService.cancel();

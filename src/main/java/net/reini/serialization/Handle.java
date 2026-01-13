@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -21,13 +21,24 @@
 
 package net.reini.serialization;
 
+/** Simple handle definition. */
 public class Handle {
   private final String id;
 
+  /**
+   * Constructs a handle using the given id.
+   *
+   * @param id the handle id
+   */
   public Handle(String id) {
     this.id = id;
   }
 
+  /**
+   * Returns the id of the current handle.
+   *
+   * @return the handle id
+   */
   public String getId() {
     return id;
   }
