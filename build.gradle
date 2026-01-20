@@ -73,8 +73,8 @@ dependencies {
   runtimeOnly 'io.smallrye:smallrye-metrics:5.1.0'
   runtimeOnly 'org.eclipse:yasson:3.0.4'
 
-  implementation 'org.graalvm.polyglot:polyglot:25.0.1'
-  implementation 'org.graalvm.polyglot:python:25.0.1'
+  implementation 'org.graalvm.polyglot:polyglot:25.0.2'
+  implementation 'org.graalvm.polyglot:python:25.0.2'
 
   implementation 'org.apache.activemq:artemis-jakarta-client:2.44.0'
   implementation 'org.apache.activemq.rest:artemis-rest:2.25.0'
