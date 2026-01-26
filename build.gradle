@@ -4,7 +4,7 @@ plugins {
   id 'eclipse-wtp'
   id 'com.github.ben-manes.versions' version '0.53.0'
   id 'com.google.osdetector' version '1.7.3'
-  id 'com.diffplug.spotless' version '8.1.0'
+  id 'com.diffplug.spotless' version '8.2.0'
   id 'net.nemerosa.versioning' version '3.1.0'
   id 'org.openapi.generator' version '7.19.0'
   id 'org.owasp.dependencycheck' version '12.2.0'
@@ -57,7 +57,7 @@ dependencies {
   implementation 'org.eclipse.jgit:org.eclipse.jgit:7.5.0.202512021534-r'
   implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
   implementation 'org.ehcache:ehcache:3.11.1:jakarta'
-  implementation 'org.glassfish.jersey.core:jersey-client:4.0.0'
+  implementation 'org.glassfish.jersey.core:jersey-client:4.0.1'
   implementation 'org.jfree:jfreechart:1.5.6'
 
   implementation 'jakarta.activation:jakarta.activation-api:2.1.4'
@@ -76,7 +76,7 @@ dependencies {
   implementation 'org.graalvm.polyglot:polyglot:25.0.2'
   implementation 'org.graalvm.polyglot:python:25.0.2'
 
-  implementation 'org.apache.activemq:artemis-jakarta-client:2.44.0'
+  implementation 'org.apache.activemq:artemis-jakarta-client:2.50.0'
   implementation 'org.apache.activemq.rest:artemis-rest:2.25.0'
 
   implementation 'org.jboss.weld.se:weld-se-core:6.0.4.Final'
@@ -89,18 +89,18 @@ dependencies {
   implementation "org.openjfx:javafx-graphics:23.0.2:$platform"
 
   // ssh
-  implementation 'org.apache.sshd:sshd-cli:2.16.0'
+  implementation 'org.apache.sshd:sshd-cli:2.17.0'
 
   compileOnly 'jakarta.platform:jakarta.jakartaee-api:11.0.0'
   compileOnly 'jakarta.ws.rs:jakarta.ws.rs-api:4.0.0'
   compileOnly 'jakarta.websocket:jakarta.websocket-client-api:2.2.0'
 
-  runtimeOnly 'ch.qos.logback:logback-classic:1.5.25'
+  runtimeOnly 'ch.qos.logback:logback-classic:1.5.26'
   runtimeOnly 'org.glassfish.jaxb:jaxb-runtime:4.0.6'
-  runtimeOnly 'org.glassfish.jersey.core:jersey-client:4.0.0'
-  runtimeOnly 'org.glassfish.jersey.media:jersey-media-json-binding:4.0.0'
-  runtimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:2.2.1'
-  runtimeOnly 'org.glassfish.jersey.inject:jersey-hk2:4.0.0'
+  runtimeOnly 'org.glassfish.jersey.core:jersey-client:4.0.1'
+  runtimeOnly 'org.glassfish.jersey.media:jersey-media-json-binding:4.0.1'
+  runtimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:2.2.2'
+  runtimeOnly 'org.glassfish.jersey.inject:jersey-hk2:4.0.1'
   runtimeOnly 'org.slf4j:jcl-over-slf4j:2.0.17'
   runtimeOnly "org.slf4j:jul-to-slf4j:2.0.17"
 
@@ -108,7 +108,7 @@ dependencies {
   testImplementation 'com.tngtech.archunit:archunit-junit5-api:1.4.1'
   testImplementation 'easymock:easymock:2.0'
   testImplementation 'net.jqwik:jqwik:1.9.3'
-  testImplementation 'org.assertj:assertj-core:3.27.6'
+  testImplementation 'org.assertj:assertj-core:3.27.7'
   testImplementation 'org.jmockit:jmockit:1.50'
   testImplementation 'org.junit.jupiter:junit-jupiter-api:6.0.2'
   testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:6.0.2'
@@ -118,13 +118,13 @@ dependencies {
   testImplementation 'jakarta.websocket:jakarta.websocket-client-api:2.2.0'
   testImplementation 'org.codehaus.izpack:izpack-installer:6.0.0-SNAPSHOT'
 
-  testRuntimeOnly 'ch.qos.logback:logback-classic:1.5.25'
+  testRuntimeOnly 'ch.qos.logback:logback-classic:1.5.26'
   testRuntimeOnly 'com.tngtech.archunit:archunit-junit5:1.4.1'
   testRuntimeOnly 'jakarta.platform:jakarta.jakartaee-api:11.0.0'
   testRuntimeOnly 'org.glassfish.jaxb:jaxb-runtime:4.0.6'
-  testRuntimeOnly 'org.glassfish.jersey.core:jersey-client:4.0.0'
-  testRuntimeOnly 'org.glassfish.jersey.media:jersey-media-json-binding:4.0.0'
-  testRuntimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:2.2.1'
+  testRuntimeOnly 'org.glassfish.jersey.core:jersey-client:4.0.1'
+  testRuntimeOnly 'org.glassfish.jersey.media:jersey-media-json-binding:4.0.1'
+  testRuntimeOnly 'org.glassfish.tyrus.bundles:tyrus-standalone-client:2.2.2'
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:6.0.2'
   testRuntimeOnly 'org.junit.platform:junit-platform-jfr:1.14.2'
   testRuntimeOnly 'org.junit.platform:junit-platform-runner:1.14.2', { exclude group: "junit", module: "junit" }
