@@ -4,7 +4,7 @@ plugins {
   id 'eclipse-wtp'
   id 'com.github.ben-manes.versions' version '0.53.0'
   id 'com.google.osdetector' version '1.7.3'
-  id 'com.diffplug.spotless' version '8.2.0'
+  id 'com.diffplug.spotless' version '8.2.1'
   id 'net.nemerosa.versioning' version '3.1.0'
   id 'org.openapi.generator' version '7.19.0'
   id 'org.owasp.dependencycheck' version '12.2.0'
@@ -89,7 +89,7 @@ dependencies {
   implementation "org.openjfx:javafx-graphics:23.0.2:$platform"
 
   // ssh
-  implementation 'org.apache.sshd:sshd-cli:2.16.0'
+  implementation 'org.apache.sshd:sshd-cli:2.17.1'
 
   compileOnly 'jakarta.platform:jakarta.jakartaee-api:11.0.0'
   compileOnly 'jakarta.ws.rs:jakarta.ws.rs-api:4.0.0'
@@ -113,7 +113,7 @@ dependencies {
   testImplementation 'org.junit.jupiter:junit-jupiter-api:6.0.2'
   testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:6.0.2'
   testImplementation 'org.mockito:mockito-junit-jupiter:5.21.0'
-  testImplementation 'org.shredzone.acme4j:acme4j-client:3.5.1'
+  testImplementation 'org.shredzone.acme4j:acme4j-client:4.0.0'
 
   testImplementation 'jakarta.websocket:jakarta.websocket-client-api:2.2.0'
   testImplementation 'org.codehaus.izpack:izpack-installer:6.0.0-SNAPSHOT'
