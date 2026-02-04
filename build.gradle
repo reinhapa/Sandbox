@@ -42,8 +42,8 @@ dependencies {
 
   jdbcDrivers 'com.h2database:h2:2.4.240'
   jdbcDrivers 'com.oracle.database.jdbc:ojdbc10:19.29.0.0'
-  jdbcDrivers 'com.oracle.database.jdbc:ojdbc11:23.26.0.0.0'
-  jdbcDrivers 'com.oracle.database.jdbc:ojdbc17:23.26.0.0.0'
+  jdbcDrivers 'com.oracle.database.jdbc:ojdbc11:23.26.1.0.0'
+  jdbcDrivers 'com.oracle.database.jdbc:ojdbc17:23.26.1.0.0'
   jdbcDrivers 'org.postgresql:postgresql:42.7.9'
 
   implementation 'com.airhacks:afterburner.fx:1.7.0'
