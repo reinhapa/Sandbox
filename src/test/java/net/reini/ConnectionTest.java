@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2026 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -75,7 +75,8 @@ class ConnectionTest {
             .version(HTTP_1_1)
             .followRedirects(NORMAL)
             .connectTimeout(Duration.ofSeconds(5)) //
-            .proxy(ProxySelector.getDefault()) //
+            .proxy(ProxySelector.getDefault()) // set 'java.net.useSystemProxies' system property to
+            // 'true' if needed
             // .proxy(ProxySelector.of(new InetSocketAddress("localhost", 3128)))
             // .authenticator(Authenticator.getDefault())
             .build();
