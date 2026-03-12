@@ -112,7 +112,7 @@ dependencies {
   testImplementation 'org.jmockit:jmockit:1.50'
   testImplementation 'org.junit.jupiter:junit-jupiter-api:6.0.3'
   testImplementation 'org.junit.jupiter:junit-jupiter-migrationsupport:6.0.3'
-  testImplementation 'org.mockito:mockito-junit-jupiter:5.22.0'
+  testImplementation 'org.mockito:mockito-junit-jupiter:5.23.0'
   testImplementation 'org.shredzone.acme4j:acme4j-client:5.0.0'
 
   testImplementation 'jakarta.websocket:jakarta.websocket-client-api:2.2.0'
