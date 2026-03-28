@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+/** Extended thread pool executor supporting additional statistics. */
 public class InstrumentedThreadPoolExecutor extends ThreadPoolExecutor {
   // Keep track of all of the request times
   private final ConcurrentHashMap<Runnable, Long> timeOfRequest = new ConcurrentHashMap<>();
@@ -106,6 +107,8 @@ public class InstrumentedThreadPoolExecutor extends ThreadPoolExecutor {
   }
 
   /**
+   * Returns the aggregated inter request arrival time.
+   *
    * @return the aggregateInterRequestArrivalTime
    */
   public long getAggregateInterRequestArrivalTime() {
@@ -113,6 +116,8 @@ public class InstrumentedThreadPoolExecutor extends ThreadPoolExecutor {
   }
 
   /**
+   * Returns the total pool time.
+   *
    * @return the totalPoolTime
    */
   public long getTotalPoolTime() {
@@ -120,6 +125,8 @@ public class InstrumentedThreadPoolExecutor extends ThreadPoolExecutor {
   }
 
   /**
+   * Returns the total service time.
+   *
    * @return the totalServiceTime
    */
   public long getTotalServiceTime() {
@@ -127,6 +134,8 @@ public class InstrumentedThreadPoolExecutor extends ThreadPoolExecutor {
   }
 
   /**
+   * Returns the number of requests.
+   *
    * @return the numberOfRequests
    */
   public int getNumberOfRequests() {
@@ -134,6 +143,8 @@ public class InstrumentedThreadPoolExecutor extends ThreadPoolExecutor {
   }
 
   /**
+   * Returns the request rate per second retirement rate.
+   *
    * @return the numberOfRequestsRetired
    */
   public int getNumberOfRequestsRetired() {
