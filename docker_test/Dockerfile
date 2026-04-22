@@ -1,2 +1,2 @@
-FROM debian:trixie-20260406
+FROM debian:trixie-20260421
 ADD jenkins_rsa /root/.ssh/id_rsa
