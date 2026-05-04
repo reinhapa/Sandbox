@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -27,10 +27,14 @@ import java.io.Writer;
 
 import jakarta.ejb.Stateless;
 
+/** Default implementation of the {@link Functions} interface. */
 @SpecialVersion
 @Stateless
 public class FunctionsImpl2 implements Functions {
   @Serial private static final long serialVersionUID = 1L;
+
+  /** Default constructor. */
+  public FunctionsImpl2() {}
 
   @Override
   public void output(Writer writer) throws IOException {

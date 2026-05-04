@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -35,6 +35,8 @@ import org.slf4j.LoggerFactory;
 import net.reini.cdi.se.EjbTransactional;
 
 /**
+ * Implements transaction handling using the interceptor pattern.
+ *
  * @author Patrick Reinhart
  */
 @Interceptor
