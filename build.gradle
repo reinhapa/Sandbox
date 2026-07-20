@@ -6,7 +6,7 @@ plugins {
   id 'com.google.osdetector' version '1.7.3'
   id 'com.diffplug.spotless' version '8.8.0'
   id 'net.nemerosa.versioning' version '4.0.1'
-  id 'org.openapi.generator' version '7.23.0'
+  id 'org.openapi.generator' version '7.24.0'
   id 'org.owasp.dependencycheck' version '12.2.2'
 }
 
