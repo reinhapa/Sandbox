@@ -2,12 +2,12 @@ plugins {
   id 'java-library'
   id 'war'
   id 'eclipse-wtp'
-  id 'com.github.ben-manes.versions' version '0.58.0'
+  id 'com.github.ben-manes.versions' version '0.59.0'
   id 'com.google.osdetector' version '1.7.3'
   id 'com.diffplug.spotless' version '8.9.0'
   id 'net.nemerosa.versioning' version '4.0.1'
   id 'org.openapi.generator' version '7.24.0'
-  id 'org.owasp.dependencycheck' version '12.2.2'
+  id 'org.owasp.dependencycheck' version '13.0.0'
 }
 
 group = 'net.reini'
