@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -29,8 +29,15 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.UUID;
 
+/** Implements a simple RMI echo service server. */
 public class EchoServiceServer {
+  private EchoServiceServer() {}
 
+  /**
+   * Invokes the echo server using the given arguments.
+   *
+   * @param args the command line arguments
+   */
   public static void main(String[] args) {
     try (ServerSocket serverSocket = new ServerSocket(0)) {
       System.out.println(serverSocket.getLocalPort());

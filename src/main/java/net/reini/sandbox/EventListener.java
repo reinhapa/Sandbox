@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -21,6 +21,12 @@
 
 package net.reini.sandbox;
 
+/** Defines a simple event listener. */
 public interface EventListener {
+  /**
+   * Notifies on a given test event.
+   *
+   * @param event the event that is being notified
+   */
   public void onMessage(TestEvent event);
 }

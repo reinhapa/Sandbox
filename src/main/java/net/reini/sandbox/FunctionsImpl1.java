@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -29,20 +29,32 @@ import jakarta.ejb.Stateless;
 import jakarta.enterprise.inject.Default;
 import jakarta.inject.Inject;
 
+/** Default implementation of the {@link Functions} interface. */
 @Default
 @Stateless
 public class FunctionsImpl1 implements Functions {
   @Serial private static final long serialVersionUID = 1L;
 
+  private final String userDir;
+
+  /**
+   * Constructor using the given user directory.
+   *
+   * @param userDir the user directory
+   */
   @Inject
-  @SystemProperty(name = "user.dir")
-  String userDir;
+  public FunctionsImpl1(@SystemProperty(name = "user.dir") String userDir) {
+    this.userDir = userDir;
+  }
 
   @Override
   public void output(Writer writer) throws IOException {
     writer.append(getClass().getName());
   }
 
+  /**
+   * @deprecated demonstration method marked for removal
+   */
   @Deprecated(since = "18.03", forRemoval = true)
   public void toBeRemoved() {
     // no action anymore

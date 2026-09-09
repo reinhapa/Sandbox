@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -34,6 +34,7 @@ import jakarta.interceptor.InvocationContext;
 
 import org.slf4j.Logger;
 
+/** Implements the interceptor for the check annotation. */
 @Check(user = "")
 @Interceptor
 @Priority(Interceptor.Priority.APPLICATION + 200)
@@ -43,6 +44,7 @@ public class CheckHandler {
   @Inject Logger logger;
   @Inject TestDataProducer testDataProducer;
 
+  /** Constructs the interceptor. */
   public CheckHandler() {
     uuids = new ConcurrentHashMap<>();
   }

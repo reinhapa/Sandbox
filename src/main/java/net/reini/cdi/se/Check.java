@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016, 2024 Patrick Reinhart
+ * Copyright (c) 2016, 2025 Patrick Reinhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -31,14 +31,25 @@ import java.lang.annotation.Target;
 import jakarta.enterprise.util.Nonbinding;
 import jakarta.interceptor.InterceptorBinding;
 
+/** Marks a checked part of code using an interceptor. */
 @InterceptorBinding
 @Documented
 @Retention(RUNTIME)
 @Target(TYPE)
 public @interface Check {
+  /**
+   * Defines a non-binding name value
+   *
+   * @return the username
+   */
   @Nonbinding
   String user();
 
+  /**
+   * Defines a non binding password value
+   *
+   * @return the password value
+   */
   @Nonbinding
   String password() default "";
 }
