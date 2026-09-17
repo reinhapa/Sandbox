@@ -2,7 +2,7 @@ plugins {
   id 'java-library'
   id 'war'
   id 'eclipse-wtp'
-  id 'com.github.ben-manes.versions' version '0.63.1'
+  id 'com.github.ben-manes.versions' version '0.64.0'
   id 'com.google.osdetector' version '1.7.3'
   id 'com.diffplug.spotless' version '8.10.2'
   id 'net.nemerosa.versioning' version '4.0.1'
@@ -69,7 +69,7 @@ dependencies {
   implementation 'org.eclipse.microprofile.metrics:microprofile-metrics-api:5.1.2'
   implementation 'org.eclipse.microprofile.openapi:microprofile-openapi-api:4.1.1'
 
-  runtimeOnly 'io.smallrye.config:smallrye-config:3.18.3'
+  runtimeOnly 'io.smallrye.config:smallrye-config:4.0.0'
   runtimeOnly 'io.smallrye:smallrye-metrics:5.1.0'
   runtimeOnly 'org.eclipse:yasson:3.0.5'
 
