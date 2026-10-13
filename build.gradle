@@ -16,7 +16,9 @@ description = "Sandbox project for pure testing purposes"
 ext.platform = osdetector.os == 'osx' ? 'mac' : osdetector.os == 'windows' ? 'win' : osdetector.os
 
 java {
-  sourceCompatibility = JavaVersion.VERSION_25
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(25)
+  }
   withJavadocJar()
   withSourcesJar()
 }
@@ -164,8 +166,17 @@ tasks.named('sourcesJar') {
   dependsOn 'openApiGenerate'
 }
 
-tasks.withType(JavaCompile).each {
-  it.options.compilerArgs.add('--enable-preview')
+tasks.withType(JavaCompile).configureEach {
+  options.release = 25
+  options.compilerArgs += ['--enable-preview']
+}
+
+tasks.withType(Test).configureEach {
+  jvmArgs(['--enable-preview'])
+}
+
+tasks.withType(JavaExec).configureEach {
+  jvmArgs(['--enable-preview'])
 }
 
 tasks.withType(Test).each {
