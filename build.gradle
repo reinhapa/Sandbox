@@ -43,9 +43,9 @@ dependencies {
   api 'org.slf4j:slf4j-api:2.0.20'
 
   jdbcDrivers 'com.h2database:h2:2.5.252'
-  jdbcDrivers 'com.oracle.database.jdbc:ojdbc10:19.32.0.0'
-  jdbcDrivers 'com.oracle.database.jdbc:ojdbc11:23.26.3.0.0'
-  jdbcDrivers 'com.oracle.database.jdbc:ojdbc17:23.26.3.0.0'
+  jdbcDrivers 'com.oracle.database.jdbc:ojdbc10:19.33.0.0'
+  jdbcDrivers 'com.oracle.database.jdbc:ojdbc11:23.26.4.0.0'
+  jdbcDrivers 'com.oracle.database.jdbc:ojdbc17:23.26.4.0.0'
   jdbcDrivers 'org.postgresql:postgresql:42.7.14'
 
   implementation 'com.airhacks:afterburner.fx:1.7.0'
